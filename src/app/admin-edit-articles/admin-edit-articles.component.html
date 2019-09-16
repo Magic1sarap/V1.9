@@ -1,0 +1,171 @@
+<!-- ADMIN NAVBAR -->
+<app-navbar></app-navbar> 
+<!-- END OF ADMIN NAVBAR -->
+
+
+<div class="d-flex" id="wrapper">
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">Admin Dashboard
+    
+        </div>
+        <div class="list-group list-group-flush">
+            <a routerLink="/admin-article" class="list-group-item list-group-item-action bg-light">Articles</a>
+            <a routerLink="/admin" class="list-group-item list-group-item-action bg-light">Create Article</a>
+            <a routerLink="/admin-about" class="list-group-item list-group-item-action bg-light">Edit About</a>
+            <a routerLink="/admin-services" class="list-group-item list-group-item-action bg-light">Edit Services</a>
+        </div>
+    </div>
+
+  
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+          <div class="p-5">
+  
+                  <h1 class="text-center mb-5">Edit Article</h1>
+  
+              <div class="card">
+  
+                  <!-- Card content -->
+                  <div id="update-card" class="card-body">
+                      <div class="row">
+                          <div id="update-card" class="col-md-6 px-5">
+                              <div class="row">
+                                  <div class="col-md-2">
+                                      <div class="card-title">
+                                          <a class="nav-link p-0" href="#">
+                                              <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
+                                                  class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-10">
+                                      <p class="mt-2 font-weight-normal">Justin Wallace<span
+                                              class="font-weight-bold mx-2">·</span>
+                                          a day ago <span class="font-weight-bold mx-2">·</span> 1 min read</p>
+                                  </div>
+                              </div>
+                          </div>
+  
+  
+  
+                          <div id="update-card" class="col-md-6">
+                              <div class="row mb-2">
+                                  <div class="col-md-8">
+                                  </div>
+                                  <div class="col-md-4 text-right mb-4">
+                                      <button class="mt-2 font-weight-normal btn btn-transparent"><i
+                                              class="fas fa-ellipsis-v"></i></button>
+                                  </div>
+                              </div>
+                          </div>
+  
+                      </div>
+                      <!-- Header, Text, Tag and Image display -->
+                      <div class="row px-5">
+                          
+                          
+                              <label for="exampleForm2"></label>
+                              <input placeholder="{{header}}" (input)="onChangeHeaderUpdate($event.target.value)"
+                                  type="text" style="font-size: 36px;" class="form-control">
+  
+  
+                              <div class="form-group shadow-textarea py-4 w-100">
+  
+                                  <!-- <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="10"
+                                      style="width: 100%;"
+                                      (input)="onChangeTextUpdate($event.target.value)">{{text}}</textarea> -->
+                                      <ckeditor [editor]="Editor" data="{{text}}" (change)="change($event)"  [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+                                        heading: { options: [{
+                                            model: 'paragraph', title: 'Paragraph', class: ck-heading_paragraph}]} }"></ckeditor>
+                              </div>
+                              <div id="display-img" class="col-md-12">
+  
+                              <img id="article-image" [src]="image">
+  
+                          </div>
+                              <div class="d-flex social p-3">
+  
+  
+  
+                                  <!-- <div class="form-group">
+  
+  
+                                      
+                                      <img [src]="image">
+                                      <label for="upload-photo" accept="image/*" type="file"
+                                          (input)="onChangeImageUpdate($event.target.value)"><i
+                                              class="fas fa-camera p-3"></i></label>
+                                  </div> -->
+  
+                                  <div class="form-group">
+                                          <label for="upload-photo"><i class="fas fa-camera p-3"></i></label>
+                                          <input type="file" accept="image/*" (change)="changeListener($event)" id="upload-photo"  (input)="onChangeImageUpdate($event.target.value)">
+                                          <!-- <input type="file" accept="image/*"  id="upload-photo"  (input)="onChangeImageUpdate($event.target.value)"> -->
+                                      </div>
+  
+  
+                                  <a><i class="fas fa-video p-3"></i></a>
+                                  <a><i class="fas fa-code p-3"></i></a>
+                              </div>
+                              <label for="exampleForm2"></label>
+                              <input placeholder="{{tag}}" (input)="onChangeTagUpdate($event.target.value)" type="text"
+                                  class="form-control">
+                       
+  
+  
+                          <hr id="card-hr">
+  
+                          <div class="container d-flex social p-3">
+                              <a><i class="fab fa-facebook-f mr-5"></i></a>
+                              <a><i class="fab fa-twitter mr-5"></i></a>
+                              <a><i class="fab fa-linkedin-in"></i></a>
+                          </div>
+  
+                          <hr class="mb-5" id="card-hr">
+  
+                          <div class="row w-100">
+                              <div class="col-md-6">
+  
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                          <button mdbBtn type="button"
+                                              class="btn btn-outline-default btn-md btn-block">Revert to
+                                              Original</button>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <div class="btn-group col-md-6" role="group">
+                                              <!--Update Modal button-->
+  
+                                              <button type="button" class="btn btn-md btn-light relative waves-light"
+                                                  (click)="onSubmit()" mdbWavesEffect>Update</button>
+  
+                                                  <button type="button" class="btn btn-md btn-default"><i
+                                                      class="fas fa-ellipsis-v"></i></button>
+  
+                                          </div>
+                                          
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+  
+                      </div>
+                      <!-- End of Header, Text, Tag and Image display -->
+                      <div>
+                      </div>
+                  </div>
+              </div>
+              <!-- FOOTER SECTION -->
+              <app-footer></app-footer>
+              <!-- END OF FOOTER SECTION -->
+  
+              <!-- /#page-content-wrapper -->
+          </div>
+          <!-- /#wrapper -->
+      </div>
+  
+  </div>
+  
+  

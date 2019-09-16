@@ -1,0 +1,131 @@
+<!-- NAVBAR -->
+<app-navbar></app-navbar>
+<!-- END OF NAVBAR -->
+
+
+
+<br>
+<br>
+<div class="container">
+    <!-- UPCOMING EVENTS SECTION -->
+
+    <h1>Recommended events</h1>
+    <br>
+    <!-- Recommended card scroller -->
+    <!-- <div class="container">
+
+        <div class="card"></div>
+
+        <div class="card active"></div>
+
+        <div class="card"></div>
+
+        <div class="card"></div>
+
+    </div>
+
+    <br> -->
+
+    <div class="md-form form-inline form-sm">
+            <mdb-icon fas icon="search" aria-hidden="true"></mdb-icon>
+    <input class="ml-5 w-25" [(ngModel)]='searchText' type="text" placeholder="Search event" aria-label="Search" mdbInput>
+</div>
+
+
+    <div class="row">
+        <!-- Card deck -->
+        <div class="card-deck my-5">
+            <div class="col-4" *ngFor="let showEvent of showEvents | category:searchText">
+
+                <!-- Card -->
+                <div class="card mb-4">
+
+                    <!--Card image-->
+                    <div class="view overlay">
+                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg"
+                            alt="Card image cap">
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+
+                    <!--Card content-->
+                    <div class="card-body">
+
+                        <!--Title-->
+                        <h4 class="card-title text-center">{{showEvent.eventtitle}}</h4>
+                        <!--Text-->
+                        <p class="card-text text-center">{{showEvent.eventtype}}</p>
+                        <p class="card-text text-center">{{showEvent.eventstartdate}} - {{showEvent.eventenddate}}</p>
+                        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                        <div class="text-center">
+                        <a [routerLink]="['/event-showcase', showEvent.eventid, showEvent.eventstartdate, showEvent.eventenddate, showEvent.registrationenddate, showEvent.eventtitle, showEvents.eventtype]"
+                               (click)="onShowcase(showEvent.id,showEvent.Custom_fees)" class="btn btn-light-blue btn-md">Learn more</a>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted text-center">
+                        <small>2 days ago</small>
+                    </div>
+                </div>
+                <!-- Card -->
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <!-- Card deck -->
+
+
+
+
+
+
+
+
+</div>
+<!-- FUTURE EVENTS SECTION -->
+<app-future-events></app-future-events>
+<!-- END OF FUTURE EVENTS SECTION -->
+
+
+<div class="container">
+    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)"
+    (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)" (beforeChange)="beforeChange($event)">
+    <div ngxSlickItem *ngFor="let recomEvent of recomEvents" class="slide">
+      <div class="px-3">
+        <mdb-card class="my-1" id="carousel-card">
+          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap" id="carousel-image"></mdb-card-img>
+          <mdb-card-body>
+            <mdb-card-title>
+              <h4 class="text-center">{{recomEvent.eventtitle}}</h4>
+            </mdb-card-title>
+            <p class="font-weight-light text-center">{{recomEvent.eventtype}}</p>
+            <div class="text-center"><a href="#" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Learn More</a></div>
+          </mdb-card-body>
+        </mdb-card>
+      </div>
+    </div>
+    </ngx-slick-carousel>
+    </div>
+    
+<br>
+<br>
+<br>
+<br>
+
+
+
+<!-- CONTACT SECTION -->
+<app-contact></app-contact>
+<!-- END OF CONTACT SECTION -->
+
+
+
+<!-- FOOTER SECTION -->
+<app-footer></app-footer>
+<!-- END OF FOOTER SECTION -->
+
+
+
+<router-outlet></router-outlet>

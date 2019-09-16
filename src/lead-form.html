@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src='https://ssg.crm.deskera.com/scripts/js/jquery1.11.2.min.js'></script>
+	
+		<link href='https://ssg.crm.deskera.com/style/css/bootstrap.css' rel='stylesheet'>
+	<link href='https://ssg.crm.deskera.com/style/css/bootstrap-datepicker.min.css' rel='stylesheet'>
+	<link href='https://ssg.crm.deskera.com/style/css/bootstrap-datepicker.css' rel='stylesheet'>
+		<link rel="stylesheet" href="https://ssg.crm.deskera.com/style/css/deskbase.css"><script src='https://ssg.crm.deskera.com/scripts/js/bootstrap.min.js'></script>
+	<script src='https://ssg.crm.deskera.com/scripts/js/bootstrap-datepicker.js'></script>
+	
+		<script type="text/javascript">  
+			var arrayOfmasterid1= new Array();
+			var arrayOfMasterField1= new Array();
+			var storeid=""; 
+			var isAddGlobalArray = true;
+			 
+			if (typeof String.prototype.trim !== 'function') { 
+				String.prototype.trim = function() {  
+					return this.replace(/^\s+|\s+$/g, ""); 
+				}
+			} 
+			function nohtml(ob) 
+			{
+				var val=ob.value; 
+				var chk=val; 
+				ob.value= val.replace(/(?:<script.?>)((\n|\r|.)?)(?:<\/script>)/ig, "").replace(/<\/?[^>]+>/gi,"").trim(); 
+				if(chk!=ob.value) 
+					alert('Input value is containing html tags or scripts that have been removed.') 
+			} 
+			function disableBTN()
+			{
+				document.getElementById("submitbtn").disabled=true;
+			} 
+			function checkMandatoryFields(mandatoryFields){
+				var webToLeadForm = document.getElementById('webtolead_form_id');
+				for(var i=0;i<mandatoryFields.length;i++){
+					if(webToLeadForm.elements[mandatoryFields[i]].value==''){
+						alert('Please fill all mandatory fields marked with asterisk(*)');
+						webToLeadForm.action='';
+						return false;
+					}
+			}
+				return true;
+			} 
+			function validateDropDown(){
+					var isvalid=0;
+						var comboIds = document.getElementsByClassName('dropdowngroup');
+							if(comboIds.length>0){
+								for(var x=0;x<comboIds.length;x++){
+									var comboId = comboIds[x].id;
+									var comboValue = document.getElementById(comboId).value;
+									if(comboValue.length==0){
+									var ul = document.createElement('ul');
+									ul.id='comboerror'+comboIds[x].id;
+									if(document.getElementById(ul.id)==null){
+										ul.className='list-unstyled comboerrormsg';
+										var li = document.createElement('li');
+										li.color='#a94442';
+										li.style.listStyle='outside none none';
+										li.innerHTML="<span style='color:#a94442'>"+document.getElementById(comboId).getAttribute('data-error')+"<span>";
+										ul.appendChild(li)
+										document.getElementById('errormsg'+comboIds[x].id).appendChild(ul)
+									}
+									$('#comboerror'+comboIds[x].id).show();
+										isvalid=1;
+										}
+									}
+								}
+								if(isvalid==1){
+								return false;
+								}
+					} 
+			function hideErrorMsg(id){
+									$('#comboerror'+id).hide();
+								} 
+			function setTextField(value,comboField,allFieldData,parentid){ 
+				var isHideAllField = true;
+			for(var i=0;i<comboField.length;i++){
+				if(value==comboField[i].combofieldid){
+					for(var j=0;j<allFieldData.length;j++){
+						if(allFieldData[j].defaultheaderid==comboField[i].textfieldid){
+							document.getElementById(allFieldData[j].id).style.display="block";
+							document.getElementById(allFieldData[j].id+"_label").style.display="block";
+							document.getElementById(allFieldData[j].id).style.visibility="visible";
+							document.getElementById(allFieldData[j].id+"_label").style.visibility="visible";
+							isHideAllField = false;
+						} else {
+						if(document.getElementById(allFieldData[j].id) != null){
+							for(var k=0;k<allFieldData.length;k++){
+								if(allFieldData[k].childid && allFieldData[k].childid!=''){
+									for(var l=0;l<allFieldData[k].childid.length;l++){
+										if(allFieldData[k].childid[l].textfieldid == allFieldData[j].defaultheaderid){
+											if(allFieldData[k].id==parentid){
+												document.getElementById(allFieldData[j].id).style.display="none";
+												document.getElementById(allFieldData[j].id+"_label").style.display="none";
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+				if(isHideAllField){
+					for(var j=0;j<allFieldData.length;j++){
+						if(document.getElementById(allFieldData[j].id) != null){
+							for(var k=0;k<allFieldData.length;k++){
+								if(allFieldData[k].childid && allFieldData[k].childid!=''){
+									for(var l=0;l<allFieldData[k].childid.length;l++){
+										if(allFieldData[k].childid[l].textfieldid == allFieldData[j].defaultheaderid){
+											if(allFieldData[k].id==parentid){
+												document.getElementById(allFieldData[j].id).style.display="none";
+												document.getElementById(allFieldData[j].id+"_label").style.display="none";
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				} 
+			} 
+			function setOptions(value,comboField,mappedComboKeys,mappedComboValues,cascadingcombofieldid)
+			{
+				var k=0;
+				var isSetnull=true;
+				var selbox = comboField;
+				var tempArrayText = new Array();
+				var tempArrayValue = new Array();
+
+				if(isAddGlobalArray || (storeid != comboField.id)){
+					for(var i=0;i<mappedComboKeys.length;i++){
+						arrayOfmasterid1[i] = mappedComboKeys[i]
+						arrayOfMasterField1[i] = mappedComboValues[i]
+					}
+					isAddGlobalArray=false;
+					storeid = comboField.id;
+				}
+
+				for(var i =0;i<cascadingcombofieldid.length;i++){
+					var secondary= cascadingcombofieldid[i].secondaryid;
+					if(secondary==value){
+						var primary = cascadingcombofieldid[i].primaryid;
+						for(var j=0;j<arrayOfmasterid1.length;j++){
+							if(arrayOfmasterid1[j]== primary){
+								tempArrayText[k] = arrayOfMasterField1[j];
+								tempArrayValue[k] = arrayOfmasterid1[j];	
+								k++;
+							}
+						}
+					}
+				}
+				for(var k=0;k<tempArrayText.length;k++){
+					if(isSetnull){
+						selbox.options.length = 0;
+						isSetnull=false;
+					}
+					selbox.options[selbox.options.length] = new Option(tempArrayText[k],tempArrayValue[k]);
+				}
+			
+				if(tempArrayText.length<=0){
+					selbox.options.length = 0;
+				}
+			}
+		</script>
+			<script type="text/javascript">
+			$(function() {
+			$('#dob.input-group.date').datepicker({
+			clearBtn: true,
+			 orientation: "bottom auto",
+			 format: "yyyy-mm-dd",
+			autoclose: true
+			});});</script>
+			<script type="text/javascript">
+			$(function() {
+			$('#messageWrapper').addClass('hidden');
+			});
+			</script> 
+	</head>
+	<body class='form-page'>
+		<div class="container">
+	<div class="row">
+			<div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2 well well-lg form-wrapper clearfix">
+			<div class="row inner-row"><div class="well well-lg form-header clearfix"><div class='col-xs-12 col-md-3'><a class="company thumbnail" style="background-image: url('https://ssg.apps.deskera.com/b/eventdemo/images/store/?company=true&original=true')" href="#"></a></div><div class='col-xs-12 col-md-9'>
+			<h1>Membership Application Form 05092019</h1>
+			</div></div>
+			</div>
+			<form data-toggle="validator" novalidate="true" class="form-horizontal" method="post" action="https://ssg.crm.deskera.com/b/eventdemo/crm/common/storeLead.do" role="form" id='webtolead_form_id' onsubmit='return validateDropDown()'>
+				<div class='row inner-row'> <div class="well well-lg form-content clearfix">
+					<div class='form-group required has-feedback'>
+							<label for='wl_type' class='control-label col-xs-12 col-md-3'>Type </label>
+						
+						<div class='col-xs-12 col-md-9
+'>
+							<select  required id='type' data-error='Please fill out the Type ' name='wl_type' data-placeholder='Select Type ' class='form-control chosen-select-deselect dropdowngroup' onchange='hideErrorMsg("type")')'>
+			
+								<option value=''></option><option value='00b60fc2-142a-4d60-948e-e0141a73692f' selected >Company</option>
+								<option value=''></option><option value='d2aa2e37-d531-4a5b-8d9c-d9614711d3e1'  >Individual</option>
+							</select><span class="glyphicon form-control-feedback"></span><div id='errormsgtype' class="help-block with-errors"></div>
+						</div>
+					</div>
+					<div class='form-group required has-feedback'>
+							<label for='wl_lastname' class='control-label col-xs-12 col-md-3'>Last Name/ Company Name </label>
+						
+						<div class='col-xs-12 col-md-9'>
+							<input required id='lastname' data-error='Please fill out the Last Name/ Company Name '' type='text' class='form-control' placeholder='Enter Last Name/ Company Name ' name='wl_lastname'maxlength='255' /><span class="glyphicon form-control-feedback"></span><div class="help-block with-errors"></div>
+						</div>
+					</div>
+					<div class='form-group has-feedback'>
+							<label for='wl_firstname' class='control-label col-xs-12 col-md-3'>First Name</label>
+						
+						<div class='col-xs-12 col-md-9'>
+							<input  id='firstname' data-error='Please fill out the First Name'' type='text' class='form-control' placeholder='Enter First Name' name='wl_firstname'maxlength='255' /><span class="glyphicon form-control-feedback"></span><div class="help-block with-errors"></div>
+						</div>
+					</div>
+					<div class='form-group has-feedback'>
+							<label for='wl_email' class='control-label col-xs-12 col-md-3'>Email Address</label>
+						
+						<div class='col-xs-12 col-md-9'>
+							<input  id='email' data-error='Please fill out the Email Address'' type='text' class='form-control' placeholder='Enter Email Address' name='wl_email'maxlength='100' /><span class="glyphicon form-control-feedback"></span><div class="help-block with-errors"></div>
+						</div>
+					</div>
+					<div class='form-group has-feedback'>
+							<label for='wl_custom_fieldff8080816364510e016366d2ec6c005a' class='control-label col-xs-12 col-md-3'>Secondary Email</label>
+						
+						<div class='col-xs-12 col-md-9'>
+							<input  id='custom_fieldff8080816364510e016366d2ec6c005a' data-error='Please fill out the Secondary Email'' type='text' class='form-control' placeholder='Enter Secondary Email' name='wl_custom_fieldff8080816364510e016366d2ec6c005a'maxlength='100' /><span class="glyphicon form-control-feedback"></span><div class="help-block with-errors"></div>
+						</div>
+					</div>
+					<div class='form-group has-feedback'>
+							<label for='wl_revenue' class='control-label col-xs-12 col-md-3'>Expected Revenue (&#36;)</label>
+						
+						<div class='col-xs-12 col-md-9'>
+							<input type='text' placeholder='Expected Revenue (&#36;)' class='form-control'  name='wl_revenue'maxlength='15' rel='numberfield' /><span class="glyphicon form-control-feedback"></span><div class="help-block with-errors"></div>
+						</div></div>
+					<div class='form-group has-feedback'>
+							<label for='wl_price' class='control-label col-xs-12 col-md-3'>Price (&#36;)</label>
+						
+						<div class='col-xs-12 col-md-9'>
+							<input type='text' placeholder='Price (&#36;)' class='form-control'  name='wl_price'maxlength='10' rel='numberfield' /><span class="glyphicon form-control-feedback"></span><div class="help-block with-errors"></div>
+						</div></div>
+					<div class='form-group has-feedback'>
+							<label for='wl_title' class='control-label col-xs-12 col-md-3'>Title/Designation</label>
+						
+						<div class='col-xs-12 col-md-9'>
+							<input  id='title' data-error='Please fill out the Title/Designation'' type='text' class='form-control' placeholder='Enter Title/Designation' name='wl_title'maxlength='100' /><span class="glyphicon form-control-feedback"></span><div class="help-block with-errors"></div>
+						</div>
+					</div>
+					<div class='form-group has-feedback'>
+							<label for='wl_industry' class='control-label col-xs-12 col-md-3'>Industry</label>
+						
+						<div class='col-xs-12 col-md-9
+'>
+							<select   id='industry' data-error='Please fill out the Industry' name='wl_industry' data-placeholder='Select Industry' class='form-control chosen-select-deselect ' )'>
+			
+								<option value=''></option><option value='05138063-420c-457e-ada5-a9073c78e502'  >Defence</option>
+								<option value=''></option><option value='19a3794a-7ac0-4f08-ad6f-49f4e88d7147'  >Building Material</option>
+								<option value=''></option><option value='233b2d41-d21b-4a3e-be00-2d6866ed9e0e'  >12</option>
+								<option value=''></option><option value='2427bf8f-398d-4ae2-863e-f1420cf0aabf'  >Industrial Machinery & Component</option>
+								<option value=''></option><option value='2e8a4970-49bf-483c-9829-17ede674a0a2'  >Automotive</option>
+								<option value=''></option><option value='5221747f-8bdb-4b77-846b-2e285eae3715'  >Aerospace & Defense</option>
+								<option value=''></option><option value='5250632d-70c5-4891-9c30-ce7f2e12f5d0'  >Insurance</option>
+								<option value=''></option><option value='58c0ac77-9cf9-444f-b723-9aa843112438'  >Logistics & Postal Service</option>
+								<option value=''></option><option value='58eca600-bda5-4dc1-ad40-af8e9a287079'  >Retail</option>
+								<option value=''></option><option value='66862c26-809e-4a7c-8eeb-c118cffb41b7'  >Forest Products,Furniture & Textile</option>
+								<option value=''></option><option value='6abcc1d7-0a21-4057-841c-a96a0bac08e7'  >Chemicals</option>
+								<option value=''></option><option value='7a6504a8-e5b1-465b-9820-df2c0db046b7'  >High Tech & Electronics</option>
+								<option value=''></option><option value='7b42edc8-6853-4d47-addb-2d4e3d7b716a'  >Primary Metal & Mining</option>
+								<option value=''></option><option value='7dc79084-2052-473a-9c20-1d19bc26ea0a'  >Utilities & Wastes</option>
+								<option value=''></option><option value='8044f68e-0047-49c2-9ccd-5e5ff99d2d65'  >Public Sector</option>
+								<option value=''></option><option value='97546e08-ebf3-446e-aab2-fe02935c6342'  >Banking</option>
+								<option value=''></option><option value='9d671d73-85d1-4a1e-934b-87d5e44320cb'  >Fabricated Metal Products</option>
+								<option value=''></option><option value='a002f63a-0958-45ab-bd13-a6a0114bc670'  >Higher Education & Research</option>
+								<option value=''></option><option value='a66d8da4-cee6-484f-967c-4c43d6b14d6d'  >Oil & Gases</option>
+								<option value=''></option><option value='ae573a28-7967-47e1-80a9-63071f7a0d25'  >Consumer Products</option>
+								<option value=''></option><option value='c94cbc11-f40f-479b-bc23-a9ac9a125d10'  >Healthcare</option>
+								<option value=''></option><option value='cacd722d-b1ef-4fe9-b23e-194b9cba1686'  >Information Technology</option>
+								<option value=''></option><option value='d3e1408b-3aaf-4272-aaec-b08bfce91763'  >Media</option>
+								<option value=''></option><option value='d42a5240-b02e-42cb-8fd2-feaab90bb08c'  >Wholesale</option>
+								<option value=''></option><option value='d5c51890-e46b-417b-9374-2056197dda51'  >Passenger & Cargo Services</option>
+								<option value=''></option><option value='d65417db-db02-40d7-b65f-2150de5a2ac2'  >Food and Beverages</option>
+								<option value=''></option><option value='e005272d-4a91-48bf-bcf8-f9052e662089'  >Lifescience</option>
+								<option value=''></option><option value='e9b272ae-127b-4a7e-8222-4257b5ef5d9a'  >Professional Services</option>
+								<option value=''></option><option value='fb6970c8-cb31-4713-8f2c-15b16565a8cd'  >Government</option>
+								<option value=''></option><option value='fd056a95-09ae-4e59-b2ae-593f3e01ded8'  >Engineering,Construction & Operation</option>
+								<option value=''></option><option value='fdc9211b-4e40-4697-b3e1-dc27abfd2bbf'  >Telecommunications</option>
+							</select><span class="glyphicon form-control-feedback"></span><div id='errormsgindustry' class="help-block with-errors"></div>
+						</div>
+					</div>
+					<div class='form-group has-feedback'>
+							<label for='wl_phone' class='control-label col-xs-12 col-md-3'>Phone</label>
+						
+						<div class='col-xs-12 col-md-9'>
+							<input  id='phone' data-error='Please fill out the Phone'' type='text' class='form-control' placeholder='Enter Phone' name='wl_phone'maxlength='100' /><span class="glyphicon form-control-feedback"></span><div class="help-block with-errors"></div>
+						</div>
+					</div>
+					<div class='form-group has-feedback'>
+							<label for='wl_addstreet' class='control-label col-xs-12 col-md-3'>Address</label>
+						
+						<div class='col-xs-12 col-md-9'>
+							<textarea  id='addstreet' type='text' class='form-control' name='wl_addstreet' maxlength='1024' cols='50' rows='15' ></textarea>
+						</div></div>
+							<input type='hidden' name='leadOwner' value='c23a55b6-e75b-47a2-8fdb-f66d0611e81e'/>
+					
+							<input type='hidden' name='wl_eventname' value=''/>
+					
+						
+							<input type='hidden' name='fieldJSON' value='{&quot;type_DROPDOWN#&quot;:&quot;Type *&quot;},{&quot;lastname&quot;:&quot;Last Name/ Company Name *&quot;},{&quot;firstname&quot;:&quot;First Name&quot;},{&quot;email&quot;:&quot;Email Address&quot;},{&quot;custom_fieldff8080816364510e016366d2ec6c005a&quot;:&quot;Secondary Email&quot;},{&quot;revenue&quot;:&quot;Expected Revenue (&#36;)&quot;},{&quot;price&quot;:&quot;Price (&#36;)&quot;},{&quot;title&quot;:&quot;Title/Designation&quot;},{&quot;industry_DROPDOWN#&quot;:&quot;Industry&quot;},{&quot;phone&quot;:&quot;Phone&quot;},{&quot;addstreet&quot;:&quot;Address&quot;}'/>
+							<input type='hidden' id ='timezoneOffset' name='timezoneOffset' value=''/>
+							<input type='hidden' id ='timezoneID' name='timezoneID' value=''/>
+							<input type='hidden' name='returnurl' value=''/>
+							<input type='hidden' name='formid' value='178'/>
+							<input type='hidden' name='formname' value='Membership Application Form 05092019'/>
+							<input type='hidden' name='host' id='wl_hidden_host' value=''/><div id='loading' hidden><strong>Alert! </strong> Please fill all the details</div>
+						
+					<input type='hidden' name='checkcaptcha' value='false'/>
+				</div>
+		</div><div class='row inner-row'>
+							<div class='well well-lg form-footer clearfix'>
+							<div class='col-xs-12 col-md-12'><div class='form-group'><div class='col-xs-offset-5 col-xs-9'>
+							<input type='submit' id='submitbtn' class='btn btn-lg btn-primary' name='submit' value='Submit'/>
+		</div></div></div>
+		</div></div>
+	</form>
+		
+	</div>
+	</div>
+	</div>
+	</div><div class='container-fluid'><footer><div class='row'><div class='col-xs-12 col-md-4'><p>&copy; Deskera 2019</p></div><div class='col-xs-12 col-md-8'><p class="text-right"><a class="product thumbnail text-right" target="_blank" href="http://www.deskera.com">Powered by <img alt="Deskera" src="https://ssg.crm.deskera.com/images/deskera-logo.png"></a></p></div></div></footer></div><script src="https://ssg.crm.deskera.com/scripts/js/chosen.jquery.js"></script><script src="https://ssg.crm.deskera.com/scripts/js/chosen.jquery.min.js"></script><script src="https://ssg.crm.deskera.com/scripts/js/validatorv0.9.0.min.js"></script><script type="text/javascript">document.getElementById('timezoneOffset').value=escape(new Date().getTimezoneOffset());document.getElementById('timezoneID').value=escape(new Date().toString().match(/([A-Z]+[+-][0-9]+)/)[1]);$(function(){$(".chosen-select-deselect").chosen();});</script>	
+	</body>
+</html>

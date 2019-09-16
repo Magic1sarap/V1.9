@@ -1,0 +1,206 @@
+<!-- NAVBAR -->
+<app-navbar></app-navbar>
+<!-- END OF NAVBAR -->
+
+<div class="d-flex" id="wrapper">
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">Admin Dashboard
+    
+        </div>
+        <div class="list-group list-group-flush">
+            <a routerLink="/admin-article" class="list-group-item list-group-item-action bg-light">Articles</a>
+            <a routerLink="/admin" class="list-group-item list-group-item-action bg-light">Create Article</a>
+            <a routerLink="/admin-about" class="list-group-item list-group-item-action bg-light">Edit About</a>
+            <a routerLink="/admin-services" class="list-group-item list-group-item-action bg-light">Edit Services</a>
+        </div>
+    </div>
+
+
+<section class="container" *ngFor="let about of abouts">
+
+    <h1 class="text-center py-5">Edit About Page</h1>
+
+
+    <!-- <h1 class="my-5">About</h1> -->
+    <label for="exampleForm2"></label>
+    <input type="text" style="font-size: 36px;" class="py-2 form-control" placeholder="{{about.header}}"(input)="onChangeHeaderUpdate($event.target.value)">
+
+  
+
+
+
+
+    <!-- Grid column -->
+    <div class="row" style="margin-bottom: 100px;">
+        <div class="col-lg-6  mb-3">
+            <!-- <div class="card card-image"> -->
+                <div class="text-black py-4" style="height:357px">
+                    
+                        <!-- <h3 class="py-4">About Us</h3> -->
+                        <!-- <label for="exampleForm2"></label> -->
+                     <input type="text" style="font-size: 1.17em; margin-bottom: 20px;" class="py-4 form-control" placeholder="{{about.prefaceh3}}" (input)="onChangePrefaceh3Update($event.target.value)">
+                    
+                        <!-- <p class=" col-xl-12 px-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Repellat fugiat,
+                            laboriosam, voluptatem, optio vero odio nam sit officia accusamus minus error nisi
+                            architecto
+                            nulla ipsum dignissimos. Odit sed qui, dolorum! Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit.
+                        </p> -->
+
+                        <!-- <label for="exampleForm2"></label> -->
+                        <textarea id="prefacep" type="text" class="py-4 form-control" (input)="onChangePrefacepUpdate($event.target.value)">{{about.prefacep}}</textarea>
+                    
+                </div>
+            <!-- </div> -->
+        </div>
+        <!-- Grid column -->
+        <div class="col-lg-6 mt-3">
+
+            <!-- Featured image -->
+            <div class="view overlay rounded z-depth-2">
+                <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/img%20(34).jpg"
+                    alt="Sample image">
+                <a>
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+
+        </div>
+        <!-- Grid column -->
+    </div>
+
+
+
+    <hr class="my-5">
+
+
+    <div class="row py-5">
+        <div class="col-md-8">
+            <h3>
+                <textarea type="text" style="font-size: 1.17em;" class="py-4 form-control" (input)="onChangeBlockQuoteh3Update($event.target.value)">{{about.blockQuoteh3}}</textarea>
+            </h3>
+            <br>
+            <p>
+                <textarea type="text" class="py-4 form-control" (input)="onChangeBlockQuotepUpdate($event.target.value)">{{about.blockQuotep}}</textarea>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>
+                    <textarea type="text" style="font-size: 1.21em; height: 250px;" class="py-4 form-control" (input)="onChangeMainQuoteUpdate($event.target.value)">{{about.mainQuote}}</textarea>
+        </h2>
+        </div>
+    </div>
+
+
+
+    <hr class="my-5">
+
+
+
+
+    <!-- Company Highlights -->
+    <section class=" text-center my-5 col-md-12 mb-3">
+
+        <!-- Section heading -->
+        <h2 class="h1-responsive my-4">
+                <input type="text" class="py-4 form-control" placeholder="{{about.highlightHeader}}" (input)="onChangeHighlightHeaderUpdate($event.target.value)">
+        </h2>
+        <!-- Section description -->
+        <p class="dark-grey-text w-responsive mx-auto mb-5">
+                <input type="text" class="py-4 form-control" placeholder="{{about.subheader}}" (input)="onChangeSubheaderUpdate($event.target.value)">
+        </p>
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
+
+                <!-- Featured image -->
+                <div class="view overlay rounded z-depth-2 mb-4">
+                    <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/81.jpg"
+                        alt="Sample image">
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+                <!-- Post title -->
+                <h3 class="h3-responsive mb-3">
+                        <input type="text" class="py-4 form-control" style="font-size: 1.17em;" placeholder="{{about.title1}}" (input)="onChangeTitle1Update($event.target.value)">
+                </h3>
+                <!-- Excerpt -->
+                <p class="dark-grey-text">
+                        <textarea type="text" class="py-4 form-control" (input)="onChangeP1Update($event.target.value)">{{about.p1}}</textarea>
+                </p>
+
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-6 mb-md-0 mb-4">
+
+                <!-- Featured image -->
+                <div class="view overlay rounded z-depth-2 mb-4">
+                    <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
+                        alt="Sample image">
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+                <!-- Post title -->
+                <h3 class="h3-responsive mb-3">
+                        <input type="text" class="py-4 form-control" style="font-size: 1.17em;" placeholder="{{about.title2}}" (input)="onChangeTitle2Update($event.target.value)">
+                </h3>
+                <!-- Excerpt -->
+                <p class="dark-grey-text">  <textarea type="text" class="py-4 form-control" (input)="onChangeP2Update($event.target.value)">{{about.p2}}</textarea></p>
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-6 mb-0">
+
+                <!-- Featured image -->
+                <div class="view overlay rounded z-depth-2 mb-4">
+                    <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/13.jpg"
+                        alt="Sample image">
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+
+                <!-- Post title -->
+                <h3 class="h3-responsive mb-3">
+                        <input type="text" class="py-4 form-control" style="font-size: 1.17em;" placeholder="{{about.title3}}" (input)="onChangeTitle3Update($event.target.value)">
+                </h3>
+                <!-- Excerpt -->
+                <p class="dark-grey-text">  
+                    <textarea type="text" class="py-4 form-control" (input)="onChangeP3Update($event.target.value)">{{about.p3}}</textarea>
+                </p>
+
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+        <button mdbBtn type="button" class="btn btn-md btn-success relative waves-light" (click)="onSubmit()" mdbWavesEffect>Update</button>
+
+
+    </section>
+
+    <!-- FOOTER SECTION -->
+<app-footer></app-footer>
+<!-- END OF FOOTER SECTION -->
+
+
+</section>
+
+
+</div>
+<br>
+<br>
+
+

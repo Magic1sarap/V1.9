@@ -1,0 +1,99 @@
+<!-- NAVBAR -->
+<app-navbar></app-navbar>
+<!-- END OF NAVBAR -->
+
+
+
+<!-- Default form register -->
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="container">
+        <div class="justify-content-around">
+
+
+
+            <form [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()" class="text-center p-5">
+
+                <h3 class="font-weight-normal mb-3">Sign up</h3>
+                <p>Already have an account?<a href="/login"> Login</a></p>
+
+                <div class='container'>
+                    <div class='row'>
+                        <div class="col-md-6 p-5">
+                            <!-- First name -->
+                            <div class="md-form">
+                                <label for="form1">User Name</label><br>
+                                <input formControlName='name' type="text" id="form-name" class="form-control">
+
+                            </div>
+                            <!-- Company name -->
+                            <div class="md-form">
+                                <label for="form1">Company</label><br>
+                                <input formControlName='company' type="text" id="form-company" class="form-control">
+
+                            </div>
+
+                            <!-- E-mail -->
+                            <div class="md-form">
+                                <label for="form1">Personal Email</label><br>
+                                <input formControlName='email' type="email" id="form-email1" class="form-control">
+
+                            </div>
+
+                            <!-- E-mail Company-->
+                            <div class="md-form">
+                                <label for="form1">Company Email</label><br>
+                                <input formControlName='companyEmail' type="text" id="form-email2" class="form-control">
+
+                            </div>
+
+                            <!-- Password -->
+                            <div class="md-form">
+                                <label for="form-pass1">Password</label><br>
+                                <input formControlName='password' type="password" id="form-pass1" class="form-control">
+
+                            </div>
+
+                            
+                        </div>
+                        <!-- Interests -->
+                        <div class="list-group col-md-6 mt-6 text-left p-5">
+                            <div class="list-group-item grey lighten-3 border border-white">
+                                <h3 class="font-weight-normal" >Article Interests</h3>
+                                <mdb-checkbox (change)="checkCheckBoxvalue1($event)"  value="BusinessTalks" class="p-3">Business talks</mdb-checkbox>
+                                <mdb-checkbox (change)="checkCheckBoxvalue2($event)"  value="Charity" class="p-3">Charity</mdb-checkbox>
+                                <mdb-checkbox (change)="checkCheckBoxvalue3($event)"  value="OrganizationalGatherings" class="p-3">Organizational gatherings</mdb-checkbox>
+                                <mdb-checkbox (change)="checkCheckBoxvalue4($event)"  value="TradeAssociationHub" class="p-3">Trade Association Hub</mdb-checkbox>
+                                <mdb-checkbox (change)="checkCheckBoxvalue5($event)"  value="EntrepreneurCourses" class="p-3">Entrepreneur Courses</mdb-checkbox>
+                                <!-- <mdb-checkbox [default]="true"  formControlName='preference' value="BusinessOpportunities" class="p-3">Business Opportunities</mdb-checkbox> -->
+                            </div>
+                            <br>
+                            <div class="list-group-item WhiteSmoke lighten-3 border border-white">
+                                <h3 class="font-weight-normal" >Event Interests</h3>
+                                <mdb-checkbox (change)="checkCheckBoxvalue6($event)"  value="BusinessTalks" class="p-3">Seminars</mdb-checkbox>
+                                <mdb-checkbox (change)="checkCheckBoxvalue7($event)"  value="Charity" class="p-3">Missions</mdb-checkbox>
+                                <mdb-checkbox (change)="checkCheckBoxvalue8($event)"  value="OrganizationalGatherings" class="p-3">Trade Fair</mdb-checkbox>
+                                <mdb-checkbox (change)="checkCheckBoxvalue9($event)"  value="TradeAssociationHub" class="p-3">Workshop</mdb-checkbox>
+                                <mdb-checkbox (change)="checkCheckBoxvalue10($event)"  value="EntrepreneurCourses" class="p-3">Training</mdb-checkbox>
+                                <mdb-checkbox (change)="checkCheckBoxvalue11($event)"  value="EntrepreneurCourses" class="p-3">Supported Events</mdb-checkbox>
+                                <!-- <mdb-checkbox [default]="true"  formControlName='preference' value="BusinessOpportunities" class="p-3">Business Opportunities</mdb-checkbox> -->
+                            </div>
+                            <!-- Sign up button -->
+                            <button mdbBtn color="dark" block="true" class="mt-3 btn-md" type="submit">Register</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <app-footer></app-footer>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Default form register -->
+<router-outlet></router-outlet>

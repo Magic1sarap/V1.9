@@ -1,0 +1,88 @@
+<app-navbar></app-navbar>
+<!-- Service Page -->
+<section class="container" *ngFor="let service of services">
+
+    <!-- Section heading -->
+    <h1 class="h1-responsive my-5">{{service.header}}</h1>
+
+
+    
+    <!-- Grid row -->
+    <div class="row my-5">
+
+
+
+        <!-- Grid column -->
+        <div class="col-lg-6 col-xl-7 sec">
+
+            <!-- Post title -->
+            <h3 class=" mb-3">{{service.subheader1}}</h3>
+            <!-- Excerpt -->
+            <p class="dark-grey-text">{{service.p1}} </p>
+
+
+        </div>
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col-lg-6 col-xl-5">
+
+            <!-- Featured image -->
+            <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
+                <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/img%20(27).jpg" alt="Sample image">
+                <a>
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+
+        </div>
+        <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+
+
+    <!-- Grid row -->
+
+    <div class="row">
+
+
+        <!-- Grid column -->
+        <div class="col-lg-6 col-xl-12">
+
+            <!-- Post title -->
+            <h3 class=" mb-3">{{service.subheader2}}</h3>
+            <!-- Excerpt -->
+            <p class="dark-grey-text">{{service.p2}}</p>
+
+        </div>
+        <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+<br>
+<br>
+
+
+    <!-- Grid row -->
+    <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-lg-6 col-xl-12">
+
+            <!-- Post title -->
+            <h3 class=" mb-3">{{service.subheader3}}</h3>
+            <!-- Excerpt -->
+            <p class="dark-grey-text">{{service.p3}}</p>
+ 
+        </div>
+        <!-- Grid column -->
+
+    </div>
+
+    </section>
+    <!-- Grid row -->
+    
+    <app-footer></app-footer>
+<!-- Service Page -->

@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+  <!-- <meta http-equiv="refresh" content="10; URL='http://www.baidu.com'" /> -->
+  <script src='https://memdb.tech/crm/scripts/js/jquery1.11.2.min.js'></script>
+  <link href='https://memdb.tech/crm/style/css/bootstrap.css' rel='stylesheet'>
+  <link href='https://memdb.tech/crm/style/css/bootstrap-datepicker.min.css' rel='stylesheet'>
+  <link href='https://memdb.tech/crm/style/css/bootstrap-datepicker.css' rel='stylesheet'>
+  <link rel='stylesheet' href='https://memdb.tech/crm/style/css/deskbase.css'>
+  <script src='https://memdb.tech/crm/scripts/js/bootstrap.min.js'></script>
+  <script src='https://memdb.tech/crm/scripts/js/bootstrap-datepicker.js'></script>
+  <title>Online Participant Form</title> 
+ 
+
+  <script type='text/javascript'>
+        $(document).ready(function() {
+          getDatePicker();
+          changeFormAsPerBookingType();
+          $('#webtoparticipant_form_id').submit(function(e) {
+            var form = document.getElementById('webtoparticipant_form_id');
+            var billingAddress = document.getElementById('billingaddress');
+            var shippingAddress = document.getElementById('shippingaddress');
+            var billingEmail = document.getElementById('billingemail');
+            var shippingEmail = document.getElementById('shippingemail');
+            var billingWebsite = document.getElementById('billingwebsite');
+            var shippingWebsite = document.getElementById('shippingwebsite');
+           var invalidFields = '' ;
+           if((billingAddress && !billingAddress.checkValidity()) || (shippingAddress && !shippingAddress.checkValidity())) {
+               invalidFields += 'Address \n';
+            }
+           if((billingEmail && (!billingEmail.checkValidity() || billingEmail.invalid)) || (shippingEmail && (!shippingEmail.checkValidity() || shippingEmail.invalid))) {
+               invalidFields += 'Email \n';
+           }
+           if((billingWebsite && (!billingWebsite.checkValidity() || billingWebsite.invalid)) || (shippingWebsite && (!shippingWebsite.checkValidity() || shippingWebsite.invalid))) {
+               invalidFields += 'Website \n';
+           }
+           if(invalidFields) {
+               alert('Please enter valid data for the below fields: \n' +invalidFields);
+               return false;
+            } else {
+
+              // window.location= 'http://localhost:3000/payment';
+              // submit value
+              //  form.action = 'https://memdb.tech/crm/b/scccidemo/crm/common/storeParticipant.do'
+               
+            } 
+            if(form.checkValidity()){
+              document.getElementById('participantsFields').value='true';
+            }
+          });
+          
+          var limitdiv = document.getElementById('participantscount');
+          limitdiv.value='1';
+          var participantsFieldsElement = document.getElementById('participantsFields');
+          if(participantsFieldsElement && participantsFieldsElement.value == 'true'){
+            var participantsFieldsStr = document.getElementById('participantsFieldsIds').value;
+            var mandatoryFieldsStrArr =[];
+            participantsFieldsStrArr = participantsFieldsStr.split(',');
+            participantsFieldsStrArr.forEach(function(elementid) {
+              var element = document.getElementById(elementid);
+              if(element){
+                element.value='';
+              }
+            });
+          }
+        });
+ function validateFields(e) {
+   var billingWebsite = document.getElementById('billingwebsite');
+   var shippingWebsite = document.getElementById('shippingwebsite');
+   var errorList = document.createElement('ul');
+   errorList.classList.add('list-unstyled');
+   errorList.appendChild(document.createElement('li').appendChild(document.createTextNode('This field should be a URL in the format http://www.domain.com or www.domain.com')));
+       if(e == billingWebsite){
+             var billingWebsiteOuterDiv = document.getElementById('BILLINGWEBSITE');
+             if (billingWebsite.value && !billingWebsite.value.match(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&\'\(\)\*\+,;=.]+$/g)) {
+                    billingWebsite.invalid = true;
+                    createErrorDiv(billingWebsiteOuterDiv,errorList);
+             } else {
+                    billingWebsite.invalid=false;
+                    removeErrorDiv(billingWebsiteOuterDiv);
+             }
+        }
+       if(e == shippingWebsite){
+            var shippingWebsiteOuterDiv = document.getElementById('SHIPPINGWEBSITE');
+             if (shippingWebsite.value && !shippingWebsite.value.match(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&\'\(\)\*\+,;=.]+$/g)) {
+                 shippingWebsite.invalid = true;
+                 createErrorDiv(shippingWebsiteOuterDiv,errorList);
+             } else {
+                  shippingWebsite.invalid = false;
+                  removeErrorDiv(shippingWebsiteOuterDiv);
+             }
+       }
+   var billingEmail = document.getElementById('billingemail');
+   var emailErrorList = document.createElement('ul');
+   emailErrorList.classList.add('list-unstyled');
+   emailErrorList.appendChild(document.createElement('li').appendChild(document.createTextNode('The value in this field is invalid')));
+       if (e == billingEmail) {
+       var validflag = true;
+       var billingEmailOuterDiv = document.getElementById('BILLINGEMAIL');
+       if (billingEmail.value) {
+           var emails = billingEmail.value.split(',');
+           emails.forEach(function (email) {
+           if (email && !email.match(/^[\w-]+([\w!#$%&'*+\/=?^`{|}~-]+)*(\.[\w!#$%&'*+\/=?^`{|}~-]+)*@[\w-]+(\.[\w-]+)*(\.[\w-]+)$/)) {
+                validflag = false;
+            } 
+        });
+    }
+    if (validflag) {
+        billingEmail.invalid = false;
+        removeErrorDiv(billingEmailOuterDiv);
+    } else {
+        billingEmail.invalid = true;
+        createErrorDiv(billingEmailOuterDiv, emailErrorList);
+    }
+ }
+   var shippingEmail = document.getElementById('shippingemail');
+    if (e == shippingEmail) {
+        var validflag = true;
+        var shippingEmailOuterDiv = document.getElementById('SHIPPINGEMAIL');
+        if (shippingEmail.value) {
+           var emails = shippingEmail.value.split(',');
+           emails.forEach(function (email) {
+               if (email && !email.match(/^[\w-]+([\w!#$%&'*+\/=?^`{|}~-]+)*(\.[\w!#$%&'*+\/=?^`{|}~-]+)*@[\w-]+(\.[\w-]+)*(\.[\w-]+)$/)) {
+                   validflag = false;
+               } 
+           });
+       }
+    if (validflag) {
+        shippingEmail.invalid = false;
+        removeErrorDiv(shippingEmailOuterDiv);
+    } else {
+        shippingEmail.invalid = true;
+        createErrorDiv(shippingEmailOuterDiv, emailErrorList);
+    }
+  }
+ }
+ function createErrorDiv(fieldsOuterDiv,errorList){
+       fieldsOuterDiv.classList.remove('has-success');
+       fieldsOuterDiv.classList.add('has-error');
+       fieldsOuterDiv.getElementsByClassName('glyphicon')[0].classList.remove('glyphicon-ok');
+       fieldsOuterDiv.getElementsByClassName('glyphicon')[0].classList.add('glyphicon-remove');
+       if (!fieldsOuterDiv.getElementsByClassName('with-errors')[0].childElementCount > 0) {
+           fieldsOuterDiv.getElementsByClassName('with-errors')[0].appendChild(errorList);
+        }
+  }
+ function removeErrorDiv(fieldsOuterDiv){
+       fieldsOuterDiv.classList.remove('has-error');
+       fieldsOuterDiv.classList.add('has-success');
+       fieldsOuterDiv.getElementsByClassName('glyphicon')[0].classList.remove('glyphicon-remove');
+       fieldsOuterDiv.getElementsByClassName('glyphicon')[0].classList.add('glyphicon-ok');
+       if (fieldsOuterDiv.getElementsByClassName('with-errors')[0].childElementCount > 0) {
+           fieldsOuterDiv.getElementsByClassName('with-errors')[0].children[0].remove();
+       }
+   }
+ function saveManageAddressFields() {
+   var billingAddress = document.getElementById('billingaddress');
+   var shippingAddress = document.getElementById('shippingaddress');
+   var billingEmail = document.getElementById('billingemail');
+   var shippingEmail = document.getElementById('shippingemail');
+   var billingWebsite = document.getElementById('billingwebsite');
+   var shippingWebsite = document.getElementById('shippingwebsite');
+   var invalidFields = '' ;
+   if((billingAddress && !billingAddress.checkValidity()) || (shippingAddress && !shippingAddress.checkValidity())) {
+       invalidFields += 'Address \n';
+   }
+   if((billingEmail && (!billingEmail.checkValidity() || billingEmail.invalid)) || (shippingEmail && (!shippingEmail.checkValidity() || shippingEmail.invalid))) {
+       invalidFields += 'Email \n';
+   }
+   if((billingWebsite && (!billingWebsite.checkValidity() || billingWebsite.invalid)) || (shippingWebsite && (!shippingWebsite.checkValidity() || shippingWebsite.invalid))) {
+       invalidFields += 'Website \n';
+   }
+   if(invalidFields) {
+       alert('Please enter valid data for the below fields: \n' +invalidFields);
+       return false;
+   } else{
+       alert('Manage address saved successfully');
+       $('#myModal').modal('hide');
+   }
+  }
+ function resetManageAddressFields() {
+   document.getElementById('shippingaddress').value ='';
+   document.getElementById('billingaddress').value='';
+   document.getElementById('shippingemail').value = '';
+   document.getElementById('billingemail').value = '';
+   $('input[name="shippingcity"]').val('');
+   $('input[name="billingcity"]').val('');
+   $('input[name="shippingstate"]').val('');
+   $('input[name="billingstate"]').val('');
+   $('input[name="shippingcountry"]').val('');
+   $('input[name="billingcountry"]').val('');
+   $('input[name="shippingpostalcode"]').val('');
+   $('input[name="billingpostalcode"]').val('');
+   $('input[name="shippingphone"]').val('');
+   $('input[name="billingphone"]').val('');
+   $('input[name="shippingmobile"]').val('');
+   $('input[name="billingmobile"]').val('');
+   $('input[name="shippingfax"]').val('');
+   $('input[name="billingfax"]').val('');
+   $('input[name="shippingrecipientname"]').val('');
+   $('input[name="billingrecipientname"]').val('');
+   $('input[name="shippingcontactperson"]').val('');
+   $('input[name="billingcontactperson"]').val('');
+   $('input[name="shippingcontactpersonnumber"]').val('');
+   $('input[name="billingcontactpersonnumber"]').val('');
+   $('input[name="shippingcontactpersondesignation"]').val('');
+   $('input[name="billingcontactpersondesignation"]').val('');
+   $('input[name="shippingwebsite"]').val('');
+   $('input[name="billingwebsite"]').val('');
+ }
+  </script>
+
+</head>
+
+   <body class='form-page'>
+      <div class='container'>
+         <div class='row'>
+            <div class='col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2 well well-lg form-wrapper clearfix'>
+               <div class='row inner-row'>
+                  <div class='well well-lg form-header clearfix'>
+                     <div class='col-xs-12 col-md-4'><a class='company thumbnail' style="background-image: url('https://memdb.tech/apps/b/scccidemo/images/store/?company=true&original=true')" href='#'></a></div>
+                     <div class='col-xs-12 col-md-8'>
+                        <h2>Online Participant Form</h2>
+                     </div>
+                     <div class='col-xs-12 col-md-8'>
+                        <h4 id='eventName'>  </h4>
+                     </div>
+                     <div class='col-xs-12 col-md-8'>
+                        <h4> SMEICC Application Form</h4>
+                     </div>
+                  </div>
+               </div>
+
+
+               <form data-toggle='validator' novalidate='true' class='form-horizontal' method='post' role='form' action='https://memdb.tech/crm/b/scccidemo/crm/common/storeParticipant.do' id='webtoparticipant_form_id' onsubmit='return validateDropDown()'>
+                  
+                  <div class='row inner-row'>
+                     <div class='well well-lg form-content clearfix'>
+
+                     
+         <div class='form-group  has-feedback' ><label for='acra' class='control-label col-xs-12 col-md-4'>ACRA</label><div class='col-xs-12 col-md-8'>
+           <input  id='acra' data-error='Please fill out the ACRA' type='text' class='form-control' placeholder='Enter ACRA' name='acra' maxlength='255' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='natureofbusiness' class='control-label col-xs-12 col-md-4'>Company Nature of Business</label><div class='col-xs-12 col-md-8'>
+           <select   id='natureofbusiness' data-error='Please fill out the Company Nature of Business' name='natureofbusiness' data-placeholder='Select Company Nature of Business' class='form-control chosen-select-deselect '>
+                <option value='92168e9d-fe6e-45e9-8190-d138536b3e8a'  >Option1</option> 
+                <option value='c1b738bb-3eb4-408b-b383-8875a71f1958'  >Option2</option> 
+                <option value='0d2dfcb5-1668-4e7b-a4c9-3de3f192c2b8'  >Option3</option> 
+                <option value='873e207b-b712-4b4c-8f54-a2dd2d7dac76'  >Option4</option> 
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgnatureofbusiness' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group required has-feedback' ><label for='participantowner' class='control-label col-xs-12 col-md-4'>Owner </label><div class='col-xs-12 col-md-8'>
+           <select required  id='participantowner' data-error='Please fill out the Owner ' name='participantowner' data-placeholder='Select Owner ' class='form-control chosen-select-deselect dropdowngroup' onchange='hideErrorMsg(participantowner)'>
+             <option value='92168e9d-fe6e-45e9-8190-d138536b3e8a'  >Chris SCCCI</option> 
+             <option value='c1b738bb-3eb4-408b-b383-8875a71f1958'  >Isaac Agatep</option> 
+             <option value='0d2dfcb5-1668-4e7b-a4c9-3de3f192c2b8'  >Jacqueline Neo</option> 
+             <option value='873e207b-b712-4b4c-8f54-a2dd2d7dac76'  >Liu Xiao</option> 
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipantowner' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participanttype' class='control-label col-xs-12 col-md-4'>Participant Type</label><div class='col-xs-12 col-md-8'>
+           <select   id='participanttype' data-error='Please fill out the Participant Type' name='participanttype' data-placeholder='Select Participant Type' class='form-control chosen-select-deselect '>
+             <option value='1'  >Company Sponsored</option> 
+             <option value='2'  >Self-sponsored</option> 
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipanttype' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantssalutation' class='control-label col-xs-12 col-md-4'>Participants Salutation</label><div class='col-xs-12 col-md-8'>
+           <select   id='participantssalutation' data-error='Please fill out the Participants Salutation' name='participantssalutation' data-placeholder='Select Participants Salutation' class='form-control chosen-select-deselect ' )'>
+             <option value='1c4e99f8-6b0e-4857-b8f6-ef7f16310f43'  >Miss</option> 
+             <option value='c20bcef1-8de3-47d7-997b-bc48592308c7'  >Mrs</option> 
+             <option value='dfaab1d8-5624-47e4-8829-dc0bbd808249'  >Mr</option> 
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipantssalutation' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group required has-feedback' ><label for='participantsname' class='control-label col-xs-12 col-md-4'>Participants Name </label><div class='col-xs-12 col-md-8'>
+           <input required id='participantsname' data-error='Please fill out the Participants Name ' type='text' class='form-control' placeholder='Enter Participants Name ' name='participantsname' maxlength='255' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantsgender' class='control-label col-xs-12 col-md-4'>Participants Gender</label><div class='col-xs-12 col-md-8'>
+           <select   id='participantsgender' data-error='Please fill out the Participants Gender' name='participantsgender' data-placeholder='Select Participants Gender' class='form-control chosen-select-deselect ' )'>
+             <option value='1'  >Male</option> 
+             <option value='2'  >Female</option> 
+             <option value='3'  >Other</option> 
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipantsgender' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantsidentificationnumber' class='control-label col-xs-12 col-md-4'>Participants Identification Number</label><div class='col-xs-12 col-md-8'>
+           <input  id='participantsidentificationnumber' data-error='Please fill out the Participants Identification Number' type='text' class='form-control' placeholder='Enter Participants Identification Number' name='participantsidentificationnumber' maxlength='255' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantsdesignation' class='control-label col-xs-12 col-md-4'>Participants Designation</label><div class='col-xs-12 col-md-8'>
+           <input  id='participantsdesignation' data-error='Please fill out the Participants Designation' type='text' class='form-control' placeholder='Enter Participants Designation' name='participantsdesignation' maxlength='500' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantsmobile' class='control-label col-xs-12 col-md-4'>Participants Mobile Number</label><div class='col-xs-12 col-md-8'>
+           <input  id='participantsmobile' data-error='Please fill out the Participants Mobile Number' type='text' class='form-control' placeholder='Enter Participants Mobile Number' name='participantsmobile' maxlength='255' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group required has-feedback' ><label for='participantsemail' class='control-label col-xs-12 col-md-4'>Participants Email Address </label><div class='col-xs-12 col-md-8'>
+           <input required id='participantsemail' data-error='Please fill out the Participants Email Address ' type='email' class='form-control' placeholder='Enter Participants Email Address ' name='participantsemail' maxlength='255' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantsqualification' class='control-label col-xs-12 col-md-4'>Participants Highest Education Qualification</label><div class='col-xs-12 col-md-8'>
+           <select   id='participantsqualification' data-error='Please fill out the Participants Highest Education Qualification' name='participantsqualification' data-placeholder='Select Participants Highest Education Qualification' class='form-control chosen-select-deselect ' )'>
+                <option value='1'  >Secondary</option> 
+                <option value='2'  >Polytechic</option> 
+                <option value='3'  >College</option> 
+                <option value='4'  >Master</option> 
+                <option value='5'  >Doctor</option> 
+                <option value='5'  >Professor or above</option> 
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipantsqualification' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantscompanyname' class='control-label col-xs-12 col-md-4'>Participants Company Name</label><div class='col-xs-12 col-md-8'>
+           <input  id='participantscompanyname' data-error='Please fill out the Participants Company Name' type='text' class='form-control' placeholder='Enter Participants Company Name' name='participantscompanyname' maxlength='512' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantsdietarytype' class='control-label col-xs-12 col-md-4'>Participants Dietary Type</label><div class='col-xs-12 col-md-8'>
+           <select   id='participantsdietarytype' data-error='Please fill out the Participants Dietary Type' name='participantsdietarytype' data-placeholder='Select Participants Dietary Type' class='form-control chosen-select-deselect ' )'>
+                <option value='1'  >Normal</option> 
+                <option value='2'  >Muslim</option> 
+                <option value='3'  >Vegan</option> 
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipantsdietarytype' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantscountry' class='control-label col-xs-12 col-md-4'>Participants Country</label><div class='col-xs-12 col-md-8'>
+           <select   id='participantscountry' data-error='Please fill out the Participants Country' name='participantscountry' data-placeholder='Select Participants Country' class='form-control chosen-select-deselect ' )'>
+             <option value='1'  >ABU DHABI</option> 
+             <option value='10'  >ANGUILLA</option> 
+             <option value='100'  >HEARD & MCDONALD ISLANDS</option> 
+             <option value='101'  >HONDURAS</option> 
+             <option value='102'  >HONG KONG</option> 
+             <option value='103'  >HUNGARY</option> 
+             <option value='104'  >ICELAND</option> 
+             <option value='105'  >INDIA</option> 
+             <option value='106'  >INDONESIA</option> 
+             <option value='108'  >IRAN</option> 
+             <option value='109'  >IRAQ</option> 
+             <option value='11'  >ANTARTICA</option> 
+             <option value='110'  >IRELAND</option> 
+             <option value='111'  >ISRAEL</option> 
+             <option value='112'  >ITALY</option> 
+             <option value='113'  >IVORY COAST</option> 
+             <option value='114'  >JAMAICA</option> 
+             <option value='115'  >JAPAN</option> 
+             <option value='116'  >JORDAN</option> 
+             <option value='117'  >CAMBODIA</option> 
+             <option value='118'  >KAZAKHSTAN</option> 
+             <option value='119'  >KENYA</option> 
+             <option value='12'  >ANTIGUA</option> 
+             <option value='120'  >KIRGHIZIA</option> 
+             <option value='121'  >KIRIBATI</option> 
+             <option value='122'  >KOREA NORTH</option> 
+             <option value='123'  >KOREA SOUTH</option> 
+             <option value='124'  >KUWAIT</option> 
+             <option value='125'  >LAOS</option> 
+             <option value='126'  >LATVIA</option> 
+             <option value='127'  >LEBANON</option> 
+             <option value='128'  >LESOTHO</option> 
+             <option value='129'  >LIBERIA</option> 
+             <option value='13'  >ARGENTINA</option> 
+             <option value='130'  >LIBYA</option> 
+             <option value='131'  >LIECHTENSTEIN</option> 
+             <option value='132'  >LITHUANIA</option> 
+             <option value='133'  >LUXEMBOURG</option> 
+             <option value='134'  >MACAO</option> 
+             <option value='135'  >MADAGASCAR/MALAGASY</option> 
+             <option value='136'  >MALAWI</option> 
+             <option value='137'  >MALAYSIA</option> 
+             <option value='138'  >MALDIVES</option> 
+             <option value='139'  >MALI</option> 
+             <option value='14'  >ARMENIA</option> 
+             <option value='140'  >MALTA</option> 
+             <option value='141'  >MARSHALL ISLANDS</option> 
+             <option value='142'  >MARTINIQUE</option> 
+             <option value='143'  >MAURITANIA</option> 
+             <option value='144'  >MAURITIUS</option> 
+             <option value='145'  >MAYOTTE</option> 
+             <option value='146'  >MEXICO</option> 
+             <option value='147'  >MICRONESIA</option> 
+             <option value='148'  >MIDWAY ISLAND</option> 
+             <option value='149'  >MOLDAVIA</option> 
+             <option value='15'  >ARUBA</option> 
+             <option value='150'  >MONACO</option> 
+             <option value='151'  >MONGOLIA</option> 
+             <option value='152'  >MONTSERRAT</option> 
+             <option value='153'  >MOROCCO</option> 
+             <option value='154'  >MOZAMBIQUE</option> 
+             <option value='155'  >MYANMAR (BURMA)</option> 
+             <option value='156'  >NAMIBIA</option> 
+             <option value='158'  >NAURU</option> 
+             <option value='159'  >NEPAL</option> 
+             <option value='16'  >ASCENSION ISLAND</option> 
+             <option value='160'  >NETHERLANDS</option> 
+             <option value='161'  >NETHERLANDS ANTILLES</option> 
+             <option value='163'  >NEW CALEDONIA</option> 
+             <option value='164'  >NEW ZEALAND</option> 
+             <option value='165'  >NICARAGUA</option> 
+             <option value='166'  >NIGER</option> 
+             <option value='167'  >NIGERIA</option> 
+             <option value='168'  >NIUE</option> 
+             <option value='17'  >AUSTRALIA</option> 
+             <option value='170'  >NORFOLK ISLAND</option> 
+             <option value='171'  >NORTHERN IRELAND</option> 
+             <option value='172'  >NORTHERN MARIANA ISLANDS</option> 
+             <option value='173'  >NORWAY</option> 
+             <option value='175'  >OMAN</option> 
+             <option value='176'  >PAKISTAN</option> 
+             <option value='177'  >PALAU</option> 
+             <option value='178'  >PANAMA</option> 
+             <option value='179'  >PAPUA NEW GUINEA</option> 
+             <option value='18'  >AUSTRIA</option> 
+             <option value='180'  >PARAGUAY</option> 
+             <option value='181'  >PERU</option> 
+             <option value='182'  >PHILIPPINES</option> 
+             <option value='183'  >PITCAIRN</option> 
+             <option value='184'  >POLAND</option> 
+             <option value='185'  >PORTUGAL</option> 
+             <option value='186'  >PUERTO RICO</option> 
+             <option value='187'  >QATAR</option> 
+             <option value='188'  >RAS AL KHAIMAH</option> 
+             <option value='189'  >REUNION ISLAND</option> 
+             <option value='19'  >AZERBAIJAN</option> 
+             <option value='190'  >ROMANIA</option> 
+             <option value='191'  >RUSSION FEDERATION</option> 
+             <option value='192'  >RWANDA</option> 
+             <option value='193'  >SAMOA AMERICAN</option> 
+             <option value='194'  >SAMOA WESTERN</option> 
+             <option value='195'  >SAN MARINO</option> 
+             <option value='196'  >SAO TOME & PRINCIPE</option> 
+             <option value='197'  >SAUDI ARABIA</option> 
+             <option value='198'  >SCOTLAND</option> 
+             <option value='199'  >SENEGAL</option> 
+             <option value='2'  >ADMIRALTY ISLANDS</option> 
+             <option value='20'  >BAHAMAS</option> 
+             <option value='200'  >SEYCHELLES</option> 
+             <option value='201'  >SHARJAH</option> 
+             <option value='202'  >SIERRA LEONE</option> 
+             <option value='203'  >SINGAPORE</option> 
+             <option value='204'  >SLOVAKIA</option> 
+             <option value='205'  >SLOVENIA</option> 
+             <option value='206'  >SOLOMON ISLANDS</option> 
+             <option value='207'  >SOMALIA</option> 
+             <option value='208'  >SOUTH AFRICA</option> 
+             <option value='209'  >SOUTH GEORGIA</option> 
+             <option value='21'  >BAHRAIN</option> 
+             <option value='210'  >SOUTH SANDWICH ISLANDS</option> 
+             <option value='211'  >SOVIET UNION</option> 
+             <option value='212'  >SPAIN</option> 
+             <option value='213'  >SRI LANKA</option> 
+             <option value='214'  >ST HELENA</option> 
+             <option value='215'  >ST KITTS/NEVIS</option> 
+             <option value='216'  >ST LUCIA</option> 
+             <option value='217'  >ST PIERRE</option> 
+             <option value='218'  >ST VINCENT</option> 
+             <option value='219'  >SUDAN</option> 
+             <option value='22'  >BANGLADESH</option> 
+             <option value='220'  >SURINAME</option> 
+             <option value='221'  >SVALBARD & JAN MAYEN ISLANDS</option> 
+             <option value='222'  >SWAZILAND</option> 
+             <option value='223'  >SWEDEN</option> 
+             <option value='224'  >SWITZERLAND</option> 
+             <option value='225'  >SYRIA</option> 
+             <option value='226'  >TAIWAN</option> 
+             <option value='227'  >TAJIKSTAN</option> 
+             <option value='228'  >TANZANIA</option> 
+             <option value='229'  >THAILAND</option> 
+             <option value='23'  >BARBADOS</option> 
+             <option value='230'  >TOGO</option> 
+             <option value='231'  >TOKELAU ISLANDS</option> 
+             <option value='232'  >TONGA</option> 
+             <option value='233'  >TRINIDAD & TOBAGO</option> 
+             <option value='234'  >TUNISIA</option> 
+             <option value='235'  >TURKEY</option> 
+             <option value='236'  >TURKMENISTAN</option> 
+             <option value='237'  >TURKS & CAICOS ISLANDS</option> 
+             <option value='238'  >TUVALU</option> 
+             <option value='239'  >UGANDA</option> 
+             <option value='24'  >BELGIUM</option> 
+             <option value='240'  >UKRAINE</option> 
+             <option value='241'  >UMM AL QAIWAIN</option> 
+             <option value='242'  >UNITED ARAB EMIRATES</option> 
+             <option value='243'  >UNITED KINGDOM</option> 
+             <option value='244'  >UNITED STATES</option> 
+             <option value='245'  >UNITED STATES MINOR OUTLYING ISLANDS</option> 
+             <option value='246'  >URUGUAY</option> 
+             <option value='25'  >BELIZE</option> 
+             <option value='251'  >UZBEKISTAN</option> 
+             <option value='252'  >VANUATU</option> 
+             <option value='253'  >VATICAN CITY</option> 
+             <option value='254'  >VENEZUELA</option> 
+             <option value='255'  >VIETNAM</option> 
+             <option value='256'  >VIRGIN ISLANDS UK</option> 
+             <option value='257'  >WAKE ISLAND</option> 
+             <option value='258'  >WALES</option> 
+             <option value='259'  >WALLIS & FUTUNA ISLAND</option> 
+             <option value='26'  >BENIN</option> 
+             <option value='260'  >WESTERN SAHARA</option> 
+             <option value='261'  >YEMEN ARAB REPUBLIC</option> 
+             <option value='262'  >YUGOSLAVIA</option> 
+             <option value='263'  >ZAIRE</option> 
+             <option value='264'  >ZAMBIA</option> 
+             <option value='265'  >ZIMBABWE</option> 
+             <option value='266'  >PALASTINE</option> 
+             <option value='267'  >WEST AFRICA</option> 
+             <option value='27'  >BERMUDA</option> 
+             <option value='28'  >BHUTAN</option> 
+             <option value='29'  >BOLIVIA</option> 
+             <option value='3'  >AFGHANISTAN</option> 
+             <option value='30'  >BOSNIA/HERZEGOVINA</option> 
+             <option value='31'  >BOTSWANA</option> 
+             <option value='32'  >BOUVET ISLAND</option> 
+             <option value='33'  >BRAZIL</option> 
+             <option value='34'  >BRITISH INDIAN OCEAN TERRITORY</option> 
+             <option value='35'  >BRUNEI</option> 
+             <option value='36'  >BULGARIA</option> 
+             <option value='37'  >BURKINA/FASO</option> 
+             <option value='38'  >BURUNDI</option> 
+             <option value='39'  >BYELORUSSIA</option> 
+             <option value='4'  >AJMAN</option> 
+             <option value='40'  >CAMEROON</option> 
+             <option value='41'  >CANADA</option> 
+             <option value='42'  >CAPE VERDE</option> 
+             <option value='43'  >CAROLINE ISLANDS</option> 
+             <option value='44'  >CAYMAN ISLANDS</option> 
+             <option value='45'  >CENTRAL AFRICAN REP</option> 
+             <option value='46'  >CHAD</option> 
+             <option value='47'  >CHILE</option> 
+             <option value='48'  >CHINA PEOPLES REP</option> 
+             <option value='49'  >CHRISTMAS ISLANDS</option> 
+             <option value='5'  >AL AIN</option> 
+             <option value='50'  >COCOS ISLANDS</option> 
+             <option value='51'  >COLOMBIA</option> 
+             <option value='53'  >COMORO ISLANDS</option> 
+             <option value='54'  >CONGO</option> 
+             <option value='55'  >COOK ISLANDS</option> 
+             <option value='56'  >COSTA RICA</option> 
+             <option value='57'  >CROTIA</option> 
+             <option value='58'  >CUBA</option> 
+             <option value='59'  >CYPRUS</option> 
+             <option value='6'  >ALBANIA</option> 
+             <option value='60'  >CZECH REPUBLIC</option> 
+             <option value='61'  >DENMARK</option> 
+             <option value='62'  >DJIBOUTI</option> 
+             <option value='63'  >DOMINICA</option> 
+             <option value='64'  >DOMINICAN REPUBLIC</option> 
+             <option value='65'  >DUBAI</option> 
+             <option value='66'  >TIMOR-LESTE</option> 
+             <option value='67'  >ECUADOR</option> 
+             <option value='68'  >EGYPT</option> 
+             <option value='69'  >EL SALVADOR</option> 
+             <option value='7'  >ALGERIA</option> 
+             <option value='70'  >ENGLAND</option> 
+             <option value='71'  >EQUATORIAL GUINEA</option> 
+             <option value='72'  >ERITREA</option> 
+             <option value='73'  >ESTONIA</option> 
+             <option value='74'  >ETHIOPIA</option> 
+             <option value='75'  >FAEROE ISLANDS</option> 
+             <option value='76'  >FALKLAND ISLANDS</option> 
+             <option value='77'  >FIJI</option> 
+             <option value='78'  >FINLAND</option> 
+             <option value='79'  >FRANCE</option> 
+             <option value='8'  >ANDORRA</option> 
+             <option value='80'  >FRENCH GUIANA</option> 
+             <option value='81'  >FRENCH POLYNESIA</option> 
+             <option value='82'  >FRENCH SOUTHERN TERRITORIES</option> 
+             <option value='83'  >FUJAIRAH</option> 
+             <option value='84'  >GABON</option> 
+             <option value='85'  >GAMBIA</option> 
+             <option value='86'  >GEORGIA</option> 
+             <option value='87'  >GERMANY</option> 
+             <option value='88'  >GHANA</option> 
+             <option value='89'  >GIBRALTAR</option> 
+             <option value='9'  >ANGOLA</option> 
+             <option value='90'  >GREECE</option> 
+             <option value='91'  >GREENLAND</option> 
+             <option value='92'  >GRENADA</option> 
+             <option value='93'  >GUADELOUPE</option> 
+             <option value='94'  >GUAM</option> 
+             <option value='95'  >GUATEMALA</option> 
+             <option value='96'  >GUINEA</option> 
+             <option value='97'  >GUINEA-BISSAU</option> 
+             <option value='98'  >GUYANA</option> 
+             <option value='99'  >HAITI</option> 
+             <option value='999'  >UNDEFINED</option> 
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipantscountry' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group required has-feedback' ><label for='participantsbookingfor' class='control-label col-xs-12 col-md-4'>Booking For</label><div class='col-xs-12 col-md-8'>
+           <select required  id='participantsbookingfor' data-error='Please fill out the Booking For' name='participantsbookingfor' data-placeholder='Select Booking For' class='form-control chosen-select-deselect dropdowngroup' onchange='changeFormAsPerBookingType()')'>
+             <option value='ba01f314-412d-4934-ba71-5942cfdbde4b'  participantsBookingForType='0' >testproduct1</option> 
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipantsbookingfor' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group required has-feedback' id ='participantsbookingquantity' ><label for='participantsbookingquantity' class='control-label col-xs-12 col-md-4'>Booking Quantity</label><div class='col-xs-12 col-md-8'>
+           <input type='number' placeholder='Booking Quantity' class='form-control' required name='participantsbookingquantity' id ='participantsbookingquantitynumbervalueid'maxlength='15' rel='numberfield' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+                        <input type='hidden' name='externaleventid' id='externaleventId'  value=''/>
+<div id='addElementsDiv' >
+</div>
+
+                        <input type='hidden' name='checkcaptcha' value='false'/>
+
+                        <input type='hidden' id ='timezoneOffset' name='timezoneOffset' value=''/>
+                        <input type='hidden' id ='timezoneID' name='timezoneID' value=''/>
+                        <input type='hidden' id ='createdon' name='createdon' value=''/>
+                        <input type='hidden' id ='companyid' name='companyid' value='d1d9b208-7648-431f-9d39-8b081794fe2a'/>
+                        <input type='hidden' id ='createdbyid' name='createdbyid' value='92168e9d-fe6e-45e9-8190-d138536b3e8a'/>
+                        <input type='hidden' id ='userid' name='userid' value='92168e9d-fe6e-45e9-8190-d138536b3e8a'/>
+                        <input type='hidden' name='returnurl' value=''/>
+                        <input type='hidden' name='formid' value='25'/>
+                        <input type='hidden' name='formname' value='SMEICC Application Form'/>
+                        <input type='hidden' id='participantscount' name='participantscount' value='1'/>
+                        <input type='hidden' id ='participantsFields' name='participantsFields' value='false'/>
+                        <input type='hidden' id ='participantsFieldsIds' name='participantsFieldsIds' value="participantsname,participantsgender,participantsidentificationtype,participantsresidentialstatus,participantsdob,participantsidentificationnumber,participantsrace,participantsnationality,participantsdesignation,participantsmobile,participantshomenumber,participantsemail,participantsqualification,participantssalaryrange,participantsdietarytype,participantsblock,participantsunit,participantsstreet,participantsbuildingname,participantscountry,participantspostalcode,participantscompanyname,participantssalutation" /> 
+                        <input type='hidden' id ='participantsfieldselement' name='participantsfieldselement' value="
+         <div class='form-group  has-feedback' ><label for='participantssalutation' class='control-label col-xs-12 col-md-4'>Participants Salutation</label><div class='col-xs-12 col-md-8'>
+           <select   id='participantssalutation' data-error='Please fill out the Participants Salutation' name='participantssalutation' data-placeholder='Select Participants Salutation' class='form-control chosen-select-deselect ' )'>
+             <option value='1c4e99f8-6b0e-4857-b8f6-ef7f16310f43'  >Miss</option> 
+             <option value='c20bcef1-8de3-47d7-997b-bc48592308c7'  >Mrs</option> 
+             <option value='dfaab1d8-5624-47e4-8829-dc0bbd808249'  >Mr</option> 
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipantssalutation' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group required has-feedback' ><label for='participantsname' class='control-label col-xs-12 col-md-4'>Participants Name </label><div class='col-xs-12 col-md-8'>
+           <input required id='participantsname' data-error='Please fill out the Participants Name ' type='text' class='form-control' placeholder='Enter Participants Name ' name='participantsname' maxlength='255' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantsgender' class='control-label col-xs-12 col-md-4'>Participants Gender</label><div class='col-xs-12 col-md-8'>
+           <select   id='participantsgender' data-error='Please fill out the Participants Gender' name='participantsgender' data-placeholder='Select Participants Gender' class='form-control chosen-select-deselect ' )'>
+             <option value='1'  >Male</option> 
+             <option value='2'  >Female</option> 
+             <option value='3'  >Other</option> 
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipantsgender' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantsidentificationnumber' class='control-label col-xs-12 col-md-4'>Participants Identification Number</label><div class='col-xs-12 col-md-8'>
+           <input  id='participantsidentificationnumber' data-error='Please fill out the Participants Identification Number' type='text' class='form-control' placeholder='Enter Participants Identification Number' name='participantsidentificationnumber' maxlength='255' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantsdesignation' class='control-label col-xs-12 col-md-4'>Participants Designation</label><div class='col-xs-12 col-md-8'>
+           <input  id='participantsdesignation' data-error='Please fill out the Participants Designation' type='text' class='form-control' placeholder='Enter Participants Designation' name='participantsdesignation' maxlength='500' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantsmobile' class='control-label col-xs-12 col-md-4'>Participants Mobile Number</label><div class='col-xs-12 col-md-8'>
+           <input  id='participantsmobile' data-error='Please fill out the Participants Mobile Number' type='text' class='form-control' placeholder='Enter Participants Mobile Number' name='participantsmobile' maxlength='255' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group required has-feedback' ><label for='participantsemail' class='control-label col-xs-12 col-md-4'>Participants Email Address </label><div class='col-xs-12 col-md-8'>
+           <input required id='participantsemail' data-error='Please fill out the Participants Email Address ' type='email' class='form-control' placeholder='Enter Participants Email Address ' name='participantsemail' maxlength='255' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantsqualification' class='control-label col-xs-12 col-md-4'>Participants Highest Education Qualification</label><div class='col-xs-12 col-md-8'>
+           <select   id='participantsqualification' data-error='Please fill out the Participants Highest Education Qualification' name='participantsqualification' data-placeholder='Select Participants Highest Education Qualification' class='form-control chosen-select-deselect ' )'>
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipantsqualification' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantscompanyname' class='control-label col-xs-12 col-md-4'>Participants Company Name</label><div class='col-xs-12 col-md-8'>
+           <input  id='participantscompanyname' data-error='Please fill out the Participants Company Name' type='text' class='form-control' placeholder='Enter Participants Company Name' name='participantscompanyname' maxlength='512' />
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantsdietarytype' class='control-label col-xs-12 col-md-4'>Participants Dietary Type</label><div class='col-xs-12 col-md-8'>
+           <select   id='participantsdietarytype' data-error='Please fill out the Participants Dietary Type' name='participantsdietarytype' data-placeholder='Select Participants Dietary Type' class='form-control chosen-select-deselect ' )'>
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipantsdietarytype' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>
+         <div class='form-group  has-feedback' ><label for='participantscountry' class='control-label col-xs-12 col-md-4'>Participants Country</label><div class='col-xs-12 col-md-8'>
+           <select   id='participantscountry' data-error='Please fill out the Participants Country' name='participantscountry' data-placeholder='Select Participants Country' class='form-control chosen-select-deselect ' )'>
+             <option value='1'  >ABU DHABI</option> 
+             <option value='10'  >ANGUILLA</option> 
+             <option value='100'  >HEARD & MCDONALD ISLANDS</option> 
+             <option value='101'  >HONDURAS</option> 
+             <option value='102'  >HONG KONG</option> 
+             <option value='103'  >HUNGARY</option> 
+             <option value='104'  >ICELAND</option> 
+             <option value='105'  >INDIA</option> 
+             <option value='106'  >INDONESIA</option> 
+             <option value='108'  >IRAN</option> 
+             <option value='109'  >IRAQ</option> 
+             <option value='11'  >ANTARTICA</option> 
+             <option value='110'  >IRELAND</option> 
+             <option value='111'  >ISRAEL</option> 
+             <option value='112'  >ITALY</option> 
+             <option value='113'  >IVORY COAST</option> 
+             <option value='114'  >JAMAICA</option> 
+             <option value='115'  >JAPAN</option> 
+             <option value='116'  >JORDAN</option> 
+             <option value='117'  >CAMBODIA</option> 
+             <option value='118'  >KAZAKHSTAN</option> 
+             <option value='119'  >KENYA</option> 
+             <option value='12'  >ANTIGUA</option> 
+             <option value='120'  >KIRGHIZIA</option> 
+             <option value='121'  >KIRIBATI</option> 
+             <option value='122'  >KOREA NORTH</option> 
+             <option value='123'  >KOREA SOUTH</option> 
+             <option value='124'  >KUWAIT</option> 
+             <option value='125'  >LAOS</option> 
+             <option value='126'  >LATVIA</option> 
+             <option value='127'  >LEBANON</option> 
+             <option value='128'  >LESOTHO</option> 
+             <option value='129'  >LIBERIA</option> 
+             <option value='13'  >ARGENTINA</option> 
+             <option value='130'  >LIBYA</option> 
+             <option value='131'  >LIECHTENSTEIN</option> 
+             <option value='132'  >LITHUANIA</option> 
+             <option value='133'  >LUXEMBOURG</option> 
+             <option value='134'  >MACAO</option> 
+             <option value='135'  >MADAGASCAR/MALAGASY</option> 
+             <option value='136'  >MALAWI</option> 
+             <option value='137'  >MALAYSIA</option> 
+             <option value='138'  >MALDIVES</option> 
+             <option value='139'  >MALI</option> 
+             <option value='14'  >ARMENIA</option> 
+             <option value='140'  >MALTA</option> 
+             <option value='141'  >MARSHALL ISLANDS</option> 
+             <option value='142'  >MARTINIQUE</option> 
+             <option value='143'  >MAURITANIA</option> 
+             <option value='144'  >MAURITIUS</option> 
+             <option value='145'  >MAYOTTE</option> 
+             <option value='146'  >MEXICO</option> 
+             <option value='147'  >MICRONESIA</option> 
+             <option value='148'  >MIDWAY ISLAND</option> 
+             <option value='149'  >MOLDAVIA</option> 
+             <option value='15'  >ARUBA</option> 
+             <option value='150'  >MONACO</option> 
+             <option value='151'  >MONGOLIA</option> 
+             <option value='152'  >MONTSERRAT</option> 
+             <option value='153'  >MOROCCO</option> 
+             <option value='154'  >MOZAMBIQUE</option> 
+             <option value='155'  >MYANMAR (BURMA)</option> 
+             <option value='156'  >NAMIBIA</option> 
+             <option value='158'  >NAURU</option> 
+             <option value='159'  >NEPAL</option> 
+             <option value='16'  >ASCENSION ISLAND</option> 
+             <option value='160'  >NETHERLANDS</option> 
+             <option value='161'  >NETHERLANDS ANTILLES</option> 
+             <option value='163'  >NEW CALEDONIA</option> 
+             <option value='164'  >NEW ZEALAND</option> 
+             <option value='165'  >NICARAGUA</option> 
+             <option value='166'  >NIGER</option> 
+             <option value='167'  >NIGERIA</option> 
+             <option value='168'  >NIUE</option> 
+             <option value='17'  >AUSTRALIA</option> 
+             <option value='170'  >NORFOLK ISLAND</option> 
+             <option value='171'  >NORTHERN IRELAND</option> 
+             <option value='172'  >NORTHERN MARIANA ISLANDS</option> 
+             <option value='173'  >NORWAY</option> 
+             <option value='175'  >OMAN</option> 
+             <option value='176'  >PAKISTAN</option> 
+             <option value='177'  >PALAU</option> 
+             <option value='178'  >PANAMA</option> 
+             <option value='179'  >PAPUA NEW GUINEA</option> 
+             <option value='18'  >AUSTRIA</option> 
+             <option value='180'  >PARAGUAY</option> 
+             <option value='181'  >PERU</option> 
+             <option value='182'  >PHILIPPINES</option> 
+             <option value='183'  >PITCAIRN</option> 
+             <option value='184'  >POLAND</option> 
+             <option value='185'  >PORTUGAL</option> 
+             <option value='186'  >PUERTO RICO</option> 
+             <option value='187'  >QATAR</option> 
+             <option value='188'  >RAS AL KHAIMAH</option> 
+             <option value='189'  >REUNION ISLAND</option> 
+             <option value='19'  >AZERBAIJAN</option> 
+             <option value='190'  >ROMANIA</option> 
+             <option value='191'  >RUSSION FEDERATION</option> 
+             <option value='192'  >RWANDA</option> 
+             <option value='193'  >SAMOA AMERICAN</option> 
+             <option value='194'  >SAMOA WESTERN</option> 
+             <option value='195'  >SAN MARINO</option> 
+             <option value='196'  >SAO TOME & PRINCIPE</option> 
+             <option value='197'  >SAUDI ARABIA</option> 
+             <option value='198'  >SCOTLAND</option> 
+             <option value='199'  >SENEGAL</option> 
+             <option value='2'  >ADMIRALTY ISLANDS</option> 
+             <option value='20'  >BAHAMAS</option> 
+             <option value='200'  >SEYCHELLES</option> 
+             <option value='201'  >SHARJAH</option> 
+             <option value='202'  >SIERRA LEONE</option> 
+             <option value='203'  >SINGAPORE</option> 
+             <option value='204'  >SLOVAKIA</option> 
+             <option value='205'  >SLOVENIA</option> 
+             <option value='206'  >SOLOMON ISLANDS</option> 
+             <option value='207'  >SOMALIA</option> 
+             <option value='208'  >SOUTH AFRICA</option> 
+             <option value='209'  >SOUTH GEORGIA</option> 
+             <option value='21'  >BAHRAIN</option> 
+             <option value='210'  >SOUTH SANDWICH ISLANDS</option> 
+             <option value='211'  >SOVIET UNION</option> 
+             <option value='212'  >SPAIN</option> 
+             <option value='213'  >SRI LANKA</option> 
+             <option value='214'  >ST HELENA</option> 
+             <option value='215'  >ST KITTS/NEVIS</option> 
+             <option value='216'  >ST LUCIA</option> 
+             <option value='217'  >ST PIERRE</option> 
+             <option value='218'  >ST VINCENT</option> 
+             <option value='219'  >SUDAN</option> 
+             <option value='22'  >BANGLADESH</option> 
+             <option value='220'  >SURINAME</option> 
+             <option value='221'  >SVALBARD & JAN MAYEN ISLANDS</option> 
+             <option value='222'  >SWAZILAND</option> 
+             <option value='223'  >SWEDEN</option> 
+             <option value='224'  >SWITZERLAND</option> 
+             <option value='225'  >SYRIA</option> 
+             <option value='226'  >TAIWAN</option> 
+             <option value='227'  >TAJIKSTAN</option> 
+             <option value='228'  >TANZANIA</option> 
+             <option value='229'  >THAILAND</option> 
+             <option value='23'  >BARBADOS</option> 
+             <option value='230'  >TOGO</option> 
+             <option value='231'  >TOKELAU ISLANDS</option> 
+             <option value='232'  >TONGA</option> 
+             <option value='233'  >TRINIDAD & TOBAGO</option> 
+             <option value='234'  >TUNISIA</option> 
+             <option value='235'  >TURKEY</option> 
+             <option value='236'  >TURKMENISTAN</option> 
+             <option value='237'  >TURKS & CAICOS ISLANDS</option> 
+             <option value='238'  >TUVALU</option> 
+             <option value='239'  >UGANDA</option> 
+             <option value='24'  >BELGIUM</option> 
+             <option value='240'  >UKRAINE</option> 
+             <option value='241'  >UMM AL QAIWAIN</option> 
+             <option value='242'  >UNITED ARAB EMIRATES</option> 
+             <option value='243'  >UNITED KINGDOM</option> 
+             <option value='244'  >UNITED STATES</option> 
+             <option value='245'  >UNITED STATES MINOR OUTLYING ISLANDS</option> 
+             <option value='246'  >URUGUAY</option> 
+             <option value='25'  >BELIZE</option> 
+             <option value='251'  >UZBEKISTAN</option> 
+             <option value='252'  >VANUATU</option> 
+             <option value='253'  >VATICAN CITY</option> 
+             <option value='254'  >VENEZUELA</option> 
+             <option value='255'  >VIETNAM</option> 
+             <option value='256'  >VIRGIN ISLANDS UK</option> 
+             <option value='257'  >WAKE ISLAND</option> 
+             <option value='258'  >WALES</option> 
+             <option value='259'  >WALLIS & FUTUNA ISLAND</option> 
+             <option value='26'  >BENIN</option> 
+             <option value='260'  >WESTERN SAHARA</option> 
+             <option value='261'  >YEMEN ARAB REPUBLIC</option> 
+             <option value='262'  >YUGOSLAVIA</option> 
+             <option value='263'  >ZAIRE</option> 
+             <option value='264'  >ZAMBIA</option> 
+             <option value='265'  >ZIMBABWE</option> 
+             <option value='266'  >PALASTINE</option> 
+             <option value='267'  >WEST AFRICA</option> 
+             <option value='27'  >BERMUDA</option> 
+             <option value='28'  >BHUTAN</option> 
+             <option value='29'  >BOLIVIA</option> 
+             <option value='3'  >AFGHANISTAN</option> 
+             <option value='30'  >BOSNIA/HERZEGOVINA</option> 
+             <option value='31'  >BOTSWANA</option> 
+             <option value='32'  >BOUVET ISLAND</option> 
+             <option value='33'  >BRAZIL</option> 
+             <option value='34'  >BRITISH INDIAN OCEAN TERRITORY</option> 
+             <option value='35'  >BRUNEI</option> 
+             <option value='36'  >BULGARIA</option> 
+             <option value='37'  >BURKINA/FASO</option> 
+             <option value='38'  >BURUNDI</option> 
+             <option value='39'  >BYELORUSSIA</option> 
+             <option value='4'  >AJMAN</option> 
+             <option value='40'  >CAMEROON</option> 
+             <option value='41'  >CANADA</option> 
+             <option value='42'  >CAPE VERDE</option> 
+             <option value='43'  >CAROLINE ISLANDS</option> 
+             <option value='44'  >CAYMAN ISLANDS</option> 
+             <option value='45'  >CENTRAL AFRICAN REP</option> 
+             <option value='46'  >CHAD</option> 
+             <option value='47'  >CHILE</option> 
+             <option value='48'  >CHINA PEOPLES REP</option> 
+             <option value='49'  >CHRISTMAS ISLANDS</option> 
+             <option value='5'  >AL AIN</option> 
+             <option value='50'  >COCOS ISLANDS</option> 
+             <option value='51'  >COLOMBIA</option> 
+             <option value='53'  >COMORO ISLANDS</option> 
+             <option value='54'  >CONGO</option> 
+             <option value='55'  >COOK ISLANDS</option> 
+             <option value='56'  >COSTA RICA</option> 
+             <option value='57'  >CROTIA</option> 
+             <option value='58'  >CUBA</option> 
+             <option value='59'  >CYPRUS</option> 
+             <option value='6'  >ALBANIA</option> 
+             <option value='60'  >CZECH REPUBLIC</option> 
+             <option value='61'  >DENMARK</option> 
+             <option value='62'  >DJIBOUTI</option> 
+             <option value='63'  >DOMINICA</option> 
+             <option value='64'  >DOMINICAN REPUBLIC</option> 
+             <option value='65'  >DUBAI</option> 
+             <option value='66'  >TIMOR-LESTE</option> 
+             <option value='67'  >ECUADOR</option> 
+             <option value='68'  >EGYPT</option> 
+             <option value='69'  >EL SALVADOR</option> 
+             <option value='7'  >ALGERIA</option> 
+             <option value='70'  >ENGLAND</option> 
+             <option value='71'  >EQUATORIAL GUINEA</option> 
+             <option value='72'  >ERITREA</option> 
+             <option value='73'  >ESTONIA</option> 
+             <option value='74'  >ETHIOPIA</option> 
+             <option value='75'  >FAEROE ISLANDS</option> 
+             <option value='76'  >FALKLAND ISLANDS</option> 
+             <option value='77'  >FIJI</option> 
+             <option value='78'  >FINLAND</option> 
+             <option value='79'  >FRANCE</option> 
+             <option value='8'  >ANDORRA</option> 
+             <option value='80'  >FRENCH GUIANA</option> 
+             <option value='81'  >FRENCH POLYNESIA</option> 
+             <option value='82'  >FRENCH SOUTHERN TERRITORIES</option> 
+             <option value='83'  >FUJAIRAH</option> 
+             <option value='84'  >GABON</option> 
+             <option value='85'  >GAMBIA</option> 
+             <option value='86'  >GEORGIA</option> 
+             <option value='87'  >GERMANY</option> 
+             <option value='88'  >GHANA</option> 
+             <option value='89'  >GIBRALTAR</option> 
+             <option value='9'  >ANGOLA</option> 
+             <option value='90'  >GREECE</option> 
+             <option value='91'  >GREENLAND</option> 
+             <option value='92'  >GRENADA</option> 
+             <option value='93'  >GUADELOUPE</option> 
+             <option value='94'  >GUAM</option> 
+             <option value='95'  >GUATEMALA</option> 
+             <option value='96'  >GUINEA</option> 
+             <option value='97'  >GUINEA-BISSAU</option> 
+             <option value='98'  >GUYANA</option> 
+             <option value='99'  >HAITI</option> 
+             <option value='999'  >UNDEFINED</option> 
+           </select>
+           <span class='glyphicon form-control-feedback'> </span> 
+           <div id='errormsgparticipantscountry' class='help-block with-errors'> </div>
+           <span class='glyphicon form-control-feedback'></span>
+           <div class='help-block with-errors'></div>
+       </div></div>" /> 
+                        <input type='hidden' name='mandatoryfields' value='participantowner,participantsname,participantsemail,participantsbookingfor,participantsbookingquantity'/>
+                        <input type='hidden' name='host' id='wl_hidden_host' value=''/><div id='loading' hidden><strong>Alert! </strong> Please fill all the details</div>
+
+                        <div class='text-right'>
+                        <button type='button' onClick='addElements()' id='addbtn' class='btn btn-success btn-sm' name='addbtn'> Add More </button>
+                        </div>
+                       <div class='form-group'>
+                         <div hidden id='maxlimitreachedmsg' style='text-align:center; color:red;'>
+                           <span >Add more participants limit has been reached</span>
+                         </div>
+                       </div>
+                     </div>
+                  </div>
+                  <div class='row inner-row'>
+                     <div class='well well-lg form-footer clearfix'>
+                        <div class='col-xs-12 col-md-12'>
+                           <div class='form-group'>
+                              <div class='col-xs-offset-5 col-xs-9'>
+                                 <p>Please Click  <a href="//localhost:3000/payment" id="eventPrice">Here to make Payment for the Application link</a>.</p>
+                                 <input type='submit' id='submitbtn' class='btn btn-lg btn-primary' name='submit' value='Submit'/>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+      <div class='container-fluid'>
+         <footer>
+            <div class='row'>
+               <div class='col-xs-12 col-md-4'>
+                  <p>&copy; Deskera 2019</p>
+               </div>
+               <div class='col-xs-12 col-md-8'>
+                  <p class='text-right'><a class='product thumbnail text-right' target='_blank' href='http://www.deskera.com'>Powered by <img alt='Deskera' src='https://memdb.tech/crm/images/deskera-logo.png'></a></p>
+               </div>
+            </div>
+         </footer>
+      </div>
+      <script type='text/javascript'> 
+        var arrayOfmasterid1= new Array();
+        var arrayOfMasterField1= new Array();
+        var storeid=''; 
+        var isAddGlobalArray = true;
+        var eventID= sessionStorage.getItem("eventId");
+        var eventPrice=sessionStorage.getItem("eventPrice")
+        console.log("event ID "+eventID)
+        document.getElementById("externaleventId").value=this.eventID;
+        document.getElementById("eventName").innerHTML='Registration for event : '+eventID;
+        document.getElementById("eventPrice").innerHTML='Admission Fee: SGD '+eventPrice
+    
+        if (typeof String.prototype.trim !== 'function') { 
+          String.prototype.trim = function() { 
+            return this.replace(/^\s+|\s+$/g, ''); 
+          }
+        }
+    
+        function nohtml(ob) {
+          var val=ob.value;
+          var chk=val;
+          ob.value= val.replace(/(?:<script.*?>)((\n|\r|.)*?)(?:<\/script>)/ig, "").replace(/<\/?[^>]+>/gi,"").trim();
+          if(chk!=ob.value) 
+            alert('Input value is containing html tags or scripts that have been removed.') 
+        }
+       
+        function disableBTN() {
+          document.getElementById('submitbtn').disabled=true;
+        }
+    
+        function setChildValuesForParent(value, childField, mappingJson){
+          if(mappingJson){
+            var mappingValueArray = mappingJson[value];
+            childField.options.length = 0;
+            childField.options[childField.options.length] = new Option('-None-', '99');
+            if(mappingValueArray){
+              for (var l = 0; l < mappingValueArray.length; l++) {
+                childField.options[childField.options.length] = new Option(mappingValueArray[l].name, mappingValueArray[l].id);
+              }
+            }
+          }
+        }
+    
+        function checkMandatoryFields(mandatoryFields){
+          var webToParticipantForm = document.getElementById('webtoparticipant_form_id');
+          for(var i=0;i<mandatoryFields.length;i++){
+            if(webToParticipantForm.elements[mandatoryFields[i]].value==''){
+              alert('Please fill all mandatory fields marked with asterisk(*)');
+              webToParticipantForm.action='';
+              return false;
+            }
+          }
+          return true;
+        }
+    
+        function addElements() {
+          var limitdiv = document.getElementById('participantscount');
+          var addmore = false;
+          var limit = limitdiv.value;
+          if (limit >= 4) {
+             hideShowAddBTN(true);
+             var maxlimitreacheddiv = document.getElementById('maxlimitreachedmsg');
+           if (maxlimitreacheddiv) {
+               maxlimitreacheddiv.style.display = 'block';
+           }
+          }
+          limit++;
+          limitdiv.value = limit;
+          var addNewParticipantDivId = 'addnewparticipant_' + new Date().getTime();
+          var html = '<div style="border-radius: 0px 0px 15px 15px;" class="panel panel-default" id="' + addNewParticipantDivId + '"><div class="panel-heading"><span>Fill Another Participants Details</span><div style="float:right;" ><input type="button" onClick="removeElements(\'' + addNewParticipantDivId + '\')" class="close" value="X" style="font-size : 15px; height: 25px;" /></div></div><div class="panel-body">'; 
+          var element = document.getElementById('participantsfieldselement');
+          if (element.value != '') {
+             html += element.value;
+             addmore = true;
+          }
+         if (addmore) {
+           var newdiv = document.createElement('div');
+           html = '' + html + '</div></div>';
+           newdiv.innerHTML = html;
+           document.getElementById('addElementsDiv').appendChild(newdiv);
+           getDatePicker();
+         } 
+     }
+    
+        function copyBillingAddressFunction() {
+            document.getElementById('shippingaddress').value = document.getElementById('billingaddress').value;
+            document.getElementById('shippingemail').value = document.getElementById('billingemail').value;
+            $('input[name="shippingcity"]').val($('input[name="billingcity"]')[0].value);
+            $('input[name="shippingstate"]').val($('input[name="billingstate"]')[0].value);
+            $('input[name="shippingcountry"]').val($('input[name="billingcountry"]')[0].value);
+            $('input[name="shippingpostalcode"]').val($('input[name="billingpostalcode"]')[0].value);
+            $('input[name="shippingphone"]').val($('input[name="billingphone"]')[0].value);
+            $('input[name="shippingmobile"]').val($('input[name="billingmobile"]')[0].value);
+            $('input[name="shippingfax"]').val($('input[name="billingfax"]')[0].value);
+            $('input[name="shippingrecipientname"]').val($('input[name="billingrecipientname"]')[0].value);
+            $('input[name="shippingcontactperson"]').val($('input[name="billingcontactperson"]')[0].value);
+            $('input[name="shippingcontactpersonnumber"]').val($('input[name="billingcontactpersonnumber"]')[0].value);
+            $('input[name="shippingcontactpersondesignation"]').val($('input[name="billingcontactpersondesignation"]')[0].value);
+            $('input[name="shippingwebsite"]').val($('input[name="billingwebsite"]')[0].value);
+        }
+      function removeElements(divid) {
+         var removeDiv = document.getElementById(divid);
+         removeDiv.remove();
+         var limitdiv = document.getElementById('participantscount');
+         var limit = limitdiv.value;
+         limit--;
+         limitdiv.value = limit;
+          if (document.getElementById('addbtn').style.display=='none') {
+             hideShowAddBTN(false);
+             var maxlimitreacheddiv = document.getElementById('maxlimitreachedmsg');
+          if (maxlimitreacheddiv) {
+             maxlimitreacheddiv.style.display = 'none';
+          }
+        }
+     }
+      function hideShowAddBTN(isHideAddbtn) {
+          var participantsfieldselement = document.getElementById('participantsfieldselement');
+          if(isHideAddbtn || participantsfieldselement.value=='') {
+              document.getElementById('addbtn').style.display = 'none';
+          } else {
+              document.getElementById('addbtn').style.display = 'inline';
+          }
+     }
+        function validateDropDown(){
+          var isvalid=0;
+          var comboIds = document.getElementsByClassName('dropdowngroup');
+          if(comboIds.length>0){
+            for(var x=0;x<comboIds.length;x++){
+              var comboId = comboIds[x].id;
+              var comboValue = document.getElementById(comboId).value;
+              if(comboValue.length==0){
+               var ul = document.createElement('ul');
+               ul.id='comboerror'+comboIds[x].id;
+               if(document.getElementById(ul.id)==null){
+                 ul.className='list-unstyled comboerrormsg';
+                  var li = document.createElement('li');
+                  li.color='#a94442';
+                  li.style.listStyle='outside none none';
+                  li.innerHTML= "<span style='color:#a94442'>"+document.getElementById(comboId).getAttribute('data-error')+"<span>";
+                  ul.appendChild(li);
+                  document.getElementById('errormsg'+comboIds[x].id).appendChild(ul);
+                }
+                $('#comboerror'+comboIds[x].id).show();
+                isvalid=1;
+              }
+            }
+          }
+          if(isvalid==1){
+            return false;
+          }
+        }
+    
+        function hideErrorMsg(id){
+          $('#comboerror'+id).hide();
+        }
+     
+        function changeFormAsPerBookingType(){
+          var participantsBookingFor = document.getElementById('participantsbookingfor');
+          var participantsBookingForSelectedIndex = participantsBookingFor.selectedIndex;
+          var participantsBookingForType = participantsBookingFor[participantsBookingForSelectedIndex]?participantsBookingFor[participantsBookingForSelectedIndex].attributes.participantsBookingForType.value:1;
+          var addButton = document.getElementById('addbtn');
+          var participantsBookingQuantity = document.getElementById('participantsbookingquantity');
+          var participantsBookingQuantityDiv = document.getElementById('participantsbookingquantitynumbervalueid');
+          var limitdiv = document.getElementById('participantscount');
+          var maxlimitreacheddiv = document.getElementById('maxlimitreachedmsg');
+          var limit = limitdiv.value;
+          if(participantsBookingForType == 1){
+               hideShowAddBTN(true);
+               participantsBookingQuantity.style.display = 'block';
+               participantsBookingQuantityDiv.value = ' ';
+               maxlimitreacheddiv.style.display = 'none';
+               var addElementsDiv= document.getElementById('addElementsDiv');
+               addElementsDiv.innerHTML=' '; 
+               limitdiv.value = 1;
+               participantsBookingQuantityDiv.required=true;
+          }else{
+            maxlimitreacheddiv.style.display = 'none';
+            participantsBookingQuantity.style.display = 'none';
+               participantsBookingQuantityDiv.value = ' ';
+               participantsBookingQuantityDiv.required=false;
+               hideShowAddBTN(false);
+          }
+        }
+     
+        function setTextField(value,comboField,allFieldData,parentid){ 
+          var isHideAllField = true;
+          for(var i=0;i<comboField.length;i++){
+            if(value==comboField[i].combofieldid){
+              for(var j=0;j<allFieldData.length;j++){
+                if(allFieldData[j].defaultheaderid==comboField[i].textfieldid){
+                  document.getElementById(allFieldData[j].id).style.display='block';
+                  document.getElementById(allFieldData[j].id+'_label').style.display='block';
+                  document.getElementById(allFieldData[j].id).style.visibility='visible';
+                  document.getElementById(allFieldData[j].id+'_label').style.visibility='visible';
+                  isHideAllField = false;
+                } else {
+                  if(document.getElementById(allFieldData[j].id) != null){
+                    for(var k=0;k<allFieldData.length;k++){
+                      if(allFieldData[k].childid && allFieldData[k].childid!=''){
+                        for(var l=0;l<allFieldData[k].childid.length;l++){
+                          if(allFieldData[k].childid[l].textfieldid == allFieldData[j].defaultheaderid){
+                            if(allFieldData[k].id==parentid){
+                              document.getElementById(allFieldData[j].id).style.display='none';
+                              document.getElementById(allFieldData[j].id+'_label').style.display='none';
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          if(isHideAllField){
+            for(var j=0;j<allFieldData.length;j++){
+              if(document.getElementById(allFieldData[j].id) != null){
+                for(var k=0;k<allFieldData.length;k++){
+                  if(allFieldData[k].childid && allFieldData[k].childid!=''){
+                    for(var l=0;l<allFieldData[k].childid.length;l++){
+                      if(allFieldData[k].childid[l].textfieldid == allFieldData[j].defaultheaderid){
+                        if(allFieldData[k].id==parentid){
+                          document.getElementById(allFieldData[j].id).style.display='none';
+                          document.getElementById(allFieldData[j].id+'_label').style.display='none';
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          } 
+        }
+    
+        function setOptions(value,comboField,mappedComboKeys,mappedComboValues,cascadingcombofieldid) {
+          var k=0;
+          var isSetnull=true;
+          var selbox = comboField;
+          var tempArrayText = new Array();
+          var tempArrayValue = new Array();
+      
+          if(isAddGlobalArray || (storeid != comboField.id)){
+            for(var i=0;i<mappedComboKeys.length;i++){
+              arrayOfmasterid1[i] = mappedComboKeys[i];
+              arrayOfMasterField1[i] = mappedComboValues[i];
+            }
+            isAddGlobalArray=false;
+            storeid = comboField.id;
+          }
+      
+          for(var i =0;i<cascadingcombofieldid.length;i++){
+            var secondary= cascadingcombofieldid[i].secondaryid;
+            if(secondary==value){
+              var primary = cascadingcombofieldid[i].primaryid;
+              for(var j=0;j<arrayOfmasterid1.length;j++){
+                if(arrayOfmasterid1[j]== primary){
+                  tempArrayText[k] = arrayOfMasterField1[j];
+                  tempArrayValue[k] = arrayOfmasterid1[j];	
+                  k++;
+                }
+              }
+            }
+          }
+          for(var k=0;k<tempArrayText.length;k++){
+            if(isSetnull){
+              selbox.options.length = 0;
+              isSetnull=false;
+            }
+            selbox.options[selbox.options.length] = new Option(tempArrayText[k],tempArrayValue[k]);
+          }
+    
+          if(tempArrayText.length<=0){
+            selbox.options.length = 0;
+          }
+        }
+      </script>
+      <script type='text/javascript'>
+        function getDatePicker() {
+          $('#dob.input-group.date').datepicker({
+          clearBtn: true,
+          orientation: 'bottom auto',
+          format: 'yyyy-mm-dd',
+          autoclose: true
+          });
+        }
+      </script>
+      <script type='text/javascript'>
+        $(function() {
+        $('#messageWrapper').addClass('hidden');
+        });
+      </script> 
+      <script src='https://memdb.tech/crm/scripts/js/chosen.jquery.js'></script>
+      <script src='https://memdb.tech/crm/scripts/js/chosen.jquery.min.js'></script>
+      <script src='https://memdb.tech/crm/scripts/js/validatorv0.9.0.min.js'></script>
+      <script type='text/javascript'>
+        document.getElementById('timezoneOffset').value=escape(new Date().getTimezoneOffset());
+        document.getElementById('timezoneID').value=escape(new Date().toString().match(/([A-Z]+[+-][0-9]+)/)[1]);$(function(){$('.chosen-select-deselect').chosen();});
+        document.getElementById('createdon').value=escape(new Date().getTime());
+      </script>
+
+   </body>
+</html>

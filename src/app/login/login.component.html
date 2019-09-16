@@ -1,0 +1,73 @@
+<!-- NAVBAR -->
+<app-navbar></app-navbar>
+<!-- END OF NAVBAR -->
+
+
+
+<!-- Default form login -->
+<br>
+<br>
+<br>
+<div class="d-flex justify-content-around">
+
+  <form  [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()" class="text-center p-5">
+      
+
+    <h2 class="font-weight-normal">Welcome</h2>
+    <!-- Register -->
+    <p>Not a member? Fill up our
+      <a href='/!#'>membership form</a>
+      now.
+    </p>
+    <br>
+
+    <i class="fas fa-user-circle"></i>
+
+
+    <!-- Email -->
+    <div class="md-form">
+        <label for="Form-email2">User name</label><br>
+        <input formControlName="inputEmail" type="text" id="Form-email2" class="form-control">
+        
+    </div>
+
+    <!-- Password -->
+    <div class="md-form">
+        <label for="Form-pass1">Your password</label><br>
+        <input formControlName="inputPassword" type="password" id="Form-pass1" class="form-control">
+      
+    </div>
+    <div class="d-flex justify-content-around">
+
+
+
+
+
+    
+
+      <!-- Sign in button -->
+      <button mdbBtn color="dark" block="true" class="my-4" type="submit">Login</button>
+      
+    </div>
+
+    <br>
+    
+    <div>
+      <!-- Forgot password -->
+      <a href="/forgot-password"><span class="font-weight-bold">·</span>Forgot Username/Password?</a>
+    </div>
+
+    <div>
+      <a><span class="font-weight-bold">·</span>Don't have an account?</a>
+
+      <a href="/register"> Sign Up</a>
+    </div>
+
+    <br>
+    <br>
+<app-footer></app-footer>
+  </form>
+  
+</div>
+<!-- <router-outlet></router-outlet> -->
+<!-- Default form login -->

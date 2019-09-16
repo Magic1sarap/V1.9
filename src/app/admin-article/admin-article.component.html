@@ -1,0 +1,104 @@
+<!-- ADMIN NAVBAR -->
+<app-navbar></app-navbar> 
+<!-- END OF ADMIN NAVBAR -->
+
+
+<div class="d-flex" id="wrapper">
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">Admin Dashboard
+
+    </div>
+    <div class="list-group list-group-flush">
+        <a routerLink="/admin-article" class="list-group-item list-group-item-action bg-light">Articles</a>
+        <a routerLink="/admin" class="list-group-item list-group-item-action bg-light">Create Article</a>
+        <a routerLink="/admin-about" class="list-group-item list-group-item-action bg-light">Edit About</a>
+        <a routerLink="/admin-services" class="list-group-item list-group-item-action bg-light">Edit Services</a>
+    </div>
+</div>
+
+  
+  <!-- MANAGE ARTICLES SECTION -->
+  <div class="container">
+    <br>
+    <br>
+    <h1 class="text-center">Manage Articles</h1>
+    <br>
+
+
+    <section class="my-5">
+
+
+
+      <!-- Grid row -->
+      <section *ngIf="dataLoaded; else loading">
+      <div class="row" *ngFor="let article of articles">
+
+
+
+        <!-- Grid column -->
+        <div class="col-lg-5">
+          <!-- Featured image -->
+          <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
+            <img [src]="article.image" alt="image can't be displayed :(" id="display-image">
+            <!-- <a [routerLink]="['/article-showcase', article.header, article.tag, article._id]"> -->
+              <!-- <div class="mask rgba-white-slight"></div>
+            </a> -->
+          </div>
+
+
+        </div>
+        <!-- Grid column -->
+
+
+
+        <!-- Grid column -->
+        <div class="col-lg-7">
+          <!-- Category -->
+          <a class="green-text">
+            <h6 class="font-weight-bold mb-3"><i class="fas fa-utensils pr-2"></i>Food</h6>
+          </a>
+          <!-- Post title -->
+          <h3 class=" mb-3">{{article.header}}</h3>
+          <!-- Excerpt -->
+
+          <p [innerHtml]="article.text | slice: 0:150"></p>
+          <!-- Post data -->
+          <p><a><strong>{{article.tag}}</strong></a></p>
+          <!-- Edit button -->
+          <button mdbBtn class="btn btn-primary btn-md" (click)="onEdit(article.image,article.text)"
+            [routerLink]="['/admin-edit-articles', article.header, article.tag, article._id]">Edit</button>
+          <!-- Delete button Modal-->
+
+          <button type="button" mdbBtn color="danger" class="btn btn-md waves-light" (click)="swal(article._id)"
+            mdbWavesEffect>Delete</button>
+
+        </div>
+
+        <!-- Grid column -->
+
+        <div class="container">
+          <hr id="card-hr" class="my-5">
+        </div>
+      </div>
+    </section>
+      <!-- Grid row -->
+
+      <!-- FOOTER SECTION -->
+      <app-footer></app-footer>
+      <!-- END OF FOOTER SECTION -->
+
+    </section>
+  </div>
+
+
+
+</div>
+
+<ng-template #loading>
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</ng-template>
+<!-- END OF MANAGE ARTICLES SECTION -->

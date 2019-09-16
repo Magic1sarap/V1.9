@@ -1,0 +1,40 @@
+{
+    "navbarTranslate": {
+        "home": "Home",
+        "about": "About",
+        "services": "Services",
+        "articles": "Articles",
+        "events": "Events",
+        "account": "Account",
+        "MembershipApplicationform": "Membership Application",
+        "EventApplicationform": "Event Application"
+    },
+
+    "homeTranslate": {
+        "header1":"Straight to the point",
+        "header4": "Trade Association Hub",
+        "recentArticles" : "Recent Articles"
+    },
+
+    "eventsTranslate": {
+        "upcomingEvents": "Upcoming Events"
+    },
+
+    "futureEventsTranslate": {
+        "futureEvents": "Future Events /",
+        "localDates": " Local Dates"
+    },
+
+    "contactTranslate": {
+        "header2": "Contact",
+        "address": "646 Telok Ayer Road, 50, 12323",
+        "email": "pmo@gmail.com",
+        "phoneNo": "844-1234-44"
+    },
+
+    "footerTranslate": {
+        "copyright": "©2019 by PMO team."
+    }
+
+
+}

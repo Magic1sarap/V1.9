@@ -1,0 +1,64 @@
+<!-- NAVBAR -->
+<app-navbar></app-navbar>
+<!-- END OF NAVBAR -->
+
+
+
+<div class="container event-div text-center">
+    <br>
+    <br>
+    <br>
+    <h5>{{eventtype}}</h5>
+    <h1 class="font-weight bold">{{eventtitle}}</h1>
+    <p>Don't miss it!</p>
+    <br>
+    <div class="row text-center">
+        <img id="event-photo1" src="https://via.placeholder.com/1440x700?text=PMO+Event." style="width: 100%;">
+    </div>
+
+
+
+    <div class="container text-left my-5">
+        <h3>Date & Location</h3>
+        <p>{{eventstartdate}}-{{eventenddate}}</p>
+        <h3>Registration Date</h3>
+        <p>Valid till: {{registrationenddate}}</p>
+        <h3 class="mt-5">About the Event</h3>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. A impedit at delectus beatae sint odio quis amet
+            suscipit maxime! Modi qui quidem, architecto beatae nostrum repudiandae ratione amet deleniti totam.
+            <br><br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quo dolorem consequuntur consequatur, ab
+            aperiam. Quibusdam fugiat deserunt veritatis maiores quasi illo voluptatum nostrum similique! Dolores minus
+            sint delectus non. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores corporis veniam
+            perferendis reprehenderit, quae minima aperiam omnis inventore possimus culpa ut modi atque sit corrupti,
+            debitis aliquid. Suscipit, eligendi nobis.</p>
+
+            <a class="text-muted my-5" href="/#!">Read more >></a>
+        
+    </div>
+    <div class="container text-left my-5">
+        <a href="/eventApplication.html" role="button">
+    <button mdbBtn class="btn btn-md btn-success" (click)="getCurrentID()">Join this event</button>
+        </a>
+</div>
+<div class="row text-center py-5">
+    <img id="event-photo2"src="https://via.placeholder.com/1440x400?text=PMO+Event." style="width: 100%;">
+</div>
+
+<div class="container text-left my-5">
+    <h3>Share this event</h3>
+    <div class="container d-flex social my-3">
+        <a><i class="fab fa-facebook-f mr-5"></i></a>
+        <a><i class="fab fa-twitter mr-5"></i></a>
+        <a><i class="fab fa-linkedin-in"></i></a>
+    </div>
+</div>
+
+
+</div>
+
+
+
+<!-- FOOTER SECTION -->
+<app-footer></app-footer>
+<!-- END OF FOOTER SECTION -->

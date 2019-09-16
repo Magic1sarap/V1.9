@@ -1,0 +1,39 @@
+{
+    "navbarTranslate": {
+        "home": "主页",
+        "about": "更多",
+        "services": "服务",
+        "articles": "报章",
+        "events":"活动",
+        "account":"账户",
+        "MembershipApplicationform": "会员",
+        "EventApplicationform": "活动报名"
+    },
+
+    "homeTranslate": {
+        "header1": "正文",
+        "header4": "贸易协会中心",
+        "recentArticles" : "最新报章"
+    },
+
+    "eventsTranslate": {
+        "upcomingEvents": "近期活动"
+    },
+
+    "futureEventsTranslate": {
+        "futureEvents": "未来的事件 /",
+        "localDates": " 当地日期"
+    },
+
+    "contactTranslate": {
+        "header2": "联系",
+        "address": "646 直落亚逸路, 50, 12323",
+        "email": "pmo@gmail.com",
+        "phoneNo": "844-1234-44"
+    },
+
+    "footerTranslate": {
+        "copyright": "©2019 由PMO团队创造."
+    }
+
+}

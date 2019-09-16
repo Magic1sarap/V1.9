@@ -1,0 +1,345 @@
+<!-- NAVBAR -->
+<app-navbar></app-navbar>
+<!-- END OF NAVBAR -->
+
+
+
+<!-- LANDING PAGE IMAGE -->
+<img class="thumbnail" src="https://via.placeholder.com/1440x500?text=PMO+Team." alt="image">
+<!-- END OF LANDING PAGE IMAGE -->
+
+
+
+
+
+<div class="container">
+
+
+
+  <!-- PAGE INTRO HEADER -->
+  <br>
+  <br>
+  <div class="row d-flex justify-content-center">
+    <h1 translate>homeTranslate.header1</h1>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <h4 translate>homeTranslate.header4</h4>
+  </div>
+  <br>
+  <br>
+  <br>
+  <!-- END OF PAGE INTRO HEADER -->
+
+
+
+  <!-- RECENT ARTICLES SECTION -->
+  <p class="label" translate>homeTranslate.recentArticles</p>
+
+
+
+  <hr class="my-5">
+  <section class="my-5">
+
+
+
+    <!-- Grid row -->
+    <section *ngIf="dataLoaded; else skeleton">
+      <div class="row" *ngFor="let article of articles" [@fadeIn]>
+
+
+
+
+        <!-- Grid column -->
+        <div class="col-lg-5">
+          <!-- Featured image -->
+          <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
+            <img class="img-fluid" [src]="article.image" alt="Sample image" id="display-image">
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+        </div>
+        <!-- Grid column -->
+
+
+        <!-- Grid column -->
+        <div class="col-lg-7">
+          <!-- Category -->
+          <a href="#!" class="green-text">
+            <h6 class="font-weight-bold mb-3"><i class="fas fa-utensils pr-2"></i>Food</h6>
+          </a>
+          <!-- Post title -->
+          <h3 class=" mb-3">{{article.header}}</h3>
+          <!-- Excerpt -->
+          <p [innerHtml]="article.text | slice: 0:150">...</p>
+          <!-- Post data -->
+          <p>by<strong> {{status}}</strong></p>
+          <!-- Read more button -->
+          <button class="btn btn-primary btn-md" (click)="onShowcase(article.image, article.text)"
+            [routerLink]="['/article-showcase', article.header, article.tag, article._id]">Read more</button>
+            <br>
+            <br>
+            <p class="py-3">published {{article.date | dateAgo}}</p>
+        </div>
+        <!-- Grid column -->
+
+
+
+      </div>
+    </section>
+    <!-- Grid row -->
+
+    <hr class="my-5">
+
+    <!-- Grid row -->
+    <section *ngIf="dataLoaded; else skeleton2">
+    <div class="row" *ngFor="let article of articles2" [@fadeIn]>
+
+      <!-- Grid column -->
+      <div class="col-lg-7">
+
+        <!-- Category -->
+        <a href="#!" class="pink-text">
+          <h6 class="font-weight-bold mb-3"><i class="fas fa-image pr-2"></i>Lifestyle</h6>
+        </a>
+        <!-- Post title -->
+        <h3 class="mb-3">{{article.header}}</h3>
+        <!-- Excerpt -->
+        <p [innerHtml]="article.text | slice: 0:150"> ...</p>
+        <!-- Post data -->
+        <p>by <a><strong>Carine Fox</strong></a>, 14/08/2018</p>
+        <!-- Read more button -->
+        <button class="btn btn-primary btn-md" (click)="onShowcase(article.image, article.text)"
+          [routerLink]="['/article-showcase', article.header, article.tag, article._id]">Read more</button>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-lg-5">
+
+        <!-- Featured image -->
+        <div class="view overlay rounded z-depth-2">
+          <img class="img-fluid" [src]="article.image" alt="Sample image" id="display-image">
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+  </section>
+    <!-- Grid row -->
+
+    <hr class="my-5">
+
+    <!-- Grid row -->
+    <section *ngIf="dataLoaded; else skeleton">
+    <div class="row" *ngFor="let article of articles3" [@fadeIn]>
+
+      <!-- Grid column -->
+      <div class="col-lg-5">
+
+        <!-- Featured image -->
+        <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
+          <img class="img-fluid" [src]="article.image" alt="Sample image" id="display-image">
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-lg-7">
+
+        <!-- Category -->
+        <a href="#!" class="indigo-text">
+          <h6 class="font-weight-bold mb-3"><i class="fas fa-suitcase pr-2"></i>Travels</h6>
+        </a>
+        <!-- Post title -->
+        <h3 class=" mb-3">{{article.header}}</h3>
+        <!-- Excerpt -->
+        <p [innerHtml]="article.text | slice: 0:150">...</p>
+        <!-- Post data -->
+        <p>by <a><strong>Carine Fox</strong></a>, 11/08/2018</p>
+        <!-- Read more button -->
+        <button class="btn btn-primary btn-md" (click)="onShowcase(article.image, article.text)"
+          [routerLink]="['/article-showcase', article.header, article.tag, article._id]">Read more</button>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    </section>
+
+
+    <!-- Grid row -->
+
+    <hr class="my-5">
+
+  </section>
+  <!-- END OF RECENT ARTICLES SECTION -->
+
+
+
+  <!-- UPCOMING EVENTS SECTION -->
+  <div class="row d-flex justify-content-center">
+    <h3 translate>eventsTranslate.upcomingEvents</h3>
+  </div>
+
+  <br>
+  <br>
+
+  <!-- Card deck -->
+  <div class="row">
+    <!-- Card deck -->
+    <div class="card-deck my-5">
+      <div class="col-4" *ngFor="let event of events">
+
+        <!-- Card -->
+        <div class="card mb-4">
+
+          <!--Card image-->
+          <div class="view overlay">
+            <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg"
+              alt="Card image cap">
+            <a href="#!">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!--Card content-->
+          <div class="card-body">
+
+            <!--Title-->
+            <h4 class="card-title text-center">{{event.eventtitle}}</h4>
+            <!--Text-->
+            <p class="card-text text-center">{{event.eventtype}}</p>
+            <p class="card-text text-center">{{event.eventstartdate}} - {{event.eventenddate}}</p>
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <div class="text-center"><a
+                [routerLink]="['/event-showcase', event.eventid, event.eventstartdate, event.eventenddate, event.registrationenddate, event.eventtitle, event.eventtype]"
+                class="btn btn-light-blue btn-md">Learn more</a>
+            </div>
+          </div>
+        </div>
+        <!-- Card -->
+      </div>
+    </div>
+
+  </div>
+  <!-- Card deck -->
+
+
+</div>
+<br>
+<br>
+<!-- END OF UPCOMING EVENTS SECTION -->
+
+
+
+<!-- FUTURE EVENTS SECTION -->
+<app-future-events></app-future-events>
+<!-- END OF FUTURE EVENTS SECTION -->
+
+
+
+<!-- CONTACT SECTION -->
+<app-contact></app-contact>
+<!-- END OF CONTACT SECTION -->
+
+
+
+<!-- SECOND IMAGE SECTION -->
+<img class="thumbnail2" src="https://via.placeholder.com/1440x260?text=Extra+Image" alt="image">
+<!-- <img class="thumbnail2" src="assets/img/abstract2.jpg" alt="image"> -->
+<br>
+<br>
+<!-- END OF SECOND IMAGE SECTION -->
+
+
+
+<!-- FOOTER SECTION-->
+<app-footer></app-footer>
+<!-- END OF FOOTER SECTION -->
+
+
+
+
+
+
+<ng-template #skeleton>
+
+  <div class="row">
+    <div class="col-lg-5">
+      <div class="item mb-lg-0 mb-4">
+        <ngx-skeleton-loader count="1" [theme]="{height: '270px'}"></ngx-skeleton-loader>
+        <div class="mask rgba-white-slight"></div>
+      </div>
+    </div>
+
+  <div class="col-lg-7">
+    <h6 class="item mb-2">
+      <ngx-skeleton-loader count="1" [theme]="{width: '60px', height: '20px'}"></ngx-skeleton-loader>
+    </h6>
+    <h3 class="item mb-2">
+      <ngx-skeleton-loader count="1" [theme]="{ width: '200px', height: '30px'}"></ngx-skeleton-loader>
+    </h3>
+    <p class="item mb-1">
+        <ngx-skeleton-loader count="2"></ngx-skeleton-loader>
+    </p>
+    <p class="item mb-1">
+        <ngx-skeleton-loader count="1" [theme]="{width: '100px'}"></ngx-skeleton-loader>
+    </p>
+    <p class="item">
+      <ngx-skeleton-loader count="1" [theme]="{ width: '60px', height: '30px'}"></ngx-skeleton-loader>
+    </p>
+  </div>
+</div>
+</ng-template>
+
+
+
+
+
+
+
+<ng-template #skeleton2>
+    <div class="row">
+
+        <div class="col-lg-7">
+            <h6 class="item mb-2">
+              <ngx-skeleton-loader count="1" [theme]="{width: '60px', height: '20px'}"></ngx-skeleton-loader>
+            </h6>
+            <h3 class="item mb-2">
+              <ngx-skeleton-loader count="1" [theme]="{ width: '200px', height: '30px'}"></ngx-skeleton-loader>
+            </h3>
+            <p class="item mb-1">
+                <ngx-skeleton-loader count="2"></ngx-skeleton-loader>
+            </p>
+            <p class="item mb-1">
+                <ngx-skeleton-loader count="1" [theme]="{width: '100px'}"></ngx-skeleton-loader>
+            </p>
+            <p class="item">
+              <ngx-skeleton-loader count="1" [theme]="{ width: '60px', height: '30px'}"></ngx-skeleton-loader>
+            </p>
+          </div>
+
+        <div class="col-lg-5">
+          <div class="item mb-lg-0 mb-4">
+            <ngx-skeleton-loader count="1" [theme]="{height: '270px'}"></ngx-skeleton-loader>
+            <div class="mask rgba-white-slight"></div>
+          </div>
+        </div>
+    
+
+    </div>
+
+</ng-template>
+
+
+<router-outlet></router-outlet>

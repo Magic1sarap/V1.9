@@ -1,0 +1,254 @@
+<!-- NAVBAR -->
+<app-navbar></app-navbar>
+<!-- END OF NAVBAR -->
+
+
+
+<div class="container my-5">
+
+    <!-- Card -->
+    <div class="card">
+
+        <!-- Card content -->
+        <div id="update-card" class="card-body">
+            <div class="row">
+                <div id="update-card" class="col-md-6 p-5">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="card-title">
+                                <a class="nav-link p-0" href="#">
+                                    <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
+                                        class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <p class="mt-2 font-weight-normal">Justin Wallace <span class="font-weight-bold">·</span>
+                                Test company</p>
+                        </div>
+                    </div>
+
+                    <!-- Text -->
+
+                    <div class="md-form">
+                        <label>Company</label><br>
+                        <input value="{{accountname}}" type="text" id="form-name" class="form-control">
+                        
+                    </div>
+
+                    <div class="md-form">
+                            <label>Email </label><br>
+                            <input value="{{email}}" type="text" id="form-email1" class="form-control">
+                     
+                        </div>
+    
+
+                    <div class="md-form">
+                        <label>Industry </label><br>
+                        <input value="{{industry}}" type="text" id="form-company" class="form-control">
+                      
+                    </div>
+
+                    
+                    <div class="md-form">
+                            <label>Address </label><br>
+                        <input value="{{street}}" type="text" id="form-email2" class="form-control">
+                       
+                    </div>
+
+                    <div class="md-form">
+                        <label>Website </label><br>
+                        <input value="{{webiste}}" type="text" id="form-pass1" class="form-control">
+                        
+                    </div>
+
+                    <div class="md-form">
+                            <label>Contact Number </label><br>
+                            <input value="{{phone}}" type="text" id="form-pass1" class="form-control">
+                         
+                        </div>
+
+                    <div class="save-indicator">
+                        <p class="font-weight-normal">Saved</p>
+                    </div>
+                </div>
+
+
+                <div id="update-card" class="col-md-6">
+                    <div class="row mb-2">
+                        <div class="col-md-8">
+                        </div>
+                        <div class="col-md-4 text-right mb-4">
+                            <a class="mt-2 font-weight-normal"><i class="fas fa-cog"></i>User settings</a>
+                        </div>
+                    </div>
+                    <div id="check-box"
+                        class="list-group-item waves-light grey lighten-3 font-weight-normal border border-white">
+                        <h2 class="font-weight-bolder">Interests</h2>
+                     
+                        <mdb-checkbox [default]="true" class="p-1">Business Talks</mdb-checkbox>
+
+                        <mdb-checkbox [default]="true" class="p-5">Charity</mdb-checkbox>
+
+                        <mdb-checkbox [default]="true" class="p-3">Organizational Gatherings</mdb-checkbox>
+
+                        <mdb-checkbox [default]="true" class="p-3">Trade Association Hub</mdb-checkbox>
+
+                        <mdb-checkbox [default]="true" class="p-3">Networking</mdb-checkbox>
+              
+                    </div>
+
+
+                    <div class="row save-indicator">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-default btn-md btn-block">Revert to
+                                Original</button>
+
+                        </div>
+                        <div class="btn-group col-md-6" role="group">
+
+                            <button type="button" class="btn btn-md btn-light">Update</button>
+                            <button type="button" class="btn btn-md btn-default"><i
+                                    class="fas fa-ellipsis-v"></i></button>
+
+
+                        </div>
+                    </div>
+
+                    <br>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- Card -->
+
+
+
+    <br>
+    <!-- EVENTS SECTION -->
+    <div class="row d-flex justify-content-center my-3">
+        <h3>Events you have registered</h3>
+    </div>
+
+
+
+    <!-- Card deck -->
+    <div class="card-deck">
+
+        <!-- Card -->
+        <div class="card mb-4">
+
+            <!--Card image-->
+            <div class="view overlay">
+                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg"
+                    alt="Card image cap">
+                <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+
+                <!--Title-->
+                <h4 class="card-title text-center">Event</h4>
+                <!--Text-->
+                <p class="card-text text-center">Thu, Jan 9 | Jalan Besar</p>
+                <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                <div class="row">
+                    <div class="text-center col-md-6"><button mdbBtn type="button"
+                            class="btn btn-md btn-block">Manage</button>
+                    </div>
+                    <div class="text-center col-md-6"><button mdbBtn type="button"
+                            class="btn btn-light-blue btn-md btn-block">Learn
+                            more</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted text-center">
+                <small>2 days ago</small>
+            </div>
+        </div>
+        <!-- Card -->
+
+        <!-- Card -->
+        <div class="card mb-4">
+
+            <!--Card image-->
+            <div class="view overlay">
+                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/14.jpg"
+                    alt="Card image cap">
+                <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+                <!--Title-->
+                <h4 class="card-title text-center">Event</h4>
+                <!--Text-->
+                <p class="card-text text-center">Fri, Jan 10 | Jalan Kayu</p>
+                <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                <div class="row">
+                    <div class="text-center col-md-6"><button mdbBtn type="button"
+                            class="btn btn-md btn-block">Manage</button>
+                    </div>
+                    <div class="text-center col-md-6"><button mdbBtn type="button"
+                            class="btn btn-light-blue btn-md btn-block">Learn
+                            more</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted text-center">
+                <small>2 days ago</small>
+            </div>
+        </div>
+        <!-- Card -->
+
+        <!-- Card -->
+        <div class="card mb-4">
+
+            <!--Card image-->
+            <div class="view overlay">
+                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/15.jpg"
+                    alt="Card image cap">
+                <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+                <!--Title-->
+                <h4 class="card-title text-center">Event</h4>
+                <!--Text-->
+                <p class="card-text text-center">Sat, Jan 11 | Telok Ayer </p>
+                <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                <div class="row">
+                    <div class="text-center col-md-6"><button mdbBtn type="button"
+                            class="btn btn-md btn-block">Manage</button>
+                    </div>
+                    <div class="text-center col-md-6"><button mdbBtn type="button"
+                            class="btn btn-light-blue btn-md btn-block">Learn
+                            more</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted text-center">
+                <small>2 days ago</small>
+            </div>
+
+        </div>
+        <!-- Card -->
+
+    </div>
+
+    <!-- FOOTER SECTION -->
+    <app-footer></app-footer>
+    <!-- User Account -->

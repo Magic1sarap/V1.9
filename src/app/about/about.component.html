@@ -1,0 +1,153 @@
+<!-- NAVBAR -->
+<app-navbar></app-navbar>
+<!-- END OF NAVBAR -->
+
+<section class="container" *ngFor="let about of abouts">
+
+        <h1 class="my-5">{{about.header}}</h1>
+    <!-- Grid column -->
+    <div class="row" style="margin-bottom: 100px;">
+        <div class="col-lg-6  mb-3">
+            <!-- <mdb-card class="card card-image"> -->
+                <div class="text-black py-4" style="height:357px">
+                    <div>
+                        <h3 class="py-4">
+                            {{about.prefaceh3}}
+                        </h3>
+                        <p>
+                            {{about.prefacep}}
+                        </p>
+                    </div>
+                </div>
+            <!-- </mdb-card> -->
+        </div>
+        <!-- Grid column -->
+        <div class="col-lg-6">
+
+            <!-- Featured image -->
+            <div class="view overlay rounded z-depth-2">
+                <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/img%20(34).jpg"
+                    alt="Sample image">
+                <a>
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+
+        </div>
+        <!-- Grid column -->
+    </div>
+
+
+
+    <hr class="my-5">
+
+
+
+       
+    <div class="row py-5">
+        <div class="col-md-8">
+            <h3>
+                {{about.blockQuoteh3}}
+            </h3>
+            <br>
+            <p>
+                {{about.blockQuotep}}
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2><i>"{{about.mainQuote}}"</i></h2>
+        </div>
+    </div>
+
+
+    <hr class="my-5">
+
+
+    <!-- Company Highlights -->
+    <section class=" text-center my-5 col-md-12 mb-3">
+
+        <!-- Section heading -->
+        <h2 class="h1-responsive my-4">{{about.highlightHeader}}</h2>
+        <!-- Section description -->
+        <p class="dark-grey-text w-responsive mx-auto mb-5">{{about.subheader}}</p>
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
+
+                <!-- Featured image -->
+                <div class="view overlay rounded z-depth-2 mb-4">
+                    <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/81.jpg"
+                        alt="Sample image">
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+                <!-- Post title -->
+                <h3 class="h3-responsive mb-3">{{about.title1}}</h3>
+                <!-- Excerpt -->
+                <p class="dark-grey-text">{{about.p1}}</p>
+
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-6 mb-md-0 mb-4">
+
+                <!-- Featured image -->
+                <div class="view overlay rounded z-depth-2 mb-4">
+                    <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
+                        alt="Sample image">
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+                <!-- Post title -->
+                <h3 class="h3-responsive mb-3">{{about.title2}}</h3>
+                <!-- Excerpt -->
+                <p class="dark-grey-text">{{about.p2}}</p>
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-6 mb-0">
+
+                <!-- Featured image -->
+                <div class="view overlay rounded z-depth-2 mb-4">
+                    <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/13.jpg"
+                        alt="Sample image">
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+
+                <!-- Post title -->
+                <h3 class="h3-responsive mb-3">{{about.title3}}</h3>
+                <!-- Excerpt -->
+                <p class="dark-grey-text">{{about.p3}}</p>
+
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </section>
+</section>
+<br>
+<br>
+
+
+
+<!-- CONTACT SECTION -->
+<app-contact></app-contact>
+<!-- END OF CONTACT SECTION -->
+
+
+<!-- FOOTER SECTION -->
+<app-footer></app-footer>
+<!-- END OF FOOTER SECTION -->

@@ -1,0 +1,214 @@
+<!-- START OF NAVBAR SECTION -->
+<app-navbar></app-navbar>
+<!-- END OF NAVBAR SECTION -->
+
+
+
+<!-- all RECENT ARTICLES SECTION -->
+<div id="all" class="container">
+  <br>
+  <br>
+  <h1 class="text-center">Recent Articles</h1>
+
+  <div class="md-form form-inline form-sm">
+    <mdb-icon fas icon="search" aria-hidden="true"></mdb-icon>
+<input class="ml-5 w-25" [(ngModel)]='searchText' type="text" placeholder="Search article" aria-label="Search" mdbInput>
+</div>
+
+
+  <section class="my-5 container">
+    <section *ngIf="dataLoaded; else skeleton">
+
+    <!-- Grid row -->
+    <div id= "member" class="row" *ngFor="let showArticle of showArticles | articlecategory:searchText" [@fadeIn]>
+
+
+
+      <!-- Grid column -->
+      <div class="col-lg-5">
+        <!-- Featured image -->
+        <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
+          <img [src]="showArticle.image" alt="image can't be displayed" id="display-image">
+            <div class="mask rgba-white-slight"></div>
+          
+        </div>
+      </div>
+      <!-- Grid column -->
+
+
+
+      <!-- Grid column -->
+      <div class="col-lg-7">
+        <!-- Category -->
+        <a class="green-text">
+          <h6 class="font-weight-bold mb-3"><i class="fas fa-utensils pr-2"></i>Food</h6>
+        </a>
+        <!-- Post title -->
+        <h3 class=" mb-3">{{showArticle.header}}</h3>
+        <!-- Excerpt -->
+        <p [innerHtml]="showArticle.text | slice: 0:150">...</p>
+        <!-- <p>{{showArticle.text | slice: 0:150}}</p> -->
+        <!-- Post data -->
+        <p><a><strong>{{showArticle.tag}}</strong></a></p>
+        
+        <button id="readMore" class="btn btn-md btn-primary font-weight-light" (click)="onShowcase(showArticle.image, showArticle.text)"
+          [routerLink]="['/article-showcase', showArticle.header, showArticle.tag, showArticle._id]">Read more</button>
+        <br>
+        <br>
+        
+          <p>Published: {{showArticle.date | dateAgo}}</p>
+      </div>
+        
+      <!-- Grid column -->
+
+      <div class="container">
+      <hr id="card-hr" class="my-5">
+    </div>
+    </div>
+  </section>
+    <!-- </div> -->
+    <!-- Grid row -->
+
+
+
+  <h3 class="py-5">Recommended Articles</h3>
+   
+  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)"
+    (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)" (beforeChange)="beforeChange($event)">
+    <div ngxSlickItem *ngFor="let recomArticle of recomArticles" class="slide">
+      <div class="px-3">
+        <mdb-card class="my-1" id="carousel-card">
+          <mdb-card-img [src]="recomArticle.image" alt="Card image cap" id="carousel-image"></mdb-card-img>
+          <mdb-card-body>
+            <mdb-card-title>
+              <h4>{{recomArticle.header | slice: 0:15}}...</h4>
+            </mdb-card-title>
+            <p class="font-weight-light">{{recomArticle.text | slice: 0:50}}...</p>
+            <a href="#" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Learn More</a>
+          </mdb-card-body>
+        </mdb-card>
+      </div>
+    </div>
+  </ngx-slick-carousel>
+</section>
+  </div>
+  <!-- END OF RECENT ARTICLES SECTION -->
+<br>
+<br>
+
+
+
+
+
+
+<!-- FOOTER SECTION -->
+<app-footer></app-footer>
+<!-- END OF FOOTER SECTION -->
+
+
+
+
+
+
+<!-- This #skeleton template will be rendered in the UI
+as long as the articles have not yet been rendered. Refer
+to the *ngIf="dataLoaded; else skeleton" at line 19 whereas
+var dataLoaded is defined in the .ts file as true. -->
+<ng-template #skeleton>
+
+  <div class="row">
+    <div class="col-lg-5">
+      <div class="item mb-lg-0 mb-4">
+        <!-- ngx-skeleton-loader can be downloaded using npm. 
+        https://www.npmjs.com/package/ngx-skeleton-loader 
+        for more in depth documentation. -->
+        <ngx-skeleton-loader count="1" [theme]="{height: '270px'}"></ngx-skeleton-loader>
+        <div class="mask rgba-white-slight"></div>
+      </div>
+    </div>
+
+  <div class="col-lg-7">
+    <h6 class="item mb-2">
+      <ngx-skeleton-loader count="1" [theme]="{width: '60px', height: '20px'}"></ngx-skeleton-loader>
+    </h6>
+    <h3 class="item mb-2">
+      <ngx-skeleton-loader count="1" [theme]="{ width: '200px', height: '30px'}"></ngx-skeleton-loader>
+    </h3>
+    <p class="item mb-1">
+        <ngx-skeleton-loader count="2"></ngx-skeleton-loader>
+    </p>
+    <p class="item mb-1">
+        <ngx-skeleton-loader count="1" [theme]="{width: '100px'}"></ngx-skeleton-loader>
+    </p>
+    <p class="item">
+      <ngx-skeleton-loader count="1" [theme]="{ width: '60px', height: '30px'}"></ngx-skeleton-loader>
+    </p>
+  </div>
+</div>
+
+
+
+<hr class="my-5">
+
+
+
+<div class="row">
+  <div class="col-lg-5">
+    <div class="item mb-lg-0 mb-4">
+      <ngx-skeleton-loader count="1" [theme]="{height: '270px'}"></ngx-skeleton-loader>
+      <div class="mask rgba-white-slight"></div>
+    </div>
+  </div>
+
+<div class="col-lg-7">
+  <h6 class="item mb-2">
+    <ngx-skeleton-loader count="1" [theme]="{width: '60px', height: '20px'}"></ngx-skeleton-loader>
+  </h6>
+  <h3 class="item mb-2">
+    <ngx-skeleton-loader count="1" [theme]="{ width: '200px', height: '30px'}"></ngx-skeleton-loader>
+  </h3>
+  <p class="item mb-1">
+      <ngx-skeleton-loader count="2"></ngx-skeleton-loader>
+  </p>
+  <p class="item mb-1">
+      <ngx-skeleton-loader count="1" [theme]="{width: '100px'}"></ngx-skeleton-loader>
+  </p>
+  <p class="item">
+    <ngx-skeleton-loader count="1" [theme]="{ width: '60px', height: '30px'}"></ngx-skeleton-loader>
+  </p>
+</div>
+</div>
+
+
+<hr class="my-5">
+
+
+<div class="row">
+  <div class="col-lg-5">
+    <div class="item mb-lg-0 mb-4">
+      <ngx-skeleton-loader count="1" [theme]="{height: '270px'}"></ngx-skeleton-loader>
+      <div class="mask rgba-white-slight"></div>
+    </div>
+  </div>
+
+<div class="col-lg-7">
+  <h6 class="item mb-2">
+    <ngx-skeleton-loader count="1" [theme]="{width: '60px', height: '20px'}"></ngx-skeleton-loader>
+  </h6>
+  <h3 class="item mb-2">
+    <ngx-skeleton-loader count="1" [theme]="{ width: '200px', height: '30px'}"></ngx-skeleton-loader>
+  </h3>
+  <p class="item mb-1">
+      <ngx-skeleton-loader count="2"></ngx-skeleton-loader>
+  </p>
+  <p class="item mb-1">
+      <ngx-skeleton-loader count="1" [theme]="{width: '100px'}"></ngx-skeleton-loader>
+  </p>
+  <p class="item">
+    <ngx-skeleton-loader count="1" [theme]="{ width: '60px', height: '30px'}"></ngx-skeleton-loader>
+  </p>
+</div>
+</div>
+</ng-template>
+
+

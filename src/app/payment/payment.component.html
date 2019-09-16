@@ -1,0 +1,40 @@
+
+<!-- <script>
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: '0.01'
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Transaction completed by ' + details.payer.name.given_name);
+          // Call your server to save the transaction
+          return fetch('/paypal-transaction-complete', {
+            method: 'post',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+              orderID: data.orderID
+            })
+          });
+        });
+      }
+    }).render('#paypal-button-container');
+  </script> -->
+
+  <!-- ============================================== -->
+
+<p>payment works!</p>
+<!-- <ngx-paypal [config]="payPalConfig"></ngx-paypal> -->
+
+ 
+
+<input type="number" [(ngModel)]="finalAmount" style="padding-bottom: 10px;">
+<h2 *ngIf="paypalLoad">Paypal button is loading</h2>
+<div id="paypal-checkout-btn"></div>
