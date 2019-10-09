@@ -5,15 +5,45 @@
 
 
 <!-- LANDING PAGE IMAGE -->
-<img class="thumbnail" src="https://via.placeholder.com/1440x500?text=PMO+Team." alt="image">
+<!-- <img class="thumbnail" src="https://via.placeholder.com/1440x500?text=PMO+Team." alt="image"> -->
 <!-- END OF LANDING PAGE IMAGE -->
 
 
-
+<mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+  <mdb-carousel-item>
+    <div class="view w-100">
+      <img class="d-block w-100" src="assets/img/cwg.jpg" alt="First slide">
+      <div class="mask rgba-stylish-strong waves-light" mdbWavesEffect></div>
+    </div>
+    <div class="carousel-caption">
+      <h1 class="h1-responsive">The Career Women's perspective</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quibusdam tempora voluptas doloribus veniam iste a eius et.</p>
+    </div>
+  </mdb-carousel-item>
+  <mdb-carousel-item>
+    <div class="view w-100">
+      <img class="d-block w-100" src="assets/img/members_night.jpg" alt="Second slide">
+      <div class="mask rgba-stylish-strong waves-light" mdbWavesEffect></div>
+    </div>
+    <div class="carousel-caption">
+      <h1 class="h1-responsive">SCCCI member's night</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quibusdam tempora voluptas doloribus veniam iste a eius et.</p>
+    </div>
+  </mdb-carousel-item>
+  <mdb-carousel-item>
+    <div class="view w-100">
+      <img class="d-block w-100" src="assets/img/saf_day.jpg" alt="Third slide">
+      <div class="mask rgba-stylish-strong waves-light" mdbWavesEffect></div>
+    </div>
+    <div class="carousel-caption">
+      <h1 class="h1-responsive">SAF Day Rededication Ceremony 2019</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quibusdam tempora voluptas doloribus veniam iste a eius et.</p>
+    </div>
+  </mdb-carousel-item>
+</mdb-carousel>
 
 
 <div class="container">
-
 
 
   <!-- PAGE INTRO HEADER -->
@@ -65,21 +95,26 @@
         <!-- Grid column -->
         <div class="col-lg-7">
           <!-- Category -->
-          <a href="#!" class="green-text">
+          <!-- <a href="#!" class="green-text">
             <h6 class="font-weight-bold mb-3"><i class="fas fa-utensils pr-2"></i>Food</h6>
-          </a>
+          </a> -->
+          <!-- <p class="green-text font-weight-normal"><i class="far fa-clock pr-2"></i>{{article.date | dateAgo}}</p> -->
+
+          <p class="green-text font-weight-normal"><i class="far fa-clock pr-2"></i>{{article.date | dateAgo}}</p>
           <!-- Post title -->
           <h3 class=" mb-3">{{article.header}}</h3>
           <!-- Excerpt -->
-          <p [innerHtml]="article.text | slice: 0:150">...</p>
+          <!-- <p [innerHtml]="article.text | slice: 0:150">...</p> -->
+          <p>{{article.text | stripHtml | slice: 0:150}}...</p>
           <!-- Post data -->
-          <p>by<strong> {{status}}</strong></p>
+          <p class="font-weight-normal">{{article.tag}}</p>
+          <!--   -->
           <!-- Read more button -->
           <button class="btn btn-primary btn-md" (click)="onShowcase(article.image, article.text)"
-            [routerLink]="['/article-showcase', article.header, article.tag, article._id]">Read more</button>
+            [routerLink]="['/article-showcase', article.header, article.subheader, article.tag, article._id, article.date]">Read more</button>
             <br>
             <br>
-            <p class="py-3">published {{article.date | dateAgo}}</p>
+            
         </div>
         <!-- Grid column -->
 
@@ -99,18 +134,21 @@
       <div class="col-lg-7">
 
         <!-- Category -->
-        <a href="#!" class="pink-text">
+        <!-- <a href="#!" class="pink-text">
           <h6 class="font-weight-bold mb-3"><i class="fas fa-image pr-2"></i>Lifestyle</h6>
-        </a>
+        </a> -->
+        <p class="green-text font-weight-normal"><i class="far fa-clock pr-2"></i>{{article.date | dateAgo}}</p>
         <!-- Post title -->
         <h3 class="mb-3">{{article.header}}</h3>
         <!-- Excerpt -->
-        <p [innerHtml]="article.text | slice: 0:150"> ...</p>
+        <!-- <p [innerHtml]="article.text | slice: 0:150">...</p> -->
+        <p>{{article.text | stripHtml | slice: 0:150}}...</p>
         <!-- Post data -->
-        <p>by <a><strong>Carine Fox</strong></a>, 14/08/2018</p>
+        <p class="font-weight-normal">{{article.tag}}</p>
+        <!-- <p>by <a><strong>Carine Fox</strong></a>, 14/08/2018</p> -->
         <!-- Read more button -->
-        <button class="btn btn-primary btn-md" (click)="onShowcase(article.image, article.text)"
-          [routerLink]="['/article-showcase', article.header, article.tag, article._id]">Read more</button>
+        <button class="btn btn-primary btn-md mb-3" (click)="onShowcase(article.image, article.text)"
+          [routerLink]="['/article-showcase', article.header, article.subheader, article.tag, article._id, article.date]">Read more</button>
 
       </div>
       <!-- Grid column -->
@@ -157,18 +195,21 @@
       <div class="col-lg-7">
 
         <!-- Category -->
-        <a href="#!" class="indigo-text">
+        <!-- <a href="#!" class="indigo-text">
           <h6 class="font-weight-bold mb-3"><i class="fas fa-suitcase pr-2"></i>Travels</h6>
-        </a>
+        </a> -->
+        <p class="green-text font-weight-normal"><i class="far fa-clock pr-2"></i>{{article.date | dateAgo}}</p>
         <!-- Post title -->
         <h3 class=" mb-3">{{article.header}}</h3>
         <!-- Excerpt -->
-        <p [innerHtml]="article.text | slice: 0:150">...</p>
+        <!-- <p [innerHtml]="article.text | slice: 0:150">...</p> -->
+        <p>{{article.text | stripHtml | slice: 0:150}}...</p>
         <!-- Post data -->
-        <p>by <a><strong>Carine Fox</strong></a>, 11/08/2018</p>
+        <p class="font-weight-normal">{{article.tag}}</p>
+        <!-- <p>by <a><strong>Carine Fox</strong></a>, 11/08/2018</p> -->
         <!-- Read more button -->
         <button class="btn btn-primary btn-md" (click)="onShowcase(article.image, article.text)"
-          [routerLink]="['/article-showcase', article.header, article.tag, article._id]">Read more</button>
+          [routerLink]="['/article-showcase', article.header, article.subheader, article.tag, article._id, article.date]">Read more</button>
 
       </div>
       <!-- Grid column -->
@@ -198,10 +239,10 @@
   <div class="row">
     <!-- Card deck -->
     <div class="card-deck my-5">
-      <div class="col-4" *ngFor="let event of events">
+      <div class="col-md-4" *ngFor="let event of events">
 
         <!-- Card -->
-        <div class="card mb-4">
+        <mdb-card class="card mb-4">
 
           <!--Card image-->
           <div class="view overlay">
@@ -226,7 +267,7 @@
                 class="btn btn-light-blue btn-md">Learn more</a>
             </div>
           </div>
-        </div>
+        </mdb-card>
         <!-- Card -->
       </div>
     </div>

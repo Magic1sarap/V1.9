@@ -1,4 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 body {
     overflow-x: hidden !important;
+
+
 }
+
+/* After inspecting the CKEditor, I've figured out that I can customize the 
+styles of the editor through the access of certain HTML tags */
+figure {
+    text-align: center;
+    font-size: 16px;
+    color: grey;
+    // display:block !important;
+    // object-fit: contain;
+}
+
+figcaption {
+    margin-top: 3px;
+}
+
+// .ck-editor__editable_inline::after {
+//     content: "";
+//     display: block;
+//     clear: both;
+//   }

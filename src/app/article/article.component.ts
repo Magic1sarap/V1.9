@@ -47,7 +47,7 @@ export class ArticleComponent implements OnInit {
   publicArticles: any = [];
   showArticles: any = [];
   recomArticles: any = [];
-
+  items: any = [];
 
   /**
    * image & text declared to any for 
@@ -56,8 +56,8 @@ export class ArticleComponent implements OnInit {
    */
   image: any;
   text: any;
-
-
+  date: any;
+  // readTime: any;
   /**
    * configuration for the slick-carousel
    * Refer to 
@@ -102,11 +102,20 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit() {
     /**
-     * get all articles but show only 3
-     * intially. 
+     * Sorts articles when getAllArticle() 
+     * is called. Displays from most recent 
+     * to latest.
+     * https://stackblitz.com/edit/angular-6-sort-array-of-object-by-date
+     * link provided for a stackblitz.
      */
     this.ArticleService.getAllArticle().subscribe(data => {
-      this.articles = data;
+      this.articles = data.sort((a, b) => {
+        return <any>new Date(b.date) - <any>new Date(a.date);
+      });
+      console.log(data);
+
+     
+
 
 
       // this.articles = data.slice(0,1);
@@ -121,7 +130,6 @@ export class ArticleComponent implements OnInit {
         
       } else {
         this.showArticles = this.publicArticles
-        
       }
 
 
@@ -153,11 +161,15 @@ export class ArticleComponent implements OnInit {
 
       }
     }
-      else{
+      else {
         this.recomArticles = this.articles.slice(0, 5)
       }
 
     })
+
+
+
+
 
 
   }
@@ -178,4 +190,6 @@ export class ArticleComponent implements OnInit {
     this.ArticleService.setShowcase(this.image, this.text);
 
   }
+
+ 
 }

@@ -165,3 +165,53 @@ cursor: pointer;
 :host ::ng-deep .ck-editor__editable_inline {
   min-height: 500px;
 }
+
+.header-input {
+  padding-bottom: 15px;
+  width: 100%;
+}
+
+
+.subheader-input {
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+// .cke_editable_inline::after {
+//   content: "";
+//   display: block;
+//   clear: both;
+// }
+
+// .ck-editor__editable_inline::after {
+//   content: "";
+//   display: block;
+//   clear: both;
+// }
+
+.tags {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  padding-left: 0px;
+}
+
+#sidebar-wrapper {
+  background-color: #03a9f4;
+  color: white;
+}
+
+.bg-primary {
+  background-color: #03a9f4 !important;
+  color: white;
+  transition: 0.3s;
+}
+
+.bg-primary:hover {
+  background-color: #0288d1 !important;
+}
+
+.ml-auto {
+  position: absolute;
+  right: 25px;
+}

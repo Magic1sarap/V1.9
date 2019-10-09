@@ -3,20 +3,17 @@
 <app-navbar></app-navbar>
 
 <div class="d-flex" id="wrapper">
-    <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Admin Dashboard
-    
         </div>
-        <div class="list-group list-group-flush">
-            <a routerLink="/admin-article" class="list-group-item list-group-item-action bg-light">Articles</a>
-  
-            <a routerLink="/admin" class="list-group-item list-group-item-action bg-light">Create Article</a>
-            <a routerLink="/admin-about" class="list-group-item list-group-item-action bg-light">Edit About</a>
-            <a routerLink="/admin-services" class="list-group-item list-group-item-action bg-light">Edit Services</a>
+        <div class="list-group list-group-flush" id="sidebar-wrapper-links">
+            <a id="anchor" routerLink="/admin-article" class="list-group-item list-group-item-action bg-primary">Articles<span class="ml-auto"><i class="fas fa-newspaper"></i></span></a>
+            <a id="anchor" routerLink="/admin" class="list-group-item list-group-item-action bg-primary">Create Article<span class="ml-auto"><i class="fas fa-pen"></i></span></a>
+            <a id="anchor" routerLink="/admin-edit-home" class="list-group-item list-group-item-action bg-primary">Edit Home<span class="ml-auto"><i class="fas fa-edit"></i></span></a>
+            <a id="anchor" routerLink="/admin-about" class="list-group-item list-group-item-action bg-primary">Edit About<span class="ml-auto"><i class="fas fa-edit"></i></span></a>
+            <a id="anchor" routerLink="/admin-services" class="list-group-item list-group-item-active bg-primary">Edit Services<span class="ml-auto"><i class="fas fa-edit"></i></span></a>
         </div>
     </div>
-
-
    
     <!-- Page Content -->
     <div id="page-content-wrapper">
@@ -68,19 +65,41 @@
                     <!-- Header, Text, Tag and Image display -->
                     <div class="row px-5">
 
+                        <!-- input for header -->
+                        <div class="header-input">
+                         
+                        <input type="text" style="font-size: 36px;"(input)="onChangeHeader($event.target.value)"
+                            class="form-control" placeholder="Type your header here..." maxlength="80">
+                        </div>
 
-                        <label for="exampleForm2"></label>
-                        <input type="text"  style="font-size: 36px;"(input)="onChangeHeader($event.target.value)"
-                            class="form-control" placeholder="Type your header here...">
+                        <!-- <div class="header-input">
+                        <input-counter 
+                            [style.font-size.px]="36"
+                            id="input-header"
+                            type="text"
+                            placeholder="Type your header here..."
+                            (input)="onChangeHeader($event.target.value)"
+                            maxlength="10"
+                            className="form-control">
+                        </input-counter>
+                        </div> -->
 
+                        <div class="subheader-input">
+                                <input type="text" style="font-size: 20px;" (input)="onChangeSubheader($event.target.value)"
+                                class="form-control" placeholder="Type your subheader here..." maxlength="50">
+                        </div>
+
+                            
 
                         <div class="form-group shadow-textarea py-4 w-100">
 
                                 <!-- <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="10"
                                 style="width: 100%;" (input)="onChangeText($event.target.value)" placeholder="Type your paragraphs here..."></textarea> -->
-                           <ckeditor [editor]="Editor" data="" (change)="change($event)" [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList'],
-                           heading: { options: [{
-                               model: 'paragraph', title: 'Paragraph', class: ck-heading_paragraph}]} }"></ckeditor>
+                           <ckeditor [editor]="Editor" data="" (change)="change($event)" [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'undo', 'redo'],
+                           heading: { options: [{ model: 'paragraph', title: 'Paragraph', class: ck-heading_paragraph}, 
+                                                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1'},
+                                                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2'},
+                                                { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3'}]} }"></ckeditor>
 
                         </div>
                            
@@ -102,7 +121,7 @@
 
 
 
-                        <h4>Tags:</h4>
+                        <h4 class="tags">Tags:</h4>
                         <br><br>
 
                                 <mdb-checkbox (change)="checkCheckBoxvalue1($event)"  class="checkselect" value="BusinessTalks" class="p-3">
@@ -130,18 +149,22 @@
 
                         <br>
 
-
+                        
                         <input type="text" (input)="onChangeTag($event.target.value)" id="preferTag"
                             class="form-control" placeholder="">
 
                         <hr id="card-hr">
+
+                        <div id="display-img" class="col-md-12">
+                            <img id="article-image" [src]="article.image">
+                        </div>
 
                         <div class="container d-flex social p-3">
 
 
                             <div class="form-group">
                                 <label for="upload-photo"><i class="fas fa-camera p-3"></i></label>
-                                <input type="file" accept="image/*" (change)="changeListener($event)" id="upload-photo">
+                                <input type="file" accept="image/*" (change)="changeListener($event)" id="upload-photo" (input)="onChangeImageUpdate($event.target.value)">
                             </div>
 
 

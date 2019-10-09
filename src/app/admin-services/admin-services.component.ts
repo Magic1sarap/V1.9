@@ -19,7 +19,8 @@ export class AdminServicesComponent implements OnInit {
   p1: any;
   p2: any;
   p3: any;
-
+  featuredImage: any;
+  dataLoaded = false;
 
 
   constructor(private ServicesService :ServicesService, private router: ActivatedRoute) { 
@@ -38,6 +39,8 @@ export class AdminServicesComponent implements OnInit {
       this.p1 = this.services[0].p1;
       this.p2 = this.services[0].p2;
       this.p3 = this.services[0].p3;
+      this.featuredImage = this.services[0].featuredImage;
+      this.dataLoaded = true;
     })
   }
 
@@ -72,6 +75,27 @@ export class AdminServicesComponent implements OnInit {
     this.p3 = value
   }
 
+  onChangeFeaturedImage(value) {
+    this.featuredImage = value
+  }
+
+  changeListener($event) : void {
+    this.readThis($event.target);
+  }
+
+  readThis(inputValue: any) : void {
+    var file: File = inputValue.files[0];
+    var myReader: FileReader = new FileReader();
+
+    myReader.onloadend = (e) => {
+      this.featuredImage = myReader.result;
+      console.log(this.featuredImage);
+
+    }
+    myReader.readAsDataURL(file);
+  }
+
+
   onSubmit() {
     Swal.fire({
       title: 'Update content?',
@@ -83,7 +107,7 @@ export class AdminServicesComponent implements OnInit {
       confirmButtonText: 'Publish'
     }).then((result) => {
       if (result.value) {
-        this.ServicesService.updateServices( this.servicesId, this.header, this.subheader1, this.subheader2, this.subheader3, this.p1, this.p2, this.p3).subscribe(result => {
+        this.ServicesService.updateServices( this.servicesId, this.header, this.subheader1, this.subheader2, this.subheader3, this.p1, this.p2, this.p3, this.featuredImage).subscribe(result => {
         });
         Swal.fire(
           'updated',

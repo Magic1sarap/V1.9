@@ -57,6 +57,7 @@ export class ArticleService {
     sessionStorage.setItem('text', text);
   }
 
+  
   getEditArticleImage(){
     return sessionStorage.getItem('image');
   }
@@ -76,9 +77,14 @@ export class ArticleService {
   @CacheBuster({
     cacheBusterNotifier: cacheBuster$
   })
-  updateArticle(id:string,header:string, text:string, tag:string,  ) {
-    var json = {id:id, text: text, tag: tag, header: header }
+  updateArticle(id:string, header:string, subheader: string, text:string, tag:string, image: string ) {
+    var json = {id:id, text: text, tag: tag, header: header, image: image, subheader: subheader }
     return this.http.put<any[]>(`./api/articles/update/${id}` ,json);
   }
+
+  
+
+
+
 
 }

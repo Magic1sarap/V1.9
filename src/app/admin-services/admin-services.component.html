@@ -1,128 +1,152 @@
-
 <app-navbar></app-navbar>
 <!-- Service Page -->
 
 <div class="d-flex" id="wrapper">
     <!-- sidebar -->
-        <div class="bg-light border-right" id="sidebar-wrapper">
-                <div class="sidebar-heading">Admin Dashboard
-            
-                </div>
-                <div class="list-group list-group-flush">
-                    <a routerLink="/admin-article" class="list-group-item list-group-item-action bg-light">Articles</a>
-                    <a routerLink="/admin" class="list-group-item list-group-item-action bg-light">Create Article</a>
-                    <a routerLink="/admin-about" class="list-group-item list-group-item-action bg-light">Edit About</a>
-                    <a routerLink="/admin-services" class="list-group-item list-group-item-action bg-light">Edit Services</a>
-                </div>
-            </div>
-            <!-- end of sidebar wrapper -->
-        
-<section class="container" *ngFor="let service of services">
+    <div class="border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">Admin Dashboard
+        </div>
+        <div class="list-group list-group-flush" id="sidebar-wrapper-links">
+            <a id="anchor" routerLink="/admin-article" class="list-group-item list-group-item-action bg-primary">Articles<span class="ml-auto"><i class="fas fa-newspaper"></i></span></a>
+            <a id="anchor" routerLink="/admin" class="list-group-item list-group-item-action bg-primary">Create Article<span class="ml-auto"><i class="fas fa-pen"></i></span></a>
+            <a id="anchor" routerLink="/admin-edit-home" class="list-group-item list-group-item-action bg-primary">Edit Home<span class="ml-auto"><i class="fas fa-edit"></i></span></a>
+            <a id="anchor" routerLink="/admin-about" class="list-group-item list-group-item-action bg-primary">Edit About<span class="ml-auto"><i class="fas fa-edit"></i></span></a>
+            <a id="anchor" routerLink="/admin-services" class="list-group-item list-group-item-active bg-primary">Edit Services<span class="ml-auto"><i class="fas fa-edit"></i></span></a>
+        </div>
+    </div>
+    <!-- end of sidebar wrapper -->
 
-    <!-- Section heading -->
-    <h1 class="text-center py-5">Edit Services Page</h1>
+    <div class="container">
 
-    <label for="exampleForm2"></label>
-    <input type="text" style="font-size: 36px;" class="py-2 form-control" placeholder="{{service.header}}" (input)="onChangeHeaderUpdate($event.target.value)">
+            <h1 class="text-center py-5">Edit Services Page</h1>
+
+        <section *ngIf="dataLoaded; else loading">
+            <section *ngFor="let service of services">
+
+                <!-- Section heading -->
+
+                <label for="exampleForm2"></label>
+                <input type="text" style="font-size: 36px;" class="py-2 form-control" value="{{service.header}}"
+                    (input)="onChangeHeaderUpdate($event.target.value)">
 
 
-    
-    <!-- Grid row -->
-    <div class="row my-5">
+
+                <!-- Grid row -->
+                <div class="row my-5">
 
 
 
-        <!-- Grid column -->
-        <div class="col-lg-6 col-xl-7 sec">
+                    <!-- Grid column -->
+                    <div class="col-lg-6 col-xl-7 sec">
 
-            <!-- Post title -->
-            <!-- <h3 class="mb-3">Seminars, Conferences, Workshops and Dialogues</h3> -->
-            <input type="text" style="font-size: 1.17em; margin-bottom: 20px;" class="py-4 form-control" placeholder="{{service.subheader1}}" (input)="onChangeSubheader1Update($event.target.value)">
-            <!-- Excerpt -->
+                        <!-- Post title -->
+                        <!-- <h3 class="mb-3">Seminars, Conferences, Workshops and Dialogues</h3> -->
+                        <input type="text" style="font-size: 1.17em; margin-bottom: 20px;" class="py-4 form-control"
+                            value="{{service.subheader1}}" (input)="onChangeSubheader1Update($event.target.value)">
+                        <!-- Excerpt -->
 
-            <!-- <p class="dark-grey-text">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit
+                        <!-- <p class="dark-grey-text">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit
                 quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus
                 et aut officiis debitis cum soluta nobis est eligendi placeat facere aut rerum. </p> -->
-            <textarea id="p1" type="text" class="py-4 form-control" (input)="onChangeP1Update($event.target.value)">{{service.p1}}</textarea>
+                        <textarea id="p1" type="text" class="py-4 form-control"
+                            (input)="onChangeP1Update($event.target.value)">{{service.p1}}</textarea>
 
-        </div>
-        <!-- Grid column -->
-        <!-- Grid column -->
-        <div class="col-lg-6 col-xl-5">
+                    </div>
+                    <!-- Grid column -->
+                    <!-- Grid column -->
+                    <div class="col-lg-6 col-xl-5">
 
-            <!-- Featured image -->
-            <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
-                <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/img%20(27).jpg" alt="Sample image">
-                <a>
-                  <div class="mask rgba-white-slight"></div>
-                </a>
-              </div>
+                        <!-- Featured image -->
+                        <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
+                            <img class="img-fluid" [src]="featuredImage" alt="Sample image">
+                        </div>
+                        <div class="form-group">
+                            <label for="upload-photo"><i class="fas fa-camera p-3"></i></label>
+                            <input type="file" accept="image/*" (change)="changeListener($event)" id="upload-photo"
+                                (input)="onChangeFeaturedImage($event.target.value)">
+                        </div>
 
-        </div>
-        <!-- Grid column -->
+                    </div>
+                    <!-- Grid column -->
 
-    </div>
-    <!-- Grid row -->
-
-
-
-    <!-- Grid row -->
-
-    <div class="row">
+                </div>
+                <!-- Grid row -->
 
 
-        <!-- Grid column -->
-        <div class="col-lg-6 col-xl-12">
 
-            <!-- Post title -->
-            <!-- <h3 class=" mb-3">This that and whatever other thing you wanna showcase</h3> -->
-            <input type="text" style="font-size: 1.17em; margin-bottom: 20px;" class="py-4 form-control" placeholder="{{service.subheader2}}" (input)="onChangeSubheader2Update($event.target.value)">
-            <!-- Excerpt -->
-            <!-- <p class="dark-grey-text">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+                <!-- Grid row -->
+
+                <div class="row">
+
+
+                    <!-- Grid column -->
+                    <div class="col-lg-6 col-xl-12">
+
+                        <!-- Post title -->
+                        <!-- <h3 class=" mb-3">This that and whatever other thing you wanna showcase</h3> -->
+                        <input type="text" style="font-size: 1.17em; margin-bottom: 20px;" class="py-4 form-control"
+                            value="{{service.subheader2}}" (input)="onChangeSubheader2Update($event.target.value)">
+                        <!-- Excerpt -->
+                        <!-- <p class="dark-grey-text">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
                 praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
                 cupiditate non provident et accusamus iusto odio dignissimos et dolorum fuga. Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, esse. Commodi modi ullam eius dolore cupiditate numquam quia, accusamus quisquam, nostrum pariatur blanditiis laudantium suscipit voluptatibus eligendi in earum quas.</p> -->
-                <textarea id="p2" type="text" class="py-4 form-control"  (input)="onChangeP2Update($event.target.value)">{{service.p2}}</textarea>
+                        <textarea id="p2" type="text" class="py-4 form-control"
+                            (input)="onChangeP2Update($event.target.value)">{{service.p2}}</textarea>
 
-        </div>
-        <!-- Grid column -->
+                    </div>
+                    <!-- Grid column -->
 
-    </div>
-    <!-- Grid row -->
+                </div>
+                <!-- Grid row -->
 
-<br>
-<br>
-<br>
+                <br>
+                <br>
+                <br>
 
-    <!-- Grid row -->
-    <div class="row">
+                <!-- Grid row -->
+                <div class="row">
 
-        <!-- Grid column -->
-        <div class="col-lg-6 col-xl-12">
+                    <!-- Grid column -->
+                    <div class="col-lg-6 col-xl-12">
 
-            <!-- Post title -->
-            <!-- <h3 class=" mb-3">Other things you wanna showcase</h3> -->
-            <input type="text" style="font-size: 1.17em; margin-bottom: 20px;" class="py-4 form-control" placeholder="{{service.subheader3}}" (input)="onChangeSubheader3Update($event.target.value)">
-            <!-- Excerpt -->
-            <!-- <p class="dark-grey-text">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed
+                        <!-- Post title -->
+                        <!-- <h3 class=" mb-3">Other things you wanna showcase</h3> -->
+                        <input type="text" style="font-size: 1.17em; margin-bottom: 20px;" class="py-4 form-control"
+                            value="{{service.subheader3}}" (input)="onChangeSubheader3Update($event.target.value)">
+                        <!-- Excerpt -->
+                        <!-- <p class="dark-grey-text">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed
                 quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
                 qui dolorem ipsum quia dolor sit amet, psam voluptatem quia consectetur.</p> -->
-                <textarea id="p3" type="text" class="py-4 form-control" (input)="onChangeP3Update($event.target.value)">{{service.p3}}</textarea>
+                        <textarea id="p3" type="text" class="py-4 form-control"
+                            (input)="onChangeP3Update($event.target.value)">{{service.p3}}</textarea>
 
-                <!-- Grid column -->
-                <div class="text-center py-3">
-                        <button  mdbBtn type="button" class="btn btn-md btn-success relative waves-light" (click)="onSubmit()" mdbWavesEffect>Update</button>
+                        <!-- Grid column -->
+                        <div class="text-center py-3">
+                            <button mdbBtn type="button" class="btn btn-md btn-success relative waves-light"
+                                (click)="onSubmit()" mdbWavesEffect>Update</button>
+                        </div>
+
                     </div>
-        
-        </div>
-
-        
 
 
+
+
+                </div>
+                
+            </section>
+            <!-- Grid row -->
+            
+        </section>
+        <app-footer></app-footer>
     </div>
-    <app-footer></app-footer>
-    </section>
-    <!-- Grid row -->
-    
 
-<!-- Service Page -->
+    <!-- Service Page -->
 </div>
+
+<ng-template #loading>
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </ng-template>

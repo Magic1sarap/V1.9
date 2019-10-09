@@ -1,15 +1,15 @@
 <!-- LOGO PLACEHOLDER -->
-<br>
+<!-- <br>
 <div class="row d-flex justify-content-center crop">
   <a class="navbar-brand" href="#"><img id="logo"
     src="assets/img/logo.png"
     alt="HTML5 Icon"></a>
 </div>
-<br>
+<br> -->
 <!-- END OF LOGO PLACEHOLDER -->
 
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" (click)="navbarCollapsed = !navbarCollapsed" data-target="#navbarNavAltMarkup"
     aria-controls="navbarNavAltMarkup">
@@ -20,7 +20,7 @@
 
 
 
-    <!-- NAVBAR LINKS -->
+
     <ul class="nav navbar-nav">
       <li class="nav-item">
         <a class="nav-link waves-light" routerLink="/" translate>navbarTranslate.home<span class="sr-only">(current)</span></a>
@@ -40,9 +40,7 @@
       <li class="nav-item">
         <a class="nav-link waves-light" href="/lead-form.html" translate>navbarTranslate.MembershipApplicationform</a>
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link waves-light" href="/eventApplication.html" translate>navbarTranslate.EventApplicationform</a>
-      </li> -->
+
     </ul>
 
 
@@ -51,7 +49,6 @@
       <li ngbDropdown class="nav-item1">
         <a class="nav-link waves-light " id="dropdownBasic1" (click)="navLogin()" ngbDropdownToggle translate>{{status}}</a>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <!-- <a ngbDropdownItem (click)="navLogin()">{{status}}</a> -->
           <button ngbDropdownItem (click)="logOut()">Logout</button>
         </div>
       </li>
@@ -69,13 +66,79 @@
     </ul>
 
 
-    <!-- END OF NAVBAR LINKS -->
+
+
 
 
 
   </div>
-</nav>
+</nav> -->
 <!-- END OF NAVBAR -->
+
+
+
+<!-- Navbar 2.0 updated -->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-light bg-white sticky-top" [containerInside]="false">
+
+    <!-- Navbar brand -->
+    <mdb-navbar-brand><a class="navbar-brand" routerLink="/"><img
+      src="assets/img/logo.png" height="30" class="d-inline-block align-top"
+      alt="HTML5 Icon"></a></mdb-navbar-brand>
+   
+    <!-- Collapsible content -->
+    <links>
+  
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect routerLink="/about" translate>navbarTranslate.about</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect routerLink="/services" translate>navbarTranslate.services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect routerLink="/article" translate>navbarTranslate.articles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect routerLink="/event" translate>navbarTranslate.events</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect href="/lead-form.html" translate>navbarTranslate.MembershipApplicationform</a>
+        </li>
+
+
+  
+       
+  
+      </ul>
+
+      <ul class="nav navbar-nav ml-auto">
+ <!-- Dropdown -->
+        <li class="nav-item dropdown" dropdown>
+          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect (click)="navLogin()">
+            {{status}}<span class="caret"></span></a>
+          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="logOut()">Logout</a>
+          </div>
+        </li>
+
+        <li class="nav-item1">
+          <a class="nav-link waves-light black-text">English/华文</a>
+        </li>
+        <li class="nav-item1" style="margin-top: 10px;">
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="isChecked" (change)="useLanguage(isChecked?'cn':'en')" />
+              <span class="slider round"></span>
+            </label>
+          </li>
+
+      </ul>
+      <!-- Links -->
+    </links>
+    <!-- Collapsible content -->
+  
+  </mdb-navbar>
+  <!--/.Navbar-->
 
 
 <router-outlet></router-outlet>

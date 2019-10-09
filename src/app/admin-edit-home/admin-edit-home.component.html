@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+<!-- Service Page -->
+
+<div class="d-flex" id="wrapper">
+    <!-- sidebar -->
+    <div class="border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">Admin Dashboard
+        </div>
+        <div class="list-group list-group-flush" id="sidebar-wrapper-links">
+            <a id="anchor" routerLink="/admin-article"
+                class="list-group-item list-group-item-action bg-primary">Articles<span class="ml-auto"><i
+                        class="fas fa-newspaper"></i></span></a>
+            <a id="anchor" routerLink="/admin" class="list-group-item list-group-item-action bg-primary">Create
+                Article<span class="ml-auto"><i class="fas fa-pen"></i></span></a>
+            <a id="anchor" routerLink="/admin-edit-home" class="list-group-item list-group-item-action bg-primary">Edit
+                Home<span class="ml-auto"><i class="fas fa-edit"></i></span></a>
+            <a id="anchor" routerLink="/admin-about" class="list-group-item list-group-item-action bg-primary">Edit
+                About<span class="ml-auto"><i class="fas fa-edit"></i></span></a>
+            <a id="anchor" routerLink="/admin-services" class="list-group-item list-group-item-active bg-primary">Edit
+                Services<span class="ml-auto"><i class="fas fa-edit"></i></span></a>
+        </div>
+    </div>
+    <!-- end of sidebar wrapper -->
+
+
+
+    <div class="container">
+
+        <h1 class="text-center py-5">Edit Home Page</h1>
+
+
+        <section *ngFor="let carousel of carousels">
+
+
+            <h3>Edit Carousel slide 1</h3>
+            <!-- Card -->
+            <mdb-card>
+                <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+                    <!-- Card img -->
+                    <mdb-card-img src="assets/img/cwg.jpg" alt="Card image cap"></mdb-card-img>
+                </div>
+                <!--Card content-->
+                <mdb-card-body>
+                    <!--Title-->
+                    <mdb-card-title>
+                        <h4>{{carousel.header1}}</h4>
+                    </mdb-card-title>
+
+                    <!--Text-->
+                    <!-- <mdb-card-text>
+
+                    </mdb-card-text> -->
+
+                    <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+                </mdb-card-body>
+            </mdb-card>
+            <!-- Card -->
+
+
+
+
+
+            <app-footer></app-footer>
+        </section>
+
+    </div>
+
+    <!-- Service Page -->
+</div>
+
+
+
+<ng-template #loading>
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</ng-template>

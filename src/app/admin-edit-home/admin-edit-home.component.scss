@@ -93,25 +93,6 @@
     z-index: -1;
     }
   
-    #upload-photo1 {
-      opacity: 0;
-      position: absolute;
-      z-index: -1;
-      }
-  
-      #upload-photo2 {
-        opacity: 0;
-        position: absolute;
-        z-index: -1;
-        }
-
-        #upload-photo3 {
-          opacity: 0;
-          position: absolute;
-          z-index: -1;
-          }
-        
-      
   
   #display-img {
   width: 100%;
@@ -122,37 +103,20 @@
     height: 200px;
   }
 
+#p1 {
+  height: 240px;
+}
 
-  #img-container {
-    width: 100%;
-  }
+.img-fluid {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-  #side-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    
-  }
-
-  .img-fluid {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-  }
-
-  #sidebar-wrapper {
-    background-color: #03a9f4;
-    color: white;
-  }
-  
-  // .light-blue {
-  //   color: white;
-  //   background-color: #01579b !important;
-  // }
-
-  // .light-blue:hover {
-  //   background-color: #000;
-  // }
+#sidebar-wrapper {
+  background-color: #03a9f4;
+  color: white;
+}
 
 .bg-primary {
   background-color: #03a9f4 !important;
@@ -168,3 +132,4 @@
   position: absolute;
   right: 25px;
 }
+

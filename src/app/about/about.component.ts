@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { AboutService } from '../about.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { trigger } from '@angular/animations';
+import { fadeIn } from './fade-in';
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss']
+  styleUrls: ['./about.component.scss'],
+  animations: [trigger('fadeIn', fadeIn())]
 })
 export class AboutComponent implements OnInit {
 
+dataLoaded = false;
 abouts: any;
 header:any;
 aboutId:any;
@@ -25,6 +29,11 @@ title3: any;
 p1: any;
 p2: any;
 p3: any;
+sideImage: any;
+highlightImage1: any;
+highlightImage2: any;
+highlightImage3: any;
+
 
 constructor(private AboutService: AboutService, private router: ActivatedRoute) { 
   this.getAllAbout();
@@ -49,7 +58,14 @@ constructor(private AboutService: AboutService, private router: ActivatedRoute) 
       this.p1 = this.abouts[0].p1;
       this.p2 = this.abouts[0].p2;
       this.p3 = this.abouts[0].p3; 
-    })
+      this.sideImage = this.abouts[0].sideImage;
+      this.highlightImage1 = this.abouts[0].highlightImage1;
+      this.highlightImage2 = this.abouts[0].highlightImage2;
+      this.highlightImage3 = this.abouts[0].highlightImage3;
+      this.dataLoaded = true;
+    });
+
+
   }
 
   

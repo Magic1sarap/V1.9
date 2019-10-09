@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicesService } from '../services.service';
 import { ActivatedRoute } from '@angular/router';
+import { trigger } from '@angular/animations';
+import { fadeIn } from './fade-in';
 
 @Component({
   selector: 'app-service',
   templateUrl: './service.component.html',
-  styleUrls: ['./service.component.scss']
+  styleUrls: ['./service.component.scss'],
+  animations: [trigger('fadeIn', fadeIn())]
 })
 export class ServiceComponent implements OnInit {
 
+  dataLoaded = false;
   services: any;
   servicesId: any;
   header: any;
@@ -18,6 +22,7 @@ export class ServiceComponent implements OnInit {
   p1: any;
   p2: any;
   p3: any;
+  featuredImage: any;
 
 
   constructor(private ServicesService: ServicesService, private router: ActivatedRoute) {
@@ -35,6 +40,8 @@ export class ServiceComponent implements OnInit {
        this.p1 = this.services[0].p1;
        this.p2 = this.services[0].p2;
        this.p3 = this.services[0].p3;
+       this.featuredImage = this.services[0].featuredImage;
+       this.dataLoaded = true;
      })
    }
 

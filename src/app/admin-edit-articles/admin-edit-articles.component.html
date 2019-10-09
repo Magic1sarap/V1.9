@@ -4,15 +4,15 @@
 
 
 <div class="d-flex" id="wrapper">
-    <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Admin Dashboard
-    
         </div>
-        <div class="list-group list-group-flush">
-            <a routerLink="/admin-article" class="list-group-item list-group-item-action bg-light">Articles</a>
-            <a routerLink="/admin" class="list-group-item list-group-item-action bg-light">Create Article</a>
-            <a routerLink="/admin-about" class="list-group-item list-group-item-action bg-light">Edit About</a>
-            <a routerLink="/admin-services" class="list-group-item list-group-item-action bg-light">Edit Services</a>
+        <div class="list-group list-group-flush" id="sidebar-wrapper-links">
+            <a id="anchor" routerLink="/admin-article" class="list-group-item list-group-item-action bg-primary">Articles<span class="ml-auto"><i class="fas fa-newspaper"></i></span></a>
+            <a id="anchor" routerLink="/admin" class="list-group-item list-group-item-action bg-primary">Create Article<span class="ml-auto"><i class="fas fa-pen"></i></span></a>
+            <a id="anchor" routerLink="/admin-edit-home" class="list-group-item list-group-item-action bg-primary">Edit Home<span class="ml-auto"><i class="fas fa-edit"></i></span></a>
+            <a id="anchor" routerLink="/admin-about" class="list-group-item list-group-item-action bg-primary">Edit About<span class="ml-auto"><i class="fas fa-edit"></i></span></a>
+            <a id="anchor" routerLink="/admin-services" class="list-group-item list-group-item-active bg-primary">Edit Services<span class="ml-auto"><i class="fas fa-edit"></i></span></a>
         </div>
     </div>
 
@@ -41,7 +41,7 @@
                                   <div class="col-md-10">
                                       <p class="mt-2 font-weight-normal">Justin Wallace<span
                                               class="font-weight-bold mx-2">·</span>
-                                          a day ago <span class="font-weight-bold mx-2">·</span> 1 min read</p>
+                                          {{date | dateAgo}}<span class="font-weight-bold mx-2">·</span>{{readTime}} min read</p>
                                   </div>
                               </div>
                           </div>
@@ -64,9 +64,16 @@
                       <div class="row px-5">
                           
                           
-                              <label for="exampleForm2"></label>
-                              <input placeholder="{{header}}" (input)="onChangeHeaderUpdate($event.target.value)"
-                                  type="text" style="font-size: 36px;" class="form-control">
+                              <div class="header-input">
+                              <input value="{{header}}" (input)="onChangeHeaderUpdate($event.target.value)"
+                                  type="text" style="font-size: 36px;" class="form-control" maxlength="80"></div>
+
+                                  <div class="subheader-input">
+                                      <input value="{{subheader}}" (input)="onChangeSubheaderUpdate($event.target.value)"
+                                      type="text" style="font-size: 20px;" class="form-control" maxlength="50"> 
+                                  </div>
+
+                
   
   
                               <div class="form-group shadow-textarea py-4 w-100">
@@ -74,41 +81,51 @@
                                   <!-- <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="10"
                                       style="width: 100%;"
                                       (input)="onChangeTextUpdate($event.target.value)">{{text}}</textarea> -->
-                                      <ckeditor [editor]="Editor" data="{{text}}" (change)="change($event)"  [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
-                                        heading: { options: [{
-                                            model: 'paragraph', title: 'Paragraph', class: ck-heading_paragraph}]} }"></ckeditor>
+                                      <ckeditor class="container" [editor]="Editor" data="{{text}}" (change)="change($event)" [config]="{ alignment: {options: ['left', 'right']}, toolbar: [ 'heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'alignment', 'undo', 'redo'],
+                                                heading: { 
+                                                    options: [
+                                                { model: 'paragraph', title: 'Paragraph', class: ck-heading_paragraph}, 
+                                                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1'},
+                                                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2'},
+                                                { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3'}
+                                                             ]
+                                                        } 
+                                                    }"></ckeditor>
                               </div>
                               <div id="display-img" class="col-md-12">
   
                               <img id="article-image" [src]="image">
   
                           </div>
-                              <div class="d-flex social p-3">
-  
-  
-  
-                                  <!-- <div class="form-group">
-  
-  
-                                      
-                                      <img [src]="image">
-                                      <label for="upload-photo" accept="image/*" type="file"
-                                          (input)="onChangeImageUpdate($event.target.value)"><i
-                                              class="fas fa-camera p-3"></i></label>
-                                  </div> -->
+                              <!-- <div class="container d-flex social p-3">
   
                                   <div class="form-group">
                                           <label for="upload-photo"><i class="fas fa-camera p-3"></i></label>
                                           <input type="file" accept="image/*" (change)="changeListener($event)" id="upload-photo"  (input)="onChangeImageUpdate($event.target.value)">
-                                          <!-- <input type="file" accept="image/*"  id="upload-photo"  (input)="onChangeImageUpdate($event.target.value)"> -->
                                       </div>
   
   
                                   <a><i class="fas fa-video p-3"></i></a>
                                   <a><i class="fas fa-code p-3"></i></a>
-                              </div>
+                              </div> -->
+
+
+                              <div class="container d-flex social p-3">
+
+
+                                    <div class="form-group">
+                                        <label for="upload-photo"><i class="fas fa-camera p-3"></i></label>
+                                        <input type="file" accept="image/*" (change)="changeListener($event)" id="upload-photo" (input)="onChangeImageUpdate($event.target.value)">
+                                    </div>
+        
+        
+        
+                                    <a><i class="fas fa-video p-3"></i></a>
+                                    <a><i class="fas fa-code p-3"></i></a>
+                                </div>
+
                               <label for="exampleForm2"></label>
-                              <input placeholder="{{tag}}" (input)="onChangeTagUpdate($event.target.value)" type="text"
+                              <input value="{{tag}}" (input)="onChangeTagUpdate($event.target.value)" type="text"
                                   class="form-control">
                        
   

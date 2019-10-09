@@ -20,6 +20,7 @@ import { RegisterEventComponent } from './register-event/register-event.componen
 import { PaymentComponent } from './payment/payment.component';
 import { AdminAboutComponent } from './admin-about/admin-about.component';
 import { AdminServicesComponent } from './admin-services/admin-services.component';
+import { AdminEditHomeComponent } from './admin-edit-home/admin-edit-home.component';
 
 const appRoutes: Routes = [ 
 { path: '', component: HomeComponent }, 
@@ -36,18 +37,18 @@ const appRoutes: Routes = [
 { path: 'event-showcase', component: EventShowcaseComponent },
 { path: 'event-showcase/:eventid/:eventstartdate/:eventenddate/:registrationenddate/:eventtitle/:eventtype', component: EventShowcaseComponent },
 // { path: 'admin', component: AdminComponent, canActivate:[AuthGuard],data:{permission:{only:["a"]}}},
-{ path: 'admin-edit-articles', component: AdminEditArticlesComponent },
+// { path: 'admin-edit-articles', component: AdminEditArticlesComponent },
 // { path: 'admin-create-articles', component: AdminCreateArticleComponent },
 { path: 'admin', component: AdminCreateArticleComponent, canActivate:[AuthGuard],data:{permission:{only:["a"]}}},
 { path: 'logout', component:LogoutComponent},
 { path: 'admin-article', component: AdminArticleComponent},
-{ path: 'article-showcase/:header/:tag/:_id', component: ArticleShowcaseComponent },
-{ path: 'admin-edit-articles/:header/:tag/:_id', component: AdminEditArticlesComponent },
+{ path: 'article-showcase/:header/:subheader/:tag/:_id/:date', component: ArticleShowcaseComponent },
+{ path: 'admin-edit-articles/:header/:subheader/:tag/:_id/:date', component: AdminEditArticlesComponent },
 { path: 'register-event', component: RegisterEventComponent },
 { path: 'payment', component: PaymentComponent },
 { path: 'admin-about', component: AdminAboutComponent, canActivate:[AuthGuard],data:{permission: {only:["a"]}}},
-{ path: 'admin-services', component: AdminServicesComponent, canActivate:[AuthGuard], data:{permission:{only:['a']}}}
-
+{ path: 'admin-services', component: AdminServicesComponent, canActivate:[AuthGuard], data:{permission:{only:['a']}}},
+{ path: 'admin-edit-home', component: AdminEditHomeComponent, canActivate:[AuthGuard], data:{permission:{only:['a']}}}
 
 ];
 

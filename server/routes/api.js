@@ -79,12 +79,13 @@ router.get('/getArticlebyId/:header', (req, res) => {
 
 // Create article
 router.post('/articles/add', (req, res) => {
-    const { header, text, tag, image, availability, date } = req.body;
+    const { header, subheader, text, tag, image, availability, date } = req.body;
 
-    if (header && text && tag && image && availability && date) {
+    if (header && subheader && text && tag && image && availability && date ) {
 
         const article = {
             header,
+            subheader,
             text,
             tag,
             image,
@@ -115,7 +116,9 @@ router.route('/articles/update/:id').put(function (req, res) {
         $set: {
             "tag": data.tag,
             "header": data.header,
+            "subheader": data.subheader,
             "text": data.text,
+            "image": data.image
         }
     }, (err, results) => {
         res.status(200).json({ status: "ok" })
@@ -424,7 +427,11 @@ router.route('/about/update/:id').put(function (req, res) {
             "title3": data.title3,
             "p1": data.p1,
             "p2": data.p2,
-            "p3": data.p3
+            "p3": data.p3,
+            "sideImage": data.sideImage,
+            "highlightImage1": data.highlightImage1,
+            "highlightImage2": data.highlightImage2,
+            "highlightImage3": data.highlightImage3
 
 
         }
@@ -469,7 +476,8 @@ router.route('/services/update/:id').put(function (req, res) {
             "subheader3": data.subheader3,
             "p1": data.p1,
             "p2": data.p2,
-            "p3": data.p3
+            "p3": data.p3,
+            "featuredImage": data.featuredImage
         }
     }, (err, results) => {
         res.status(200).json({ status: "ok"})
@@ -482,6 +490,25 @@ router.route('/services/update/:id').put(function (req, res) {
  */
 
 
+ /**
+  * Home API endpoints 
+  */
+
+
+
+ // Read Home Carousel content/data
+ router.get('/carousel', (req, res) => {
+     db.collection('home').find().toArray((err, results) => {
+         if (err) throw err;
+         res.send(results)
+     });
+ });
+
+
+
+ /**
+  * End of home API endpoints
+  */
 
 
 module.exports = router;

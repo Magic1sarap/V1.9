@@ -9,7 +9,7 @@ import { ArticlePipe } from './article/articlesearch.pipe';
 import { ArticleBlockPipe } from './article/articleBlock.pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPayPalModule } from 'ngx-paypal';
-
+import { InputCounterModule } from 'ng4-input-counter';
 
 //services
 import { AccountService } from './account.service';
@@ -34,7 +34,6 @@ import { FooterComponent } from './footer/footer.component';
 import { FutureEventsComponent } from './future-events/future-events.component';
 import { ContactComponent } from './contact/contact.component';
 import { EventShowcaseComponent } from './event-showcase/event-showcase.component';
-import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { AdminEditArticlesComponent } from './admin-edit-articles/admin-edit-articles.component';
 import { AdminCreateArticleComponent } from './admin-create-article/admin-create-article.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -51,6 +50,8 @@ import { DateAgoPipe } from './date-ago.pipe';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { AdminAboutComponent } from './admin-about/admin-about.component';
 import { AdminServicesComponent } from './admin-services/admin-services.component';
+import { StripHtmlPipe } from './strip-html.pipe';
+import { AdminEditHomeComponent } from './admin-edit-home/admin-edit-home.component';
 
 
 
@@ -73,7 +74,6 @@ import { AdminServicesComponent } from './admin-services/admin-services.componen
     FutureEventsComponent,
     ContactComponent,
     EventShowcaseComponent,
-    AdminNavbarComponent,
     AdminEditArticlesComponent,
     AdminCreateArticleComponent,
     PaymentComponent,
@@ -87,6 +87,8 @@ import { AdminServicesComponent } from './admin-services/admin-services.componen
     DateAgoPipe,
     AdminAboutComponent,
     AdminServicesComponent,
+    StripHtmlPipe,
+    AdminEditHomeComponent,
 
   ],
   imports: [
@@ -110,7 +112,8 @@ import { AdminServicesComponent } from './admin-services/admin-services.componen
         }
     }),
     NgxSkeletonLoaderModule,
-    CKEditorModule
+    CKEditorModule,
+    InputCounterModule.forRoot()
 
     
   ],

@@ -2,7 +2,9 @@
 <app-navbar></app-navbar>
 <!-- END OF NAVBAR -->
 
-<section class="container" *ngFor="let about of abouts">
+
+<section *ngIf="dataLoaded; else skeleton">
+<section class="container" *ngFor="let about of abouts" [@fadeIn]>
 
         <h1 class="my-5">{{about.header}}</h1>
     <!-- Grid column -->
@@ -26,16 +28,14 @@
 
             <!-- Featured image -->
             <div class="view overlay rounded z-depth-2">
-                <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/img%20(34).jpg"
+                <img id="side-image" class="img-fluid" [src]="about.sideImage"
                     alt="Sample image">
-                <a>
-                    <div class="mask rgba-white-slight"></div>
-                </a>
             </div>
 
         </div>
         <!-- Grid column -->
     </div>
+
 
 
 
@@ -79,7 +79,7 @@
 
                 <!-- Featured image -->
                 <div class="view overlay rounded z-depth-2 mb-4">
-                    <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/81.jpg"
+                    <img class="img-fluid" [src]="about.highlightImage1"
                         alt="Sample image">
                     <a>
                         <div class="mask rgba-white-slight"></div>
@@ -99,7 +99,7 @@
 
                 <!-- Featured image -->
                 <div class="view overlay rounded z-depth-2 mb-4">
-                    <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
+                    <img class="img-fluid" [src]="about.highlightImage2"
                         alt="Sample image">
                     <a>
                         <div class="mask rgba-white-slight"></div>
@@ -118,7 +118,7 @@
 
                 <!-- Featured image -->
                 <div class="view overlay rounded z-depth-2 mb-4">
-                    <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/13.jpg"
+                    <img class="img-fluid" [src]="about.highlightImage3"
                         alt="Sample image">
                     <a>
                         <div class="mask rgba-white-slight"></div>
@@ -138,6 +138,8 @@
 
     </section>
 </section>
+</section>
+
 <br>
 <br>
 
@@ -151,3 +153,137 @@
 <!-- FOOTER SECTION -->
 <app-footer></app-footer>
 <!-- END OF FOOTER SECTION -->
+
+
+<ng-template #skeleton>
+    <div class="container">
+    
+        <h1 class="my-5"> <ngx-skeleton-loader count="1" [theme]="{width: '45%', height: '1.5em'}"></ngx-skeleton-loader></h1>
+        <!-- Grid column -->
+        <div class="row" style="margin-bottom: 100px;">
+            <div class="col-lg-6  mb-3">
+                <!-- <mdb-card class="card card-image"> -->
+                    <div class="text-black py-4" style="height:357px">
+                        <div>
+                            <h3 class="py-4">
+                                    <ngx-skeleton-loader count="1" [theme]="{width: '80%', height:'1.17em'}"></ngx-skeleton-loader>
+                            </h3>
+                            <p>
+                                    <ngx-skeleton-loader count="3" [theme]="{width: '100%'}"></ngx-skeleton-loader>
+                                    <ngx-skeleton-loader count="1" [theme]="{width: '70%'}"></ngx-skeleton-loader>
+                                    <ngx-skeleton-loader count="1" [theme]="{width: '40%'}"></ngx-skeleton-loader>
+                            </p>
+                        </div>
+                    </div>
+                <!-- </mdb-card> -->
+            </div>
+            <!-- Grid column -->
+            <div class="col-lg-6">
+    
+                <!-- Featured image -->
+                <!-- <div class="view overlay rounded z-depth-2"> -->
+                        <ngx-skeleton-loader count="1" [theme]="{width: '100%', height: '370px'}"></ngx-skeleton-loader>
+                <!-- </div> -->
+    
+            </div>
+            <!-- Grid column -->
+        </div>
+    
+    
+    
+    
+        <hr class="my-5">
+    
+    
+    
+           
+        <div class="row py-5">
+            <div class="col-md-8">
+                <h3>
+                        <ngx-skeleton-loader count="1" [theme]="{width: '100%', height: '1.17em'}"></ngx-skeleton-loader>
+                </h3>
+                <br>
+                <p>
+                        <ngx-skeleton-loader count="2" [theme]="{width: '100%'}"></ngx-skeleton-loader>
+                        <ngx-skeleton-loader count="1" [theme]="{width: '70%'}"></ngx-skeleton-loader>
+                        <ngx-skeleton-loader count="1" [theme]="{width: '40%'}"></ngx-skeleton-loader>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2><i> <ngx-skeleton-loader count="3" [theme]="{width: '100%', height: '1.17em'}"></ngx-skeleton-loader></i></h2>
+                <h2><i> <ngx-skeleton-loader count="1" [theme]="{width: '70%', height: '1.17em'}"></ngx-skeleton-loader></i></h2>
+            </div>
+        </div>
+    
+    
+        <hr class="my-5">
+    
+    
+        <!-- Company Highlights -->
+        <section class=" text-center my-5 col-md-12 mb-3">
+    
+            <!-- Section heading -->
+            <h2 class="h1-responsive my-4"> <ngx-skeleton-loader count="1" [theme]="{width: '50%', height: '1.17em'}"></ngx-skeleton-loader></h2>
+            <!-- Section description -->
+            <p class="dark-grey-text w-responsive mx-auto mb-5"> <ngx-skeleton-loader count="1" [theme]="{width: '50%'}"></ngx-skeleton-loader></p>
+    
+            <!-- Grid row -->
+            <div class="row">
+    
+                <!-- Grid column -->
+                <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
+    
+                    <!-- Featured image -->
+                    <ngx-skeleton-loader count="1" [theme]="{width: '100%', height: '250px'}"></ngx-skeleton-loader>
+                    <!-- Post title -->
+                    <h3 class="h3-responsive mb-3"> <ngx-skeleton-loader count="1" [theme]="{width: '90%', height: '1.17em'}"></ngx-skeleton-loader></h3>
+                    <!-- Excerpt -->
+                   
+                    
+                    <p class="dark-grey-text"> <ngx-skeleton-loader count="1" [theme]="{width: '90%'}"></ngx-skeleton-loader></p>
+                    <p class="dark-grey-text"> <ngx-skeleton-loader count="1" [theme]="{width: '70%'}"></ngx-skeleton-loader></p>
+    
+                </div>
+                <!-- Grid column -->
+    
+                <!-- Grid column -->
+                <div class="col-lg-4 col-md-6 mb-md-0 mb-4">
+    
+                   
+                    <!-- Featured image -->
+                    <ngx-skeleton-loader count="1" [theme]="{width: '100%', height: '250px'}"></ngx-skeleton-loader>
+                    <!-- Post title -->
+                    <h3 class="h3-responsive mb-3"> <ngx-skeleton-loader count="1" [theme]="{width: '80%', height: '1.17em'}"></ngx-skeleton-loader></h3>
+                    <!-- Excerpt -->
+                   
+                   
+                    <p class="dark-grey-text"> <ngx-skeleton-loader count="1" [theme]="{width: '90%'}"></ngx-skeleton-loader></p>
+                    <p class="dark-grey-text"> <ngx-skeleton-loader count="1" [theme]="{width: '70%'}"></ngx-skeleton-loader></p>
+    
+                </div>
+                <!-- Grid column -->
+    
+                <!-- Grid column -->
+                <div class="col-lg-4 col-md-6 mb-0">
+    
+              
+                    <!-- Featured image -->
+                    <ngx-skeleton-loader count="1" [theme]="{width: '100%', height: '250px'}"></ngx-skeleton-loader>
+                    <!-- Post title -->
+                    <h3 class="h3-responsive mb-3"> <ngx-skeleton-loader count="1" [theme]="{width: '90%', height: '1.17em'}"></ngx-skeleton-loader></h3>
+                    <!-- Excerpt -->
+                    
+                   
+                    <p class="dark-grey-text"> <ngx-skeleton-loader count="1" [theme]="{width: '90%'}"></ngx-skeleton-loader></p>
+                    <p class="dark-grey-text"> <ngx-skeleton-loader count="1" [theme]="{width: '70%'}"></ngx-skeleton-loader></p>
+    
+                </div>
+                <!-- Grid column -->
+    
+            </div>
+            <!-- Grid row -->
+    
+        </section>
+    </div>
+    
+</ng-template>

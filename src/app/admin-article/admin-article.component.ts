@@ -17,6 +17,7 @@ export class AdminArticleComponent implements OnInit {
 
   image: any;
   text: any;
+  date: any;
   dataLoaded = false;
 
 
@@ -27,11 +28,16 @@ export class AdminArticleComponent implements OnInit {
   ngOnInit() {
 
   }
-  // Retrieve Articles to display
+  /**
+   * Retrieve articles and sort them 
+   */
   getAllArticle() {
-    this.ArticleService.getAllArticle().subscribe(articles => {
-      this.articles = articles;
+    this.ArticleService.getAllArticle().subscribe(data => {
+      this.articles = data.sort((a, b) => {
+        return <any>new Date(b.date) - <any>new Date(a.date);
+      });
       this.dataLoaded = true;
+      console.log(data);
     });
   }
 

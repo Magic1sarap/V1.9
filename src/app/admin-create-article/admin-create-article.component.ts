@@ -21,11 +21,13 @@ export class AdminCreateArticleComponent implements OnInit {
 
   public article: any = {
     header:'',
+    subheader: '',
     text:'',
     tag:'',
     image: '',
     availability:'',
-    date: ''
+    date: '',
+    // readTime: ''
 
   };
 
@@ -34,13 +36,11 @@ export class AdminCreateArticleComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private ArticleService: ArticleService, private router: Router ) {
     this.article.date = new Date();
-    // this.responses = [];
-    // this.title = '';
 
     
    }
 
-   
+  
 
    // Input Values for the fields when posting article
    changeListener($event) : void {
@@ -60,67 +60,34 @@ export class AdminCreateArticleComponent implements OnInit {
   }
 
 ngOnInit(){
-  // ngOnInit() : void {
-    // const uploaderOptions: FileUploaderOptions = {
-    //   url: `https://api.cloudinary.com/v1_1/${this.cloudinary.config().dvsb82g5t}/upload`,
-
-    //   // Upload files automatically upon addition to upload queue
-    //   autoUpload: true,
-
-    //   // Use xhrTransport in favor of iframeTransport 
-    //   isHTML5: true,
-
-    //   // Calculate progree independently for each uploaded file
-    //   removeAfterUpload: true,
-
-    //   // XHR request headers
-    //   headers: [
-    //     {
-    //       name: "X-Requested-With",
-    //       value: 'XMLHttpRequest'
-    //     }
-    //   ]
-    // };
-
-    // this.uploader = new FileUploader(uploaderOptions);
-
-    // this.uploader.onBuildItemForm = (fileItem: any, form: FormData) : any => {
-
-    //   // Add Cloudinary unsigned upload preset to the upload form 
-    //   form.append('upload_preset',
-    //   this.cloudinary.config().upload_preset);
-
-    //   // Add file to upload 
-    //   form.append('file', fileItem);
-
-    //   // Use default "withCredentials" value for CORS requests
-    //   fileItem.withCredentials = false;
-    //   return { fileItem, form};
-    // };
-
-    // fileOverBase(e: any): void {
-    //   this.hasBaseDropZoneOver = e; 
-    // }
-
   }
   
 
 
   // Read input Values
-  onChangeHeader(value){ this.article.header = value }
-  // onChangeText(value){ this.article.text = value }
+  onChangeHeader(value) { 
+    this.article.header = value 
+  }
+
+  onChangeSubheader(value) {
+    this.article.subheader = value
+  }
+
+  
   public change( {editor}: ChangeEvent ) {
     const EditorData = editor.getData();
     this.article.text = EditorData;
     console.log(editor)
-
+    
   }
 
   onChangeTag(value){ this.article.tag = value }
+
   onChangeAvailabilty(value){ this.article.availability = value }
+
  checkCheckBoxvalue1(event){
   if (event.checked==true){
-    this.article.tag=this.article.tag+'#BusinessTalks';
+    this.article.tag=this.article.tag+'#BusinessTalks ';
  (<HTMLInputElement>document.getElementById("preferTag")).value= this.article.tag
   }
   if (event.checked==false){
@@ -132,7 +99,7 @@ ngOnInit(){
  checkCheckBoxvalue2(event){
 
   if (event.checked==true){
-    this.article.tag=this.article.tag+'#Charity';
+    this.article.tag=this.article.tag+'#Charity ';
  (<HTMLInputElement>document.getElementById("preferTag")).value= this.article.tag
   }
   if (event.checked==false){
@@ -142,7 +109,7 @@ ngOnInit(){
 }
 checkCheckBoxvalue3(event){
   if (event.checked==true){
-    this.article.tag=this.article.tag+'#OrganizationalGatherings';
+    this.article.tag=this.article.tag+'#OrganizationalGatherings ';
  (<HTMLInputElement>document.getElementById("preferTag")).value= this.article.tag
   }
   if (event.checked==false){
@@ -152,7 +119,7 @@ checkCheckBoxvalue3(event){
 }
 checkCheckBoxvalue4(event){
   if (event.checked==true){
-    this.article.tag=this.article.tag+'#TradeAssociationHub';
+    this.article.tag=this.article.tag+'#TradeAssociationHub ';
  (<HTMLInputElement>document.getElementById("preferTag")).value= this.article.tag
   }
   if (event.checked==false){
@@ -162,7 +129,7 @@ checkCheckBoxvalue4(event){
 }
 checkCheckBoxvalue5(event){
   if (event.checked==true){
-    this.article.tag=this.article.tag+'#EntrepreneurCourses';
+    this.article.tag=this.article.tag+'#EntrepreneurCourses ';
  (<HTMLInputElement>document.getElementById("preferTag")).value= this.article.tag
   }
   if (event.checked==false){
@@ -171,10 +138,15 @@ checkCheckBoxvalue5(event){
   }
 }
 
+onChangeImageUpdate(value) {
+  this.article.image = value
+}
+
 
   //Submit function for posting article
   submit(){
     console.log(this.article.header)
+    console.log(this.article.subheader)
     console.log(this.article.text)
     console.log(this.article.tag)
     console.log(this.article.availability)
@@ -188,7 +160,7 @@ checkCheckBoxvalue5(event){
     cancelButtonColor: '#d33',
     confirmButtonText: 'create article'
   }).then((result) => {
-    if (this.article.header && this.article.text && this.article.availability && this.article.tag !=null) {
+    if (this.article.header && this.article.subheader && this.article.text && this.article.availability && this.article.tag !=null) {
 
       this.ArticleService.createArticle(this.article).subscribe(result => {
     

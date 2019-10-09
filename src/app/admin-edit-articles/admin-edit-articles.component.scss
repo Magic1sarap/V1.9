@@ -107,3 +107,53 @@ width: 100%;
 :host ::ng-deep .ck-editor__editable_inline {
   min-height: 500px;
 }
+
+.header-input {
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+.subheader-input {
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#sidebar-wrapper {
+  background-color: #03a9f4;
+  color: white;
+}
+
+.bg-primary {
+  background-color: #03a9f4 !important;
+  color: white;
+  transition: 0.3s;
+}
+
+.bg-primary:hover {
+  background-color: #0288d1 !important;
+}
+
+.ml-auto {
+  position: absolute;
+  right: 25px;
+}

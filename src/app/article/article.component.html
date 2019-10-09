@@ -40,23 +40,22 @@
       <!-- Grid column -->
       <div class="col-lg-7">
         <!-- Category -->
-        <a class="green-text">
-          <h6 class="font-weight-bold mb-3"><i class="fas fa-utensils pr-2"></i>Food</h6>
-        </a>
+        <p class="green-text font-weight-normal"><i class="far fa-clock pr-2"></i>{{showArticle.date | dateAgo}}</p>
         <!-- Post title -->
         <h3 class=" mb-3">{{showArticle.header}}</h3>
         <!-- Excerpt -->
-        <p [innerHtml]="showArticle.text | slice: 0:150">...</p>
+        <!-- <p [innerHtml]="showArticle.text | slice: 0:150">...</p> -->
+        <p>{{showArticle.text | stripHtml | slice: 0:150}}...</p>
         <!-- <p>{{showArticle.text | slice: 0:150}}</p> -->
         <!-- Post data -->
         <p><a><strong>{{showArticle.tag}}</strong></a></p>
+ 
         
         <button id="readMore" class="btn btn-md btn-primary font-weight-light" (click)="onShowcase(showArticle.image, showArticle.text)"
-          [routerLink]="['/article-showcase', showArticle.header, showArticle.tag, showArticle._id]">Read more</button>
+          [routerLink]="['/article-showcase', showArticle.header, showArticle.subheader, showArticle.tag, showArticle._id, showArticle.date]">Read more</button>
         <br>
         <br>
-        
-          <p>Published: {{showArticle.date | dateAgo}}</p>
+            
       </div>
         
       <!-- Grid column -->
@@ -83,8 +82,8 @@
             <mdb-card-title>
               <h4>{{recomArticle.header | slice: 0:15}}...</h4>
             </mdb-card-title>
-            <p class="font-weight-light">{{recomArticle.text | slice: 0:50}}...</p>
-            <a href="#" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Learn More</a>
+            <p class="font-weight-light">{{recomArticle.text | stripHtml | slice: 0:50}}...</p>
+            <a href="#" (click)="onShowcase(recomArticle.image, recomArticle.text)" [routerLink]="['/article-showcase', recomArticle.header, recomArticle.subheader, recomArticle.tag, recomArticle._id, recomArticle.date]" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Learn More</a>
           </mdb-card-body>
         </mdb-card>
       </div>
