@@ -27,7 +27,7 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "@types/chart.js": "^2.7.56",
-    "angular": "^1.7.8",
+    "angular": "^1.7.9",
     "angular-bootstrap-md": "8.1.0",
     "animate.css": "^3.7.2",
     "axios": "^0.19.0",
